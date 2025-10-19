@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leaderboard - EcoWaste Connect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../style.css" />
+    <style>
+      body {
+        font-family: 'Poppins', 'Segoe UI', sans-serif;
+        color: #1f2937;
+        background-color: #f0fdf4; /* Pale Green */
+      }
+      .font-lora {
+        font-family: 'Lora', serif;
+      }
+      .sticky-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background-color: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(8px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+      .rank-circle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        font-weight: bold;
+        color: white;
+        font-size: 1.25rem;
+      }
+      .rank-1 {
+        background-color: #fbbf24; /* Amber-400 */
+      } /* Gold */
+      .rank-2 {
+        background-color: #9ca3af; /* Gray-400 */
+      } /* Silver */
+      .rank-3 {
+        background-color: #b45309; /* Orange-700 */
+      } /* Bronze */
+      .leaderboard-item:nth-child(even) {
+        background-color: #f9fafb; /* Lighter shade for alternating rows */
+      }
+      .leaderboard-item {
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+      }
+      .leaderboard-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="sticky-header">
+      <div class="max-w-7xl mx-auto px-4 py-4">
+        <div class="flex justify-between items-center">
+          <a href="index.html" class="flex items-center gap-2">
+            <div
+              class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center"
+            >
+              <i class="fas fa-leaf text-white"></i>
+            </div>
+            <span class="text-2xl font-bold text-green-700">EcoWaste</span>
+          </a>
+          <nav class="hidden md:flex gap-8 font-semibold">
+            <a href="#" class="text-gray-700 hover:text-green-600 transition"
+              >Bank Sampah</a
+            >
+            <a
+              href="feed.html"
+              class="text-gray-700 hover:text-green-600 transition"
+              >Feed</a
+            >
+            <a
+              href="leaderboard.html"
+              class="text-green-600 hover:text-green-700 transition"
+              >Leaderboard</a
+            >
+            <a
+              href="src/page/about_us.html"
+              class="text-gray-700 hover:text-green-600 transition"
+              >Tentang Kami</a
+            >
+          </nav>
+          <div class="flex items-center gap-4">
+            <button
+              class="hidden md:block px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold"
+            >
+              Profil
+            </button>
+            <button class="md-hidden text-2xl text-gray-700">
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-10 md:py-16">
+      <h1 class="font-lora text-4xl font-bold text-gray-800 text-center mb-8">
+        Papan Peringkat EcoWarrior
+      </h1>
+      <p class="text-center text-gray-600 mb-10">
+        Lihat 10 kontributor teratas yang paling bersemangat dalam menjaga
+        lingkungan!
+      </p>
+
+      <div
+        class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100"
+      >
+        <div
+          class="flex items-center justify-between p-4 bg-green-600 text-white font-semibold"
+        >
+          <span class="w-1/12 text-center">#</span>
+          <span class="w-7/12">Nama Pengguna</span>
+          <span class="w-4/12 text-right pr-4">Poin Kontribusi</span>
+        </div>
+
+        <div
+          class="flex items-center p-4 border-b border-gray-100 leaderboard-item"
+        >
+          <div class="w-1/12 text-center">
+            <div class="rank-circle rank-1 mx-auto">1</div>
+          </div>
+          <div class="w-7/12 flex items-center">
+            <img
+              src="https://images.unsplash.com/photo-153571387500-b6f7051e6e0d?q=80&w=400"
+              alt="Profil User"
+              class="w-10 h-10 rounded-full object-cover mr-3"
+            />
+            <div>
+              <p class="font-bold text-gray-800">Budi Santoso</p>
+              <p class="text-sm text-gray-500">@budi_ecohero</p>
+            </div>
+          </div>
+          <div class="w-4/12 text-right pr-4">
+            <span class="text-xl font-bold text-green-700">12,500</span>
+          </div>
+        </div>
+
+        <div
+          class="flex items-center p-4 border-b border-gray-100 leaderboard-item"
+        >
+          <div class="w-1/12 text-center">
+            <div class="rank-circle rank-2 mx-auto">2</div>
+          </div>
+          <div class="w-7/12 flex items-center">
+            <img
+              src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400"
+              alt="Profil User"
+              class="w-10 h-10 rounded-full object-cover mr-3"
+            />
+            <div>
+              <p class="font-bold text-gray-800">Rina Setyawati</p>
+              <p class="text-sm text-gray-500">@rina_eco</p>
+            </div>
+          </div>
+          <div class="w-4/12 text-right pr-4">
+            <span class="text-xl font-bold text-gray-700">10,200</span>
+          </div>
+        </div>
+
+        <div
+          class="flex items-center p-4 border-b border-gray-100 leaderboard-item"
+        >
+          <div class="w-1/12 text-center">
+            <div class="rank-circle rank-3 mx-auto">3</div>
+          </div>
+          <div class="w-7/12 flex items-center">
+            <img
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400"
+              alt="Profil User"
+              class="w-10 h-10 rounded-full object-cover mr-3"
+            />
+            <div>
+              <p class="font-bold text-gray-800">Andi Pratama</p>
+              <p class="text-sm text-gray-500">@andi_peduli</p>
+            </div>
+          </div>
+          <div class="w-4/12 text-right pr-4">
+            <span class="text-xl font-bold text-orange-700">8,900</span>
+          </div>
+        </div>
+
+        <div
+          class="flex items-center p-4 border-b border-gray-100 leaderboard-item"
+        >
+          <span class="w-1/12 text-center text-lg font-semibold text-gray-700"
+            >4</span
+          >
+          <div class="w-7/12 flex items-center">
+            <img
+              src="https://images.unsplash.com/photo-1603415526960-9177a67f0b5d?q=80&w=400"
+              alt="Profil User"
+              class="w-10 h-10 rounded-full object-cover mr-3"
+            />
+            <div>
+              <p class="font-semibold text-gray-800">Citra Dewi</p>
+              <p class="text-sm text-gray-500">@citra_hijau</p>
+            </div>
+          </div>
+          <div class="w-4/12 text-right pr-4">
+            <span class="text-lg font-semibold text-gray-700">7,500</span>
+          </div>
+        </div>
+
+        <div
+          class="flex items-center p-4 border-b border-gray-100 leaderboard-item"
+        >
+          <span class="w-1/12 text-center text-lg font-semibold text-gray-700"
+            >5</span
+          >
+          <div class="w-7/12 flex items-center">
+            <img
+              src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?q=80&w=400"
+              alt="Profil User"
+              class="w-10 h-10 rounded-full object-cover mr-3"
+            />
+            <div>
+              <p class="font-semibold text-gray-800">Eko Wibowo</p>
+              <p class="text-sm text-gray-500">@eko_lestari</p>
+            </div>
+          </div>
+          <div class="w-4/12 text-right pr-4">
+            <span class="text-lg font-semibold text-gray-700">6,100</span>
+          </div>
+        </div>
+
+        <div
+          class="flex items-center p-4 border-b border-gray-100 leaderboard-item"
+        >
+          <span class="w-1/12 text-center text-lg font-semibold text-gray-700"
+            >6</span
+          >
+          <div class="w-7/12 flex items-center">
+            <img
+              src="https://images.unsplash.com/photo-1546820389-44d77699660c?q=80&w=400"
+              alt="Profil User"
+              class="w-10 h-10 rounded-full object-cover mr-3"
+            />
+            <div>
+              <p class="font-semibold text-gray-800">Fatimah Zahra</p>
+              <p class="text-sm text-gray-500">@fatimah_eco</p>
+            </div>
+          </div>
+          <div class="w-4/12 text-right pr-4">
+            <span class="text-lg font-semibold text-gray-700">5,800</span>
+          </div>
+        </div>
+
+        <div
+          class="flex items-center p-4 border-b border-gray-100 leaderboard-item"
+        >
+          <span class="w-1/12 text-center text-lg font-semibold text-gray-700"
+            >7</span
+          >
+          <div class="w-7/12 flex items-center">
+            <img
+              src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=400"
+              alt="Profil User"
+              class="w-10 h-10 rounded-full object-cover mr-3"
+            />
+            <div>
+              <p class="font-semibold text-gray-800">Gilang Ramadhan</p>
+              <p class="text-sm text-gray-500">@gilang_ramah</p>
+            </div>
+          </div>
+          <div class="w-4/12 text-right pr-4">
+            <span class="text-lg font-semibold text-gray-700">5,500</span>
+          </div>
+        </div>
+
+        <div
+          class="flex items-center p-4 border-b border-gray-100 leaderboard-item"
+        >
+          <span class="w-1/12 text-center text-lg font-semibold text-gray-700"
+            >8</span
+          >
+          <div class="w-7/12 flex items-center">
+            <img
+              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400"
+              alt="Profil User"
+              class="w-10 h-10 rounded-full object-cover mr-3"
+            />
+            <div>
+              <p class="font-semibold text-gray-800">Hana Lestari</p>
+              <p class="text-sm text-gray-500">@hana_lestari</p>
+            </div>
+          </div>
+          <div class="w-4/12 text-right pr-4">
+            <span class="text-lg font-semibold text-gray-700">5,250</span>
+          </div>
+        </div>
+
+        <div
+          class="flex items-center p-4 border-b border-gray-100 leaderboard-item"
+        >
+          <span class="w-1/12 text-center text-lg font-semibold text-gray-700"
+            >9</span
+          >
+          <div class="w-7/12 flex items-center">
+            <img
+              src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=400"
+              alt="Profil User"
+              class="w-10 h-10 rounded-full object-cover mr-3"
+            />
+            <div>
+              <p class="font-semibold text-gray-800">Irfan Hakim</p>
+              <p class="text-sm text-gray-500">@irfan_daurulang</p>
+            </div>
+          </div>
+          <div class="w-4/12 text-right pr-4">
+            <span class="text-lg font-semibold text-gray-700">4,900</span>
+          </div>
+        </div>
+
+        <div class="flex items-center p-4 leaderboard-item">
+          <span class="w-1/12 text-center text-lg font-semibold text-gray-700"
+            >10</span
+          >
+          <div class="w-7/12 flex items-center">
+            <img
+              src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=400"
+              alt="Profil User"
+              class="w-10 h-10 rounded-full object-cover mr-3"
+            />
+            <div>
+              <p class="font-semibold text-gray-800">Jasmine Putri</p>
+              <p class="text-sm text-gray-500">@jasmine_green</p>
+            </div>
+          </div>
+          <div class="w-4/12 text-right pr-4">
+            <span class="text-lg font-semibold text-gray-700">4,750</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-8 mb-12">
+          <div>
+            <div class="flex items-center gap-2 mb-4">
+              <div
+                class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center"
+              >
+                <i class="fas fa-leaf"></i>
+              </div>
+              <span class="text-2xl font-bold">EcoWaste</span>
+            </div>
+            <p class="text-gray-400 text-sm">
+              Platform digital untuk manajemen sampah yang efisien dan
+              berkelanjutan.
+            </p>
+          </div>
+          <div>
+            <h4 class="text-lg font-bold mb-4">Halaman</h4>
+            <ul class="space-y-2 text-gray-400 font-semibold">
+              <li>
+                <a href="#" class="hover:text-green-400 transition"
+                  >Bank Sampah</a
+                >
+              </li>
+              <li>
+                <a href="feed.html" class="hover:text-green-400 transition"
+                  >Feed</a
+                >
+              </li>
+              <li>
+                <a
+                  href="leaderboard.html"
+                  class="hover:text-green-400 transition"
+                  >Leaderboard</a
+                >
+              </li>
+              <li>
+                <a
+                  href="src/page/about_us.html"
+                  class="hover:text-green-400 transition"
+                  >Tentang Kami</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-bold mb-4">Hubungi Kami</h4>
+            <ul class="space-y-2 text-gray-400 font-semibold">
+              <li>
+                <a
+                  href="mailto:info@ecowaste.com"
+                  class="hover:text-green-400 transition"
+                  >info@ecowaste.com</a
+                >
+              </li>
+              <li>
+                <a
+                  href="tel:+62123456789"
+                  class="hover:text-green-400 transition"
+                  >+62 123 4567 890</a
+                >
+              </li>
+              <li class="text-sm">Jl. Hijau No. 123, Semarang</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-bold mb-4">Ikuti Kami</h4>
+            <div class="flex gap-4">
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"
+                ><i class="fab fa-facebook"></i
+              ></a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"
+                ><i class="fab fa-youtube"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+          <p>&copy; 2025 EcoWaste Connect. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

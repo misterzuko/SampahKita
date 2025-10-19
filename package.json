@@ -1,0 +1,23 @@
+{
+  "name": "uix",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:css": "purgecss --config purgecss.config.js --output dist/assets",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "glob": "^11.0.3",
+    "purgecss": "^7.0.2",
+    "vite": "^7.1.7"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.1.0",
+    "@tailwindcss/vite": "^4.1.14",
+    "leaflet": "^1.9.4",
+    "tailwindcss": "^4.1.14"
+  }
+}
