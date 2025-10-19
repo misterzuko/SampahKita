@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daftar Akun - EcoWaste Connect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: 'Poppins', 'Segoe UI', sans-serif;
+        background-color: #f0fdf4;
+      }
+      .font-lora {
+        font-family: 'Lora', serif;
+      }
+      .form-input-icon {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #9ca3af;
+      }
+    </style>
+    <link rel="stylesheet" crossorigin href="/assets/style-dfAWuXzu.css">
+  </head>
+  <body>
+    <div class="min-h-screen flex items-center justify-center px-4 py-6">
+      <div
+        class="grid md:grid-cols-2 max-w-6xl w-full bg-white shadow-2xl rounded-2xl overflow-hidden"
+      >
+        <div class="relative hidden md:block">
+          <img
+            src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800"
+            alt="Recycling process"
+            class="absolute inset-0 w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-green-800/30"></div>
+          <div
+            class="relative p-12 flex flex-col justify-end h-full text-white"
+          >
+            <h1 class="font-lora text-4xl font-bold leading-tight">
+              Bergabunglah dengan Komunitas Pahlawan Lingkungan.
+            </h1>
+            <p class="mt-4 text-green-200">
+              Satu akun, satu langkah lebih dekat menuju Indonesia yang lebih
+              bersih.
+            </p>
+          </div>
+        </div>
+
+        <div class="p-8 md:p-12">
+          <a href="index.html" class="flex items-center gap-2 mb-8">
+            <div
+              class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center"
+            >
+              <i class="fas fa-leaf text-white"></i>
+            </div>
+            <span class="text-2xl font-bold text-green-700">EcoWaste</span>
+          </a>
+
+          <h2 class="text-3xl font-bold text-gray-800 mb-2">Buat Akun Baru</h2>
+          <p class="text-gray-500 mb-8">
+            Mari kita mulai perjalanan hijau Anda.
+          </p>
+
+          <form action="#" class="space-y-6">
+            <div>
+              <label
+                for="fullname"
+                class="block font-semibold text-gray-700 mb-2"
+                >Nama Lengkap</label
+              >
+              <div class="relative">
+                <i class="fas fa-user form-input-icon"></i>
+                <input
+                  type="text"
+                  id="fullname"
+                  placeholder="John Doe"
+                  class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+                />
+              </div>
+            </div>
+            <div>
+              <label for="email" class="block font-semibold text-gray-700 mb-2"
+                >Alamat Email</label
+              >
+              <div class="relative">
+                <i class="fas fa-envelope form-input-icon"></i>
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="contoh@email.com"
+                  class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+                />
+              </div>
+            </div>
+            <div>
+              <label
+                for="password"
+                class="block font-semibold text-gray-700 mb-2"
+                >Password</label
+              >
+              <div class="relative">
+                <i class="fas fa-lock form-input-icon"></i>
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="••••••••"
+                  class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+                />
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="w-full py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold text-lg shadow-md hover:shadow-lg transform hover:-translate-y-1"
+            >
+              Daftar
+            </button>
+          </form>
+
+          <p class="text-center mt-8 text-gray-600">
+            Sudah punya akun?
+            <a
+              href="login.html"
+              class="text-green-600 font-semibold hover:underline"
+              >Masuk di sini</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
