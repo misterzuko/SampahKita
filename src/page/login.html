@@ -1,130 +1,135 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login - EcoWaste Connect</title>
-    <link rel="stylesheet" crossorigin href="/assets/style-dfAWuXzu.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        font-family: 'Poppins', 'Segoe UI', sans-serif;
-        background-color: #f0fdf4;
-      }
-      .font-lora {
-        font-family: 'Lora', serif;
-      }
-      .form-input-icon {
-        position: absolute;
-        left: 1rem;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #9ca3af;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="min-h-screen flex items-center justify-center p-4">
-      <div
-        class="grid md:grid-cols-2 max-w-6xl w-full bg-white shadow-2xl rounded-2xl overflow-hidden"
-      >
-        <div class="relative hidden md:block">
-          <img
-            src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800"
-            alt="Green Environment"
-            class="absolute inset-0 w-full h-full object-cover"
-          />
-          <div class="absolute inset-0 bg-green-800/30"></div>
-          <div
-            class="relative p-8 lg:p-12 flex flex-col justify-end h-full text-white z-10"
-          >
-            <h1 class="font-lora text-3xl lg:text-4xl font-bold leading-tight">
-              Setiap Langkah Kecil, Menciptakan Dampak Besar.
-            </h1>
-            <p class="mt-4 text-green-100 text-sm lg:text-base">
-              Terima kasih telah menjadi bagian dari gerakan peduli lingkungan.
-            </p>
-          </div>
-        </div>
 
-        <div class="p-8 md:p-12">
-          <a href="index.html" class="flex items-center gap-2 mb-8">
-            <div
-              class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center"
-            >
-              <i class="fas fa-leaf text-white"></i>
-            </div>
-            <span class="text-2xl font-bold text-green-700">EcoWaste</span>
-          </a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - EcoWaste Connect</title>
+  <link rel="stylesheet" crossorigin href="/assets/style-dfAWuXzu.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', 'Segoe UI', sans-serif;
+      background-color: #f0fdf4;
+    }
 
-          <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
-            Selamat Datang Kembali
-          </h2>
-          <p class="text-gray-500 mb-8 text-sm md:text-base">
-            Silakan masuk untuk melanjutkan.
-          </p>
+    .font-lora {
+      font-family: 'Lora', serif;
+    }
 
-          <form action="#" class="space-y-6">
-            <div>
-              <label for="email" class="block font-semibold text-gray-700 mb-2"
-                >Alamat Email</label
-              >
-              <div class="relative">
-                <i class="fas fa-envelope form-input-icon"></i>
-                <input
-                  type="email"
-                  id="email"
-                  placeholder="contoh@email.com"
-                  class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none text-sm md:text-base"
-                />
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between items-center mb-2">
-                <label for="password" class="block font-semibold text-gray-700"
-                  >Password</label
-                >
-                <a href="#" class="text-sm text-green-600 hover:underline"
-                  >Lupa password?</a
-                >
-              </div>
-              <div class="relative">
-                <i class="fas fa-lock form-input-icon"></i>
-                <input
-                  type="password"
-                  id="password"
-                  placeholder="••••••••"
-                  class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none text-sm md:text-base"
-                />
-              </div>
-            </div>
-            <button
-              type="submit"
-              class="w-full py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold text-base md:text-lg shadow-md hover:shadow-lg transform hover:-translate-y-1"
-            >
-              Masuk
-            </button>
-          </form>
+    .form-input-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9ca3af;
+    }
+  </style>
+</head>
 
-          <p class="text-center mt-8 text-gray-600 text-sm md:text-base">
-            Belum punya akun?
-            <a
-              href="register.html"
-              class="text-green-600 font-semibold hover:underline"
-              >Daftar di sini</a
-            >
+<body>
+  <div class="min-h-screen flex items-center justify-center p-4">
+    <div class="grid md:grid-cols-2 max-w-6xl w-full bg-white shadow-2xl rounded-2xl overflow-hidden">
+      <div class="relative hidden md:block">
+        <img
+          src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800"
+          alt="Green Environment" class="absolute inset-0 w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-green-800/30"></div>
+        <div class="relative p-8 lg:p-12 flex flex-col justify-end h-full text-white z-10">
+          <h1 class="font-lora text-3xl lg:text-4xl font-bold leading-tight">
+            Setiap Langkah Kecil, Menciptakan Dampak Besar.
+          </h1>
+          <p class="mt-4 text-green-100 text-sm lg:text-base">
+            Terima kasih telah menjadi bagian dari gerakan peduli lingkungan.
           </p>
         </div>
       </div>
+
+      <div class="p-8 md:p-12">
+        <a href="index.html" class="flex items-center gap-2 mb-8">
+          <div
+            class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center">
+            <i class="fas fa-leaf text-white"></i>
+          </div>
+          <span class="text-2xl font-bold text-green-700">EcoWaste</span>
+        </a>
+
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
+          Selamat Datang Kembali
+        </h2>
+        <p class="text-gray-500 mb-8 text-sm md:text-base">
+          Silakan masuk untuk melanjutkan.
+        </p>
+
+        <form action="" method="post" id="loginForm" class="space-y-6">
+          <div>
+            <label for="email" class="block font-semibold text-gray-700 mb-2">Alamat Email</label>
+            <div class="relative">
+              <i class="fas fa-envelope form-input-icon"></i>
+              <input type="text" id="email" name="email" placeholder="contoh@email.com"
+                class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none text-sm md:text-base" />
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <label for="password" class="block font-semibold text-gray-700">Password</label>
+              <a href="#" class="text-sm text-green-600 hover:underline">Lupa password?</a>
+            </div>
+            <div class="relative">
+              <i class="fas fa-lock form-input-icon"></i>
+              <input type="password" name="password" id="password" placeholder="••••••••"
+                class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none text-sm md:text-base" />
+            </div>
+          </div>
+          <button type="submit" id="submitbtn"
+            class="w-full py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold text-base md:text-lg shadow-md hover:shadow-lg transform hover:-translate-y-1">
+            Masuk
+          </button>
+        </form>
+
+        <p class="text-center mt-8 text-gray-600 text-sm md:text-base">
+          Belum punya akun?
+          <a href="register.html" class="text-green-600 font-semibold hover:underline">Daftar di sini</a>
+        </p>
+      </div>
     </div>
-  </body>
+  </div>
+  <script>
+    const form = document.getElementById('loginForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault(); 
+
+      const data_form = {
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value
+      };
+
+      try {
+        const response = await fetch('../../auth_login.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data_form)
+        });
+
+        const utuh = await response.text();
+        console.log(utuh)
+        const resp = await response.json();
+        console.log(resp)
+
+        if(resp){
+          console.log("Respon : " + resp.message)
+        }
+      } catch (err) {
+        console.error('Error:', err);
+      }
+    });
+  </script>
+</body>
+
 </html>
