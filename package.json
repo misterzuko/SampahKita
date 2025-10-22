@@ -12,12 +12,25 @@
   "devDependencies": {
     "glob": "^11.0.3",
     "purgecss": "^7.0.2",
-    "vite": "^7.1.7"
+    "vite": "^7.1.11"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.1.0",
     "@tailwindcss/vite": "^4.1.14",
     "leaflet": "^1.9.4",
     "tailwindcss": "^4.1.14"
-  }
+  },
+  "description": "",
+  "main": "purgecss.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/misterzuko/SampahKita.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/misterzuko/SampahKita/issues"
+  },
+  "homepage": "https://github.com/misterzuko/SampahKita#readme"
 }
