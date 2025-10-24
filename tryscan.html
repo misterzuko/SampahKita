@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deteksi Jenis Sampah</title>
+
+  <!-- TensorFlow & Teachable Machine -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.12.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      margin-top: 30px;
+      background: #f7f7f7;
+    }
+
+    h1 { color: #2c3e50; }
+
+    img {
+      max-width: 280px;
+      margin-top: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: none; /* disembunyikan sebelum preview muncul */
+    }
+
+    input { margin-top: 10px; }
+
+    #label-container div {
+      margin: 6px;
+      font-size: 18px;
+    }
+
+    #result-box {
+      margin-top: 20px;
+      display: inline-block;
+      padding: 15px 20px;
+      border-radius: 10px;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    /* Spinner Loading */
+    #loading-spinner {
+      display: none;
+      margin-top: 30px;
+    }
+
+    .spinner {
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #3498db;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>🗑️ Deteksi Jenis Sampah</h1>
+
+  <input type="file" id="imageUpload" accept="image/*" onchange="previewImage(event)">
+  <br>
+  <img id="preview" src="" alt="Preview Gambar">
+  <div id="loading-spinner">
+    <div class="spinner"></div>
+    <div class="loading-text">Sedang mendeteksi sampah...</div>
+  </div>
+  <div id="label-container"></div>
+  <div id="result-box"></div>
+
+  <script>
+    const MODEL_URL = "https://teachablemachine.withgoogle.com/models/sc6d226r_/";
+    let model, labelContainer, maxPredictions;
+
+    async function init() {
+      const modelURL = MODEL_URL + "model.json";
+      const metadataURL = MODEL_URL + "metadata.json";
+
+      model = await tmImage.load(modelURL, metadataURL);
+      maxPredictions = model.getTotalClasses();
+
+      labelContainer = document.getElementById("label-container");
+      labelContainer.innerHTML = "";
+      for (let i = 0; i < maxPredictions; i++) {
+        labelContainer.appendChild(document.createElement("div"));
+      }
+    }
+
+    function previewImage(event) {
+      const reader = new FileReader();
+      reader.onload = function(){
+        const output = document.getElementById('preview');
+        output.src = reader.result;
+        output.style.display = "block";
+        predict();
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+
+    async function predict() {
+      if (!model) {
+        alert("Model belum siap. Tunggu sebentar...");
+        return;
+      }
+
+      // 🔹 Tampilkan loading spinner
+      document.getElementById("loading-spinner").style.display = "block";
+      document.getElementById("label-container").innerHTML = "";
+      document.getElementById("result-box").style.display = "none";
+
+      // Simulasi jeda loading biar kelihatan halus (optional)
+      await new Promise(r => setTimeout(r, 300));
+
+      const image = document.getElementById("preview");
+      const prediction = await model.predict(image, false);
+
+      // 🔹 Sembunyikan spinner setelah selesai
+      document.getElementById("loading-spinner").style.display = "none";
+      document.getElementById("result-box").style.display = "inline-block";
+
+      prediction.sort((a, b) => b.probability - a.probability);
+      prediction.forEach(p => {
+        const classPrediction = `${p.className}: ${(p.probability * 100).toFixed(2)}%`;
+        const div = document.createElement("div");
+        div.textContent = classPrediction;
+        labelContainer.appendChild(div);
+      });
+
+      const topPrediction = prediction[0].className;
+      tampilkanKesimpulan(topPrediction);
+    }
+
+    function tampilkanKesimpulan(jenis) {
+      const resultBox = document.getElementById("result-box");
+      let kesimpulan = "";
+      let warna = "";
+
+      switch(jenis.toLowerCase()) {
+        case "plastik":
+        case "kertas":
+        case "logam":
+        case "kaca":
+          kesimpulan = "♻️ Sampah ini dapat didaur ulang.";
+          warna = "#27ae60";
+          break;
+        case "organik":
+          kesimpulan = "🌱 Sampah ini sebaiknya dijadikan kompos.";
+          warna = "#2ecc71";
+          break;
+        default:
+          kesimpulan = "🚮 Sampah ini sebaiknya dibuang ke TPA.";
+          warna = "#e74c3c";
+      }
+
+      resultBox.style.background = warna;
+      resultBox.textContent = kesimpulan;
+    }
+
+    init();
+  </script>
+</body>
+</html>

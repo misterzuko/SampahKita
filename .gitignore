@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -22,3 +23,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+=======
+.vite
+node_modules
+venv-sampah
+>>>>>>> 5dead53 (push scan script)
