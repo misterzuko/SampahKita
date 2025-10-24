@@ -5,12 +5,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login - EcoWaste Connect</title>
-  <link rel="stylesheet" crossorigin href="/assets/style-dfAWuXzu.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@400;600;700&display=swap"
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../assets/css/sampah_kita.css">
   <style>
     body {
       font-family: 'Poppins', 'Segoe UI', sans-serif;
@@ -101,7 +101,7 @@
   <script>
     const form = document.getElementById('loginForm');
     form.addEventListener('submit', async (e) => {
-      e.preventDefault(); 
+      e.preventDefault();
 
       const data_form = {
         email: document.getElementById('email').value,
@@ -109,7 +109,7 @@
       };
 
       try {
-        const response = await fetch('../../auth_login.php', {
+        const response = await fetch('../../api/auth_login.php', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -117,18 +117,28 @@
           body: JSON.stringify(data_form)
         });
 
-        const utuh = await response.text();
-        console.log(utuh)
         const resp = await response.json();
         console.log(resp)
 
-        if(resp){
-          console.log("Respon : " + resp.message)
+        if (resp.status == "sukses") {
+          window.location.href = "../../index";
         }
       } catch (err) {
         console.error('Error:', err);
       }
     });
+
+    function check_session() {
+      fetch("../../api/user_profile")
+        .then(response => response.json())
+        .then(data_profile => {
+          if (data_profile.status == "sukses") {
+            window.location.href = "../../index";
+            console.log("Anda telah login sebelumnya")
+          }
+        })
+    }
+    check_session();
   </script>
 </body>
 

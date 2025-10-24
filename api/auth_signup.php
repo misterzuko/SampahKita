@@ -3,13 +3,18 @@ require '../connect_db.php';
 require '../php-config.php';
 
 header('Content-Type: application/json');
+session_start();
+
+if(isset($_SESSION["user_id"])){
+    header("Location: ../src/page/bank_sampah");
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $input = json_decode(file_get_contents('php://input'), true);
 
     // DUMMY data
-    $fullname = "Candra";
-    $email = "ferdinand@admin.com";
+    $fullname = "Baskoro Adi Widagdo";
+    $email = "baskoro@admin.com";
     $password = "admin123";
 
     if (!$email || !$password) {

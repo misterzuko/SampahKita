@@ -1,678 +1,666 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EcoWaste Connect - Solusi Sampah Cerdas</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <style>
-      /* Gaya Baru yang Konsisten */
-      body {
-        font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        color: #1f2937;
-        background-color: #f0fdf4; /* Pale Green */
-        overflow-x: hidden;
-      }
-      .font-lora {
-        font-family: 'Lora', serif;
-      }
 
-      .carousel-container {
-        position: relative;
-        height: 85vh;
-        overflow: hidden;
-      }
-      .carousel-slide {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        transition: opacity 1s ease-in-out;
-        background-size: cover;
-        background-position: center;
-      }
-      .carousel-slide.active {
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoWaste Connect - Solusi Sampah Cerdas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/sampah_kita.css">
+  <style>
+    /* Gaya Baru yang Konsisten */
+    body {
+      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #1f2937;
+      background-color: #f0fdf4;
+      /* Pale Green */
+      overflow-x: hidden;
+    }
+
+    .font-lora {
+      font-family: 'Lora', serif;
+    }
+
+    .carousel-container {
+      position: relative;
+      height: 85vh;
+      overflow: hidden;
+    }
+
+    .carousel-slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .carousel-slide.active {
+      opacity: 1;
+    }
+
+    .carousel-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .carousel-content {
+      position: relative;
+      z-index: 10;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      padding: 40px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .carousel-content h1 {
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+    }
+
+    .carousel-content p {
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 30;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 20px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(8px);
+    }
+
+    .carousel-btn:hover {
+      background: rgba(255, 255, 255, 0.4);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .carousel-btn.prev {
+      left: 20px;
+    }
+
+    .carousel-btn.next {
+      right: 20px;
+    }
+
+    .carousel-dots {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 30;
+      display: flex;
+      gap: 12px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .dot.active {
+      background: white;
+      transform: scale(1.2);
+    }
+
+    .section-title {
+      font-family: 'Lora', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 60px;
+      color: #064e3b;
+      /* Green-900 */
+    }
+
+    .card-hover {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
         opacity: 1;
+        transform: translateY(0);
       }
-      .carousel-overlay {
-        position: absolute;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.4);
-      }
-      .carousel-content {
-        position: relative;
-        z-index: 10;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        color: white;
-        padding: 40px;
-        max-width: 800px;
-        margin: 0 auto;
-      }
-      .carousel-content h1 {
-        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
-      }
-      .carousel-content p {
-        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
-      }
-      .carousel-btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 30;
-        background: rgba(255, 255, 255, 0.2);
-        color: white;
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        cursor: pointer;
-        font-size: 20px;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(8px);
-      }
-      .carousel-btn:hover {
-        background: rgba(255, 255, 255, 0.4);
-        transform: translateY(-50%) scale(1.1);
-      }
-      .carousel-btn.prev {
-        left: 20px;
-      }
-      .carousel-btn.next {
-        right: 20px;
-      }
-      .carousel-dots {
-        position: absolute;
-        bottom: 30px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 30;
-        display: flex;
-        gap: 12px;
-      }
-      .dot {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.5);
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-      .dot.active {
-        background: white;
-        transform: scale(1.2);
-      }
+    }
+  </style>
+  <link rel="stylesheet" crossorigin href="/assets/style-dfAWuXzu.css">
+</head>
 
-      .section-title {
-        font-family: 'Lora', serif;
-        font-size: 2.8rem;
-        font-weight: 700;
-        text-align: center;
-        margin-bottom: 60px;
-        color: #064e3b; /* Green-900 */
-      }
-
-      .card-hover {
-        transition: all 0.3s ease;
-        cursor: pointer;
-      }
-      .card-hover:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-      }
-
-      .fade-in {
-        opacity: 0;
-        transform: translateY(10px);
-        animation: fadeIn 0.8s ease-out forwards;
-      }
-      @keyframes fadeIn {
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-    </style>
-    <link rel="stylesheet" crossorigin href="/assets/style-dfAWuXzu.css">
-  </head>
-  <body>
-    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-sm shadow-sm">
-      <div class="max-w-7xl mx-auto px-4 py-4">
-        <div class="flex justify-between items-center">
-          <a href="index.html" class="flex items-center gap-2">
-            <div
-              class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center"
-            >
-              <i class="fas fa-leaf text-white"></i>
-            </div>
-            <span class="text-2xl font-bold text-green-700">EcoWaste</span>
-          </a>
-          <nav class="hidden md:flex gap-8 font-semibold">
-            <a href="#" class="text-gray-700 hover:text-green-600 transition"
-              >Bank Sampah</a
-            >
-            <a
-              href="./src/page/feed.html"
-              class="text-gray-700 hover:text-green-600 transition"
-              >Feed</a
-            >
-            <a
-              href="./src/page/learderboard.html"
-              class="text-gray-700 hover:text-green-600 transition"
-              >Leaderboard</a
-            >
-            <a
-              href="./src/page/about_us.html"
-              class="text-gray-700 hover:text-green-600 transition"
-              >Tentang Kami</a
-            >
-          </nav>
-          <div class="flex items-center gap-4">
-            <a
-              href="./src/page/login.html"
-              class="hidden md:block px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold"
-            >
-              Login
-            </a>
-            <button class="md:hidden text-2xl text-gray-700">
-              <i class="fas fa-bars"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <section class="carousel-container">
-      <div
-        class="carousel-slide active"
-        style="
-          background-image: url('https://images.unsplash.com/photo-1591122625252-DA1b04b6f128?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1600');
-        "
-      >
-        <div class="carousel-overlay"></div>
-        <div class="carousel-content">
-          <h1 class="font-lora text-4xl md:text-6xl font-bold mb-6">
-            Ubah Sampah Menjadi Kebaikan.
-          </h1>
-          <p class="text-lg max-w-2xl mx-auto mb-8">
-            Bergabunglah dengan ribuan pengguna yang telah mengubah cara
-            mengelola sampah dan menciptakan dampak positif.
-          </p>
-          <a
-            href="#"
-            class="px-6 py-3 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition font-semibold"
-            >Mulai Sekarang</a
-          >
-        </div>
-      </div>
-      <div
-        class="carousel-slide"
-        style="
-          background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1600');
-        "
-      >
-        <div class="carousel-overlay"></div>
-        <div class="carousel-content">
-          <h1 class="font-lora text-4xl md:text-6xl font-bold mb-6">
-            Lindungi Lingkungan Kita Bersama.
-          </h1>
-          <p class="text-lg max-w-2xl mx-auto mb-8">
-            Setiap tindakan kecil berkontribusi pada perubahan besar untuk
-            planet kita.
-          </p>
-          <a
-            href="src/page/about_us.html"
-            class="px-6 py-3 bg-white text-green-700 border border-transparent rounded-lg shadow-sm hover:bg-green-50 transition font-semibold"
-            >Pelajari Lebih</a
-          >
-        </div>
-      </div>
-      <div
-        class="carousel-slide"
-        style="
-          background-image: url('https://images.unsplash.com/photo-1618423407982-f251d1f04a62?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1600');
-        "
-      >
-        <div class="carousel-overlay"></div>
-        <div class="carousel-content">
-          <h1 class="font-lora text-4xl md:text-6xl font-bold mb-6">
-            Komunitas Peduli Sampah.
-          </h1>
-          <p class="text-lg max-w-2xl mx-auto mb-8">
-            Bersama membangun masa depan yang lebih hijau dan berkelanjutan
-            untuk generasi mendatang.
-          </p>
-          <a
-            href="#"
-            class="px-6 py-3 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition font-semibold"
-            >Bergabung Sekarang</a
-          >
-        </div>
-      </div>
-      <button
-        class="carousel-btn prev hidden md:block"
-        onclick="changeSlide(-1)"
-      >
-        <i class="fas fa-chevron-left"></i>
-      </button>
-      <button
-        class="carousel-btn next hidden md:block"
-        onclick="changeSlide(1)"
-      >
-        <i class="fas fa-chevron-right"></i>
-      </button>
-      <div class="carousel-dots">
-        <span class="dot active" onclick="currentSlide(0)"></span>
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-      </div>
-    </section>
-
-    <section class="py-20 bg-white">
-      <div class="max-w-7xl mx-auto px-4">
-        <h2 class="section-title">Dampak Kita Bersama</h2>
-        <div class="grid md:grid-cols-3 gap-8">
-          <div class="text-center p-4 fade-in">
-            <p class="font-lora text-6xl font-bold text-green-600">1,250+</p>
-            <p class="text-gray-500 font-semibold mt-2">
-              Mitra Bank Sampah Terhubung
-            </p>
-          </div>
-          <div class="text-center p-4 fade-in" style="animation-delay: 0.2s">
-            <p class="font-lora text-6xl font-bold text-green-600">15,000+</p>
-            <p class="text-gray-500 font-semibold mt-2">
-              Pengguna Aktif Berkontribusi
-            </p>
-          </div>
-          <div class="text-center p-4 fade-in" style="animation-delay: 0.4s">
-            <p class="font-lora text-6xl font-bold text-green-600">500+ Ton</p>
-            <p class="text-gray-500 font-semibold mt-2">
-              Sampah Terselamatkan dari TPA
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-20">
-      <div class="max-w-7xl mx-auto px-4">
-        <h2 class="section-title">Bagaimana Cara Kerjanya?</h2>
-        <div class="grid md:grid-cols-3 gap-12 text-center">
-          <div class="fade-in">
-            <div
-              class="flex justify-center items-center w-24 h-24 mx-auto bg-green-100 rounded-full mb-6 border-4 border-white shadow-md"
-            >
-              <i class="fas fa-recycle text-4xl text-green-600"></i>
-            </div>
-            <h3 class="text-2xl font-bold mb-3">1. Pilah & Kumpulkan</h3>
-            <p class="text-gray-600">
-              Pisahkan sampah anorganik Anda seperti plastik, kertas, dan logam.
-              Pastikan dalam keadaan bersih dan kering.
-            </p>
-          </div>
-          <div class="fade-in" style="animation-delay: 0.2s">
-            <div
-              class="flex justify-center items-center w-24 h-24 mx-auto bg-green-100 rounded-full mb-6 border-4 border-white shadow-md"
-            >
-              <i class="fas fa-map-marked-alt text-4xl text-green-600"></i>
-            </div>
-            <h3 class="text-2xl font-bold mb-3">2. Setor atau Minta Jemput</h3>
-            <p class="text-gray-600">
-              Gunakan aplikasi untuk menemukan Bank Sampah terdekat, atau
-              jadwalkan penjemputan langsung dari rumah Anda.
-            </p>
-          </div>
-          <div class="fade-in" style="animation-delay: 0.4s">
-            <div
-              class="flex justify-center items-center w-24 h-24 mx-auto bg-green-100 rounded-full mb-6 border-4 border-white shadow-md"
-            >
-              <i class="fas fa-wallet text-4xl text-green-600"></i>
-            </div>
-            <h3 class="text-2xl font-bold mb-3">3. Dapatkan Imbalan</h3>
-            <p class="text-gray-600">
-              Sampah Anda akan ditimbang dan nilainya langsung masuk ke saldo
-              digital Anda. Mudah, cepat, dan menguntungkan!
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-20 bg-white">
-      <div class="max-w-7xl mx-auto px-4">
-        <h2 class="section-title">Wawasan Lingkungan</h2>
-        <div class="grid md:grid-cols-3 gap-8">
+<body>
+  <header id="navbar-sk" class="sticky top-0 z-50 bg-white/80 backdrop-blur-sm shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 py-4 navbar">
+      <div class="flex justify-between items-center">
+        <!-- Logo -->
+        <a href="../../index.html" class="flex items-center gap-2">
           <div
-            class="bg-white rounded-xl overflow-hidden card-hover border border-gray-200 fade-in"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600"
-              alt="Sampah Plastik"
-              class="h-56 w-full object-cover"
-            />
-            <div class="p-6">
-              <span
-                class="inline-block px-3 py-1 bg-red-100 text-red-700 text-xs font-semibold rounded-full mb-3"
-                >Krisis</span
-              >
-              <h3 class="text-xl font-bold text-gray-800 mb-3">
-                Krisis Sampah Plastik di Perkotaan
-              </h3>
-              <a
-                href="#"
-                class="text-green-600 font-semibold hover:text-green-700 transition"
-                >Baca Selengkapnya &rarr;</a
-              >
-            </div>
+            class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center">
+            <i class="fas fa-leaf text-white"></i>
           </div>
-          <div
-            class="bg-white rounded-xl overflow-hidden card-hover border border-gray-200 fade-in"
-            style="animation-delay: 0.2s"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1595278069441-2aa3840c01a4?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600"
-              alt="Daur Ulang"
-              class="h-56 w-full object-cover"
-            />
-            <div class="p-6">
-              <span
-                class="inline-block px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full mb-3"
-                >Solusi</span
-              >
-              <h3 class="text-xl font-bold text-gray-800 mb-3">
-                Pentingnya Daur Ulang untuk Ekonomi Sirkular
-              </h3>
-              <a
-                href="#"
-                class="text-green-600 font-semibold hover:text-green-700 transition"
-                >Baca Selengkapnya &rarr;</a
-              >
-            </div>
-          </div>
-          <div
-            class="bg-white rounded-xl overflow-hidden card-hover border border-gray-200 fade-in"
-            style="animation-delay: 0.4s"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600"
-              alt="Komunitas"
-              class="h-56 w-full object-cover"
-            />
-            <div class="p-6">
-              <span
-                class="inline-block px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full mb-3"
-                >Komunitas</span
-              >
-              <h3 class="text-xl font-bold text-gray-800 mb-3">
-                Peran Komunitas dalam Mengurangi Sampah
-              </h3>
-              <a
-                href="#"
-                class="text-green-600 font-semibold hover:text-green-700 transition"
-                >Baca Selengkapnya &rarr;</a
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-20">
-      <div class="max-w-4xl mx-auto px-4 text-center">
-        <h2 class="section-title">Apa Kata Mereka</h2>
-        <div class="fade-in">
-          <i class="fas fa-quote-left text-4xl text-green-300 mb-6"></i>
-          <p
-            class="font-lora text-2xl italic text-gray-700 leading-relaxed mb-8"
-          >
-            "EcoWaste mengubah total cara saya memandang sampah. Dulu sampah ya
-            dibuang saja, sekarang bisa jadi tabungan. Aplikasinya sangat mudah
-            digunakan dan tim penjemputnya selalu tepat waktu. Luar biasa!"
-          </p>
-          <div class="flex items-center justify-center">
-            <img
-              src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400"
-              class="w-16 h-16 rounded-full object-cover shadow-md mr-4"
-              alt="Pengguna Rina Setyawati"
-            />
-            <div>
-              <p class="text-lg font-bold text-gray-900">Rina Setyawati</p>
-              <p class="text-gray-500">Pengguna Aktif, Jakarta</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-16 md:py-20 bg-white">
-      <div class="max-w-7xl mx-auto px-4">
-        <h2 class="section-title">Temui Tim Kami</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-          <div class="text-center fade-in">
-            <div class="relative w-40 h-40 mx-auto mb-4">
-              <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400"
-                alt="Tim 1"
-                class="w-full h-full rounded-full object-cover shadow-lg border-4 border-white"
-              />
-            </div>
-            <h3 class="text-xl font-bold text-gray-800">John Doe</h3>
-            <p class="text-gray-500 font-semibold">Founder & CEO</p>
-          </div>
-          <div class="text-center fade-in" style="animation-delay: 0.2s">
-            <div class="relative w-40 h-40 mx-auto mb-4">
-              <img
-                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400"
-                alt="Tim 2"
-                class="w-full h-full rounded-full object-cover shadow-lg border-4 border-white"
-              />
-            </div>
-            <h3 class="text-xl font-bold text-gray-800">Jane Smith</h3>
-            <p class="text-gray-500 font-semibold">Chief Technology Officer</p>
-          </div>
-          <div class="text-center fade-in" style="animation-delay: 0.4s">
-            <div class="relative w-40 h-40 mx-auto mb-4">
-              <img
-                src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=400"
-                alt="Tim 3"
-                class="w-full h-full rounded-full object-cover shadow-lg border-4 border-white"
-              />
-            </div>
-            <h3 class="text-xl font-bold text-gray-800">Budi Santoso</h3>
-            <p class="text-gray-500 font-semibold">Head of Community</p>
-          </div>
-          <div class="text-center fade-in" style="animation-delay: 0.6s">
-            <div class="relative w-40 h-40 mx-auto mb-4">
-              <img
-                src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400"
-                alt="Tim 4"
-                class="w-full h-full rounded-full object-cover shadow-lg border-4 border-white"
-              />
-            </div>
-            <h3 class="text-xl font-bold text-gray-800">Citra Dewi</h3>
-            <p class="text-gray-500 font-semibold">Lead UI/UX Designer</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-24">
-      <div class="max-w-3xl mx-auto px-4 text-center">
-        <h2 class="font-lora text-4xl font-bold text-gray-800 mb-6 fade-in">
-          Siap Memulai Perjalanan Anda?
-        </h2>
-        <p
-          class="text-gray-600 text-lg mb-8 fade-in"
-          style="animation-delay: 0.1s"
-        >
-          Jadilah bagian dari komunitas yang berkomitmen untuk melindungi planet
-          kita.
-        </p>
-        <a
-          href="#"
-          class="inline-block px-10 py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 fade-in"
-          style="animation-delay: 0.2s"
-        >
-          Daftar Sekarang
+          <span class="text-2xl font-bold text-green-700">EcoWaste</span>
         </a>
-      </div>
-    </section>
 
-    <footer class="bg-gray-900 text-white pt-16 pb-8">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="grid md:grid-cols-4 gap-8 mb-12">
-          <div>
-            <div class="flex items-center gap-2 mb-4">
-              <div
-                class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center"
-              >
-                <i class="fas fa-leaf"></i>
-              </div>
-              <span class="text-2xl font-bold">EcoWaste</span>
-            </div>
-            <p class="text-gray-400 text-sm">
-              Platform digital untuk manajemen sampah yang efisien dan
-              berkelanjutan.
-            </p>
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex gap-8 font-semibold">
+          <a href="./src/page/bank_sampah.html" class="text-gray-700 hover:text-green-600 transition">Bank Sampah</a>
+          <a href="./src/page/feed.html" class="text-gray-700 hover:text-green-600 transition">Feed</a>
+          <a href="./src/page/learderboard.html" class="text-gray-700 hover:text-green-600 transition">Leaderboard</a>
+          <a href="./src/page/about_us.html" class="text-gray-700 hover:text-green-600 transition">Tentang Kami</a>
+        </nav>
+
+        <!-- Right Side (Session + Mobile Menu Button) -->
+        <div class="flex items-center gap-4">
+          <div id="session" class="flex items-center gap-4">
+            <!-- Session content -->
           </div>
-          <div>
-            <h4 class="text-lg font-bold mb-4">Halaman</h4>
-            <ul class="space-y-2 text-gray-400">
-              <li>
-                <a href="#" class="hover:text-green-400 transition"
-                  >Bank Sampah</a
-                >
-              </li>
-              <li>
-                <a href="#" class="hover:text-green-400 transition">Feed</a>
-              </li>
-              <li>
-                <a href="#" class="hover:text-green-400 transition"
-                  >Leaderboard</a
-                >
-              </li>
-              <li>
-                <a
-                  href="src/page/about_us.html"
-                  class="hover:text-green-400 transition"
-                  >Tentang Kami</a
-                >
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 class="text-lg font-bold mb-4">Hubungi Kami</h4>
-            <ul class="space-y-2 text-gray-400">
-              <li>
-                <a
-                  href="mailto:info@ecowaste.com"
-                  class="hover:text-green-400 transition"
-                  >info@ecowaste.com</a
-                >
-              </li>
-              <li>
-                <a
-                  href="tel:+62123456789"
-                  class="hover:text-green-400 transition"
-                  >+62 123 4567 890</a
-                >
-              </li>
-              <li class="text-sm">Jl. Hijau No. 123, Semarang</li>
-            </ul>
-          </div>
-          <div>
-            <h4 class="text-lg font-bold mb-4">Ikuti Kami</h4>
-            <div class="flex gap-4">
-              <a
-                href="#"
-                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"
-                ><i class="fab fa-instagram"></i
-              ></a>
-              <a
-                href="#"
-                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"
-                ><i class="fab fa-facebook"></i
-              ></a>
-              <a
-                href="#"
-                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"
-                ><i class="fab fa-twitter"></i
-              ></a>
-              <a
-                href="#"
-                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"
-                ><i class="fab fa-youtube"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-        <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
-          <p>&copy; 2025 EcoWaste Connect. All Rights Reserved.</p>
+
+          <!-- Mobile Menu Button -->
+          <button id="mobileMenuBtn" class="md:hidden text-gray-700 hover:text-green-600 transition">
+            <i class="fas fa-bars text-2xl"></i>
+          </button>
         </div>
       </div>
-    </footer>
 
-    <script>
-      let currentSlideIndex = 0;
-      let slideInterval;
+      <!-- Mobile Navigation Menu -->
+      <nav id="mobileMenu" class="hidden md:hidden mt-4 pb-4 border-t border-gray-200">
+        <div class="flex flex-col gap-4 pt-4">
+          <a href="./src/page/bank_sampah.html" class="text-gray-700 hover:text-green-600 transition font-semibold">Bank
+            Sampah</a>
+          <a href="./src/page/feed.html" class="text-gray-700 hover:text-green-600 transition font-semibold">Feed</a>
+          <a href="./src/page/learderboard.html"
+            class="text-gray-700 hover:text-green-600 transition font-semibold">Leaderboard</a>
+          <a href="./src/page/about_us.html" class="text-gray-700 hover:text-green-600 transition font-semibold">Tentang
+            Kami</a>
+        </div>
+      </nav>
+    </div>
+  </header>
 
-      function showSlide(n) {
-        const slides = document.querySelectorAll('.carousel-slide');
-        const dots = document.querySelectorAll('.dot');
-        if (!slides.length || !dots.length) return;
+  <section class="carousel-container">
+    <div class="carousel-slide active" style="
+          background-image: url('https://images.unsplash.com/photo-1591122625252-DA1b04b6f128?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1600');
+        ">
+      <div class="carousel-overlay"></div>
+      <div class="carousel-content">
+        <h1 class="font-lora text-4xl md:text-6xl font-bold mb-6">
+          Ubah Sampah Menjadi Kebaikan.
+        </h1>
+        <p class="text-lg max-w-2xl mx-auto mb-8">
+          Bergabunglah dengan ribuan pengguna yang telah mengubah cara
+          mengelola sampah dan menciptakan dampak positif.
+        </p>
+        <a href="#"
+          class="px-6 py-3 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition font-semibold">Mulai
+          Sekarang</a>
+      </div>
+    </div>
+    <div class="carousel-slide" style="
+          background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1600');
+        ">
+      <div class="carousel-overlay"></div>
+      <div class="carousel-content">
+        <h1 class="font-lora text-4xl md:text-6xl font-bold mb-6">
+          Lindungi Lingkungan Kita Bersama.
+        </h1>
+        <p class="text-lg max-w-2xl mx-auto mb-8">
+          Setiap tindakan kecil berkontribusi pada perubahan besar untuk
+          planet kita.
+        </p>
+        <a href="src/page/about_us.html"
+          class="px-6 py-3 bg-white text-green-700 border border-transparent rounded-lg shadow-sm hover:bg-green-50 transition font-semibold">Pelajari
+          Lebih</a>
+      </div>
+    </div>
+    <div class="carousel-slide" style="
+          background-image: url('https://images.unsplash.com/photo-1618423407982-f251d1f04a62?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1600');
+        ">
+      <div class="carousel-overlay"></div>
+      <div class="carousel-content">
+        <h1 class="font-lora text-4xl md:text-6xl font-bold mb-6">
+          Komunitas Peduli Sampah.
+        </h1>
+        <p class="text-lg max-w-2xl mx-auto mb-8">
+          Bersama membangun masa depan yang lebih hijau dan berkelanjutan
+          untuk generasi mendatang.
+        </p>
+        <a href="#"
+          class="px-6 py-3 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition font-semibold">Bergabung
+          Sekarang</a>
+      </div>
+    </div>
+    <button class="carousel-btn prev hidden md:block" onclick="changeSlide(-1)">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <button class="carousel-btn next hidden md:block" onclick="changeSlide(1)">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+    <div class="carousel-dots">
+      <span class="dot active" onclick="currentSlide(0)"></span>
+      <span class="dot" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+    </div>
+  </section>
 
-        if (n >= slides.length) {
-          currentSlideIndex = 0;
-        }
-        if (n < 0) {
-          currentSlideIndex = slides.length - 1;
-        }
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="section-title">Dampak Kita Bersama</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center p-4 fade-in">
+          <p class="font-lora text-6xl font-bold text-green-600">1,250+</p>
+          <p class="text-gray-500 font-semibold mt-2">
+            Mitra Bank Sampah Terhubung
+          </p>
+        </div>
+        <div class="text-center p-4 fade-in" style="animation-delay: 0.2s">
+          <p class="font-lora text-6xl font-bold text-green-600">15,000+</p>
+          <p class="text-gray-500 font-semibold mt-2">
+            Pengguna Aktif Berkontribusi
+          </p>
+        </div>
+        <div class="text-center p-4 fade-in" style="animation-delay: 0.4s">
+          <p class="font-lora text-6xl font-bold text-green-600">500+ Ton</p>
+          <p class="text-gray-500 font-semibold mt-2">
+            Sampah Terselamatkan dari TPA
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        slides.forEach(slide => slide.classList.remove('active'));
-        dots.forEach(dot => dot.classList.remove('active'));
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="section-title">Bagaimana Cara Kerjanya?</h2>
+      <div class="grid md:grid-cols-3 gap-12 text-center">
+        <div class="fade-in">
+          <div
+            class="flex justify-center items-center w-24 h-24 mx-auto bg-green-100 rounded-full mb-6 border-4 border-white shadow-md">
+            <i class="fas fa-recycle text-4xl text-green-600"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-3">1. Pilah & Kumpulkan</h3>
+          <p class="text-gray-600">
+            Pisahkan sampah anorganik Anda seperti plastik, kertas, dan logam.
+            Pastikan dalam keadaan bersih dan kering.
+          </p>
+        </div>
+        <div class="fade-in" style="animation-delay: 0.2s">
+          <div
+            class="flex justify-center items-center w-24 h-24 mx-auto bg-green-100 rounded-full mb-6 border-4 border-white shadow-md">
+            <i class="fas fa-map-marked-alt text-4xl text-green-600"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-3">2. Setor atau Minta Jemput</h3>
+          <p class="text-gray-600">
+            Gunakan aplikasi untuk menemukan Bank Sampah terdekat, atau
+            jadwalkan penjemputan langsung dari rumah Anda.
+          </p>
+        </div>
+        <div class="fade-in" style="animation-delay: 0.4s">
+          <div
+            class="flex justify-center items-center w-24 h-24 mx-auto bg-green-100 rounded-full mb-6 border-4 border-white shadow-md">
+            <i class="fas fa-wallet text-4xl text-green-600"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-3">3. Dapatkan Imbalan</h3>
+          <p class="text-gray-600">
+            Sampah Anda akan ditimbang dan nilainya langsung masuk ke saldo
+            digital Anda. Mudah, cepat, dan menguntungkan!
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        slides[currentSlideIndex].classList.add('active');
-        dots[currentSlideIndex].classList.add('active');
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="section-title">Wawasan Lingkungan</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-xl overflow-hidden card-hover border border-gray-200 fade-in">
+          <img
+            src="https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600"
+            alt="Sampah Plastik" class="h-56 w-full object-cover" />
+          <div class="p-6">
+            <span
+              class="inline-block px-3 py-1 bg-red-100 text-red-700 text-xs font-semibold rounded-full mb-3">Krisis</span>
+            <h3 class="text-xl font-bold text-gray-800 mb-3">
+              Krisis Sampah Plastik di Perkotaan
+            </h3>
+            <a href="#" class="text-green-600 font-semibold hover:text-green-700 transition">Baca Selengkapnya
+              &rarr;</a>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl overflow-hidden card-hover border border-gray-200 fade-in"
+          style="animation-delay: 0.2s">
+          <img
+            src="https://images.unsplash.com/photo-1595278069441-2aa3840c01a4?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600"
+            alt="Daur Ulang" class="h-56 w-full object-cover" />
+          <div class="p-6">
+            <span
+              class="inline-block px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full mb-3">Solusi</span>
+            <h3 class="text-xl font-bold text-gray-800 mb-3">
+              Pentingnya Daur Ulang untuk Ekonomi Sirkular
+            </h3>
+            <a href="#" class="text-green-600 font-semibold hover:text-green-700 transition">Baca Selengkapnya
+              &rarr;</a>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl overflow-hidden card-hover border border-gray-200 fade-in"
+          style="animation-delay: 0.4s">
+          <img
+            src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600"
+            alt="Komunitas" class="h-56 w-full object-cover" />
+          <div class="p-6">
+            <span
+              class="inline-block px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full mb-3">Komunitas</span>
+            <h3 class="text-xl font-bold text-gray-800 mb-3">
+              Peran Komunitas dalam Mengurangi Sampah
+            </h3>
+            <a href="#" class="text-green-600 font-semibold hover:text-green-700 transition">Baca Selengkapnya
+              &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h2 class="section-title">Apa Kata Mereka</h2>
+      <div class="fade-in">
+        <i class="fas fa-quote-left text-4xl text-green-300 mb-6"></i>
+        <p class="font-lora text-2xl italic text-gray-700 leading-relaxed mb-8">
+          "EcoWaste mengubah total cara saya memandang sampah. Dulu sampah ya
+          dibuang saja, sekarang bisa jadi tabungan. Aplikasinya sangat mudah
+          digunakan dan tim penjemputnya selalu tepat waktu. Luar biasa!"
+        </p>
+        <div class="flex items-center justify-center">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400"
+            class="w-16 h-16 rounded-full object-cover shadow-md mr-4" alt="Pengguna Rina Setyawati" />
+          <div>
+            <p class="text-lg font-bold text-gray-900">Rina Setyawati</p>
+            <p class="text-gray-500">Pengguna Aktif, Jakarta</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="section-title">Temui Tim Kami</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div class="text-center fade-in">
+          <div class="relative w-40 h-40 mx-auto mb-4">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400" alt="Tim 1"
+              class="w-full h-full rounded-full object-cover shadow-lg border-4 border-white" />
+          </div>
+          <h3 class="text-xl font-bold text-gray-800">John Doe</h3>
+          <p class="text-gray-500 font-semibold">Founder & CEO</p>
+        </div>
+        <div class="text-center fade-in" style="animation-delay: 0.2s">
+          <div class="relative w-40 h-40 mx-auto mb-4">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400" alt="Tim 2"
+              class="w-full h-full rounded-full object-cover shadow-lg border-4 border-white" />
+          </div>
+          <h3 class="text-xl font-bold text-gray-800">Jane Smith</h3>
+          <p class="text-gray-500 font-semibold">Chief Technology Officer</p>
+        </div>
+        <div class="text-center fade-in" style="animation-delay: 0.4s">
+          <div class="relative w-40 h-40 mx-auto mb-4">
+            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=400" alt="Tim 3"
+              class="w-full h-full rounded-full object-cover shadow-lg border-4 border-white" />
+          </div>
+          <h3 class="text-xl font-bold text-gray-800">Budi Santoso</h3>
+          <p class="text-gray-500 font-semibold">Head of Community</p>
+        </div>
+        <div class="text-center fade-in" style="animation-delay: 0.6s">
+          <div class="relative w-40 h-40 mx-auto mb-4">
+            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400" alt="Tim 4"
+              class="w-full h-full rounded-full object-cover shadow-lg border-4 border-white" />
+          </div>
+          <h3 class="text-xl font-bold text-gray-800">Citra Dewi</h3>
+          <p class="text-gray-500 font-semibold">Lead UI/UX Designer</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+      <h2 class="font-lora text-4xl font-bold text-gray-800 mb-6 fade-in">
+        Siap Memulai Perjalanan Anda?
+      </h2>
+      <p class="text-gray-600 text-lg mb-8 fade-in" style="animation-delay: 0.1s">
+        Jadilah bagian dari komunitas yang berkomitmen untuk melindungi planet
+        kita.
+      </p>
+      <a href="#"
+        class="inline-block px-10 py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 fade-in"
+        style="animation-delay: 0.2s">
+        Daftar Sekarang
+      </a>
+    </div>
+  </section>
+
+  <footer class="bg-gray-900 text-white pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid md:grid-cols-4 gap-8 mb-12">
+        <div>
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+              <i class="fas fa-leaf"></i>
+            </div>
+            <span class="text-2xl font-bold">EcoWaste</span>
+          </div>
+          <p class="text-gray-400 text-sm">
+            Platform digital untuk manajemen sampah yang efisien dan
+            berkelanjutan.
+          </p>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold mb-4">Halaman</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li>
+              <a href="#" class="hover:text-green-400 transition">Bank Sampah</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-green-400 transition">Feed</a>
+            </li>
+            <li>
+              <a href="#" class="hover:text-green-400 transition">Leaderboard</a>
+            </li>
+            <li>
+              <a href="src/page/about_us.html" class="hover:text-green-400 transition">Tentang Kami</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold mb-4">Hubungi Kami</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li>
+              <a href="mailto:info@ecowaste.com" class="hover:text-green-400 transition">info@ecowaste.com</a>
+            </li>
+            <li>
+              <a href="tel:+62123456789" class="hover:text-green-400 transition">+62 123 4567 890</a>
+            </li>
+            <li class="text-sm">Jl. Hijau No. 123, Semarang</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold mb-4">Ikuti Kami</h4>
+          <div class="flex gap-4">
+            <a href="#"
+              class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"><i
+                class="fab fa-instagram"></i></a>
+            <a href="#"
+              class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"><i
+                class="fab fa-facebook"></i></a>
+            <a href="#"
+              class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"><i
+                class="fab fa-twitter"></i></a>
+            <a href="#"
+              class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"><i
+                class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+        <p>&copy; 2025 EcoWaste Connect. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    //Peruntukan mobile view 
+    function setupMobileMenu() {
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+
+      if (mobileMenuBtn && mobileMenu) {
+        const newMobileMenuBtn = mobileMenuBtn.cloneNode(true);
+        mobileMenuBtn.parentNode.replaceChild(newMobileMenuBtn, mobileMenuBtn);
+
+        const menuIcon = newMobileMenuBtn.querySelector('i');
+
+        newMobileMenuBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+
+          if (mobileMenu.classList.contains('hidden')) {
+            menuIcon.classList.remove('fa-times');
+            menuIcon.classList.add('fa-bars');
+          } else {
+            menuIcon.classList.remove('fa-bars');
+            menuIcon.classList.add('fa-times');
+          }
+        });
+
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            menuIcon.classList.remove('fa-times');
+            menuIcon.classList.add('fa-bars');
+          });
+        });
+      }
+    }
+    setupMobileMenu();
+
+    function check_session() {
+      fetch("api/user_profile")
+        .then(response => response.json())
+        .then(data_profile => {
+          const session = document.getElementById("session");
+
+          if (data_profile.status == "error") {
+            session.innerHTML = `
+              <a href="./src/page/login.html"
+                class="hidden md:block px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold">
+                Login
+              </a>
+            `;
+          } else {
+            session.innerHTML = `
+            <a href="./src/page/profile.html">
+              <button
+                class="hidden md:block px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold">
+                Profil
+              </button>
+            </a>
+            `;
+          }
+          setupMobileMenu();
+        })
+        .catch(error => {
+          console.error('Error checking session:', error);
+          setupMobileMenu();
+        });
+    }
+    check_session();
+
+    let currentSlideIndex = 0;
+    let slideInterval;
+
+    function showSlide(n) {
+      const slides = document.querySelectorAll('.carousel-slide');
+      const dots = document.querySelectorAll('.dot');
+      if (!slides.length || !dots.length) return;
+
+      if (n >= slides.length) {
+        currentSlideIndex = 0;
+      }
+      if (n < 0) {
+        currentSlideIndex = slides.length - 1;
       }
 
-      function changeSlide(n) {
-        showSlide((currentSlideIndex += n));
-        resetInterval();
-      }
+      slides.forEach(slide => slide.classList.remove('active'));
+      dots.forEach(dot => dot.classList.remove('active'));
 
-      function currentSlide(n) {
-        showSlide((currentSlideIndex = n));
-        resetInterval();
-      }
+      slides[currentSlideIndex].classList.add('active');
+      dots[currentSlideIndex].classList.add('active');
+    }
 
-      function startInterval() {
-        slideInterval = setInterval(() => {
-          changeSlide(1);
-        }, 5000);
-      }
+    function changeSlide(n) {
+      showSlide((currentSlideIndex += n));
+      resetInterval();
+    }
 
-      function resetInterval() {
-        clearInterval(slideInterval);
-        startInterval();
-      }
+    function currentSlide(n) {
+      showSlide((currentSlideIndex = n));
+      resetInterval();
+    }
 
-      document.addEventListener('DOMContentLoaded', () => {
-        showSlide(currentSlideIndex);
-        startInterval();
-      });
-    </script>
-  </body>
+    function startInterval() {
+      slideInterval = setInterval(() => {
+        changeSlide(1);
+      }, 5000);
+    }
+
+    function resetInterval() {
+      clearInterval(slideInterval);
+      startInterval();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      showSlide(currentSlideIndex);
+      startInterval();
+    });
+  </script>
+</body>
+
 </html>

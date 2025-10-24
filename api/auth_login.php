@@ -1,6 +1,8 @@
 <?php
 require '../connect_db.php';
 require '../php-config.php';
+session_start();
+
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -8,8 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $input = json_decode(file_get_contents('php://input'), true);
 
     // DUMMY
-    $email = "daniro@admin.com";
-    $password = "admin123";
+    $email = $input["email"];
+    $password = $input["password"];
 
     if (!$email || !$password) {
         echo json_encode([
@@ -20,19 +22,28 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 
     try {
-        $stmt = $conn->prepare("SELECT user_id, email, password FROM Users WHERE email = ?");
+        $stmt = $conn->prepare("SELECT user_id, email, role, password FROM Users WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $stmt->store_result();
 
         if ($stmt->num_rows) {
-            $stmt->bind_result($id, $user, $hash);
+            $stmt->bind_result($id, $user, $role, $hash);
             $stmt->fetch();
 
+
             if (password_verify($password, $hash)) {
+                $_SESSION['user_id'] = $id;
+                $_SESSION['email'] = $user;
+                $_SESSION['role'] = $role;
                 echo json_encode([
                     "status" => "sukses",
-                    "message" => "Login Berhasil"
+                    "message" => "Login Berhasil",
+                    "data" => 
+                        [
+                        "user_id" => $id,
+                        "email" => $email
+                        ]
                 ]);
                 $stmt->close();
                 exit;

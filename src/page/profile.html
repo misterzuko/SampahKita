@@ -1,275 +1,211 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profil Pengguna - EcoWaste Connect</title>
-    <link rel="stylesheet" crossorigin href="/assets/style-dfAWuXzu.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        font-family: 'Poppins', 'Segoe UI', sans-serif;
-        color: #1f2937;
-        background-color: #f0fdf4; /* Pale Green */
-      }
-      .font-lora {
-        font-family: 'Lora', serif;
-      }
-      .sticky-header {
-        position: sticky;
-        top: 0;
-        z-index: 50;
-        background-color: rgba(255, 255, 255, 0.8);
-        backdrop-filter: blur(8px);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-      }
-    </style>
-  </head>
-  <body>
-    <header class="sticky-header">
-      <div class="max-w-7xl mx-auto px-4 py-4">
-        <div class="flex justify-between items-center">
-          <a href="index.html" class="flex items-center gap-2">
-            <div
-              class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center"
-            >
-              <i class="fas fa-leaf text-white"></i>
-            </div>
-            <span class="text-2xl font-bold text-green-700">EcoWaste</span>
-          </a>
-          <nav class="hidden md:flex gap-8 font-semibold">
-            <a
-              href="bank_sampah.html"
-              class="text-gray-700 hover:text-green-600 transition"
-              >Bank Sampah</a
-            >
-            <a
-              href="feed.html"
-              class="text-gray-700 hover:text-green-600 transition"
-              >Feed</a
-            >
-            <a
-              href="leaderboard.html"
-              class="text-gray-700 hover:text-green-600 transition"
-              >Leaderboard</a
-            >
-            <a
-              href="scan.html"
-              class="text-gray-700 hover:text-green-600 transition"
-              >Scan Sampah</a
-            >
-          </nav>
-          <div class="flex items-center gap-4">
-            <a
-              href="profile.html"
-              class="hidden md:block px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold"
-              >Profil</a
-            >
-            <button class="md:hidden text-2xl text-gray-700">
-              <i class="fas fa-bars"></i>
-            </button>
-          </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profil Pengguna - EcoWaste Connect</title>
+  <link rel="stylesheet" crossorigin href="/assets/style-dfAWuXzu.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../assets/css/sampah_kita.css">
+  <style>
+    body {
+      font-family: 'Poppins', 'Segoe UI', sans-serif;
+      color: #1f2937;
+      background-color: #f0fdf4;
+      /* Pale Green */
+    }
+
+    .font-lora {
+      font-family: 'Lora', serif;
+    }
+
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background-color: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+  </style>
+</head>
+
+<body>
+  <header id="navbar-sk" class="sticky-header top-0 z-50 bg-white/80 backdrop-blur-sm shadow-sm">
+
+  </header>
+
+  <main class="py-12 md:py-16 px-4">
+    <div class="max-w-5xl mx-auto">
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+        <div class="relative h-48 md:h-64 bg-gray-200">
+          <img
+            src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200"
+            alt="Banner Profil" class="w-full h-full object-cover" />
         </div>
-      </div>
-    </header>
 
-    <main class="py-12 md:py-16 px-4">
-      <div class="max-w-5xl mx-auto">
-        <div
-          class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100"
-        >
-          <div class="relative h-48 md:h-64 bg-gray-200">
-            <img
-              src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200"
-              alt="Banner Profil"
-              class="w-full h-full object-cover"
-            />
+        <div class="p-6 md:p-8">
+          <div class="relative flex flex-col sm:flex-row items-start">
+            <div class="relative -mt-24 md:-mt-32 w-28 h-28 md:w-36 md:h-36 flex-shrink-0">
+              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400" alt="Foto Profil"
+                class="w-full h-full rounded-full object-cover border-4 border-white shadow-md" />
+            </div>
+            <div class="mt-4 sm:mt-0 sm:ml-6 w-full">
+              <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+                <h1 id="profile-name" class="font-lora text-2xl md:text-3xl font-bold text-gray-900">
+                  Sobat SK!
+                </h1>
+                <span
+                  class="flex items-center gap-1.5 px-3 py-1 bg-green-100 text-green-800 text-xs font-bold rounded-full">
+                  <i class="fas fa-check-circle"></i> Kontributor
+                  Terverifikasi
+                </span>
+              </div>
+              <p class="text-base md:text-lg text-gray-700 mt-1">
+                EcoWarrior Level 5 | Pahlawan Lingkungan
+              </p>
+              <p class="text-sm text-gray-500 mt-2 flex items-center gap-2">
+                <i class="fas fa-map-marker-alt"></i> Jakarta Selatan,
+                Indonesia
+              </p>
+              <div class="flex items-center gap-2 text-sm text-gray-500 mt-1">
+                <i class="fas fa-leaf text-green-600"></i><span>Anggota EcoWaste Connect</span>
+              </div>
+            </div>
           </div>
 
-          <div class="p-6 md:p-8">
-            <div class="relative flex flex-col sm:flex-row items-start">
-              <div
-                class="relative -mt-24 md:-mt-32 w-28 h-28 md:w-36 md:h-36 flex-shrink-0"
-              >
-                <img
-                  src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400"
-                  alt="Foto Profil"
-                  class="w-full h-full rounded-full object-cover border-4 border-white shadow-md"
-                />
-              </div>
-              <div class="mt-4 sm:mt-0 sm:ml-6 w-full">
-                <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
-                  <h1
-                    class="font-lora text-2xl md:text-3xl font-bold text-gray-900"
-                  >
-                    Rina Setyawati
-                  </h1>
-                  <span
-                    class="flex items-center gap-1.5 px-3 py-1 bg-green-100 text-green-800 text-xs font-bold rounded-full"
-                  >
-                    <i class="fas fa-check-circle"></i> Kontributor
-                    Terverifikasi
-                  </span>
-                </div>
-                <p class="text-base md:text-lg text-gray-700 mt-1">
-                  EcoWarrior Level 5 | Pahlawan Lingkungan
-                </p>
-                <p class="text-sm text-gray-500 mt-2 flex items-center gap-2">
-                  <i class="fas fa-map-marker-alt"></i> Jakarta Selatan,
-                  Indonesia
-                </p>
-                <div class="flex items-center gap-2 text-sm text-gray-500 mt-1">
-                  <i class="fas fa-leaf text-green-600"></i
-                  ><span>Anggota EcoWaste Connect</span>
-                </div>
-              </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 my-8 py-6 border-y border-gray-200">
+            <div class="text-center">
+              <p class="font-lora text-3xl font-bold text-green-600">
+                10,200
+              </p>
+              <p class="text-sm font-semibold text-gray-500">Total Poin</p>
             </div>
-
-            <div
-              class="grid grid-cols-1 sm:grid-cols-3 gap-6 my-8 py-6 border-y border-gray-200"
-            >
-              <div class="text-center">
-                <p class="font-lora text-3xl font-bold text-green-600">
-                  10,200
-                </p>
-                <p class="text-sm font-semibold text-gray-500">Total Poin</p>
-              </div>
-              <div class="text-center">
-                <p class="font-lora text-3xl font-bold text-green-600">#2</p>
-                <p class="text-sm font-semibold text-gray-500">
-                  Peringkat di Leaderboard
-                </p>
-              </div>
-              <div class="text-center">
-                <p class="font-lora text-3xl font-bold text-green-600">
-                  152 kg
-                </p>
-                <p class="text-sm font-semibold text-gray-500">
-                  Total Sampah Disetor
-                </p>
-              </div>
+            <div class="text-center">
+              <p class="font-lora text-3xl font-bold text-green-600">#2</p>
+              <p class="text-sm font-semibold text-gray-500">
+                Peringkat di Leaderboard
+              </p>
             </div>
+            <div class="text-center">
+              <p class="font-lora text-3xl font-bold text-green-600">
+                152 kg
+              </p>
+              <p class="text-sm font-semibold text-gray-500">
+                Total Sampah Disetor
+              </p>
+            </div>
+          </div>
 
-            <div>
-              <h2 class="text-xl font-bold text-gray-800 mb-4">Feed Terbaru</h2>
-              <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <a
-                  href="#"
-                  class="group block bg-gray-50 rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition-shadow"
-                >
-                  <div class="h-48 overflow-hidden">
-                    <img
-                      src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800"
-                      alt="Postingan Sampah"
-                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
+          <div>
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Feed Terbaru</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <a href="#"
+                class="group block bg-gray-50 rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition-shadow">
+                <div class="h-48 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800"
+                    alt="Postingan Sampah"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                </div>
+                <div class="p-4">
+                  <p class="text-gray-700 text-sm truncate">
+                    Berhasil setor 5kg plastik dan 2kg kertas ke Bank Sampah
+                    Jaya Lestari hari ini! Bangga bisa ikut berkontribusi...
+                  </p>
+                  <div class="flex justify-between items-center text-xs text-gray-500 mt-3">
+                    <span class="font-semibold"><i class="far fa-heart mr-1 text-red-400"></i> 25
+                      Suka</span>
+                    <span>2 hari yang lalu</span>
                   </div>
-                  <div class="p-4">
-                    <p class="text-gray-700 text-sm truncate">
-                      Berhasil setor 5kg plastik dan 2kg kertas ke Bank Sampah
-                      Jaya Lestari hari ini! Bangga bisa ikut berkontribusi...
+                </div>
+              </a>
+
+              <a href="#"
+                class="group block bg-gray-50 rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition-shadow">
+                <div class="p-4 h-full flex flex-col justify-between">
+                  <div>
+                    <p class="text-gray-700 text-sm mb-4">
+                      Baru selesai membuat kompos dari sisa sayuran di dapur.
+                      Prosesnya sederhana dan hasilnya luar biasa untuk
+                      tanaman di rumah! #KomposOrganik
                     </p>
-                    <div
-                      class="flex justify-between items-center text-xs text-gray-500 mt-3"
-                    >
-                      <span class="font-semibold"
-                        ><i class="far fa-heart mr-1 text-red-400"></i> 25
-                        Suka</span
-                      >
-                      <span>2 hari yang lalu</span>
-                    </div>
                   </div>
-                </a>
+                  <div class="flex justify-between items-center text-xs text-gray-500 mt-3">
+                    <span class="font-semibold"><i class="far fa-heart mr-1 text-red-400"></i> 18
+                      Suka</span>
+                    <span>4 hari yang lalu</span>
+                  </div>
+                </div>
+              </a>
 
-                <a
-                  href="#"
-                  class="group block bg-gray-50 rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition-shadow"
-                >
-                  <div class="p-4 h-full flex flex-col justify-between">
-                    <div>
-                      <p class="text-gray-700 text-sm mb-4">
-                        Baru selesai membuat kompos dari sisa sayuran di dapur.
-                        Prosesnya sederhana dan hasilnya luar biasa untuk
-                        tanaman di rumah! #KomposOrganik
-                      </p>
-                    </div>
-                    <div
-                      class="flex justify-between items-center text-xs text-gray-500 mt-3"
-                    >
-                      <span class="font-semibold"
-                        ><i class="far fa-heart mr-1 text-red-400"></i> 18
-                        Suka</span
-                      >
-                      <span>4 hari yang lalu</span>
-                    </div>
+              <a href="#"
+                class="group block bg-gray-50 rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition-shadow">
+                <div class="h-48 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800"
+                    alt="Postingan Botol"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                </div>
+                <div class="p-4">
+                  <p class="text-gray-700 text-sm truncate">
+                    Mengumpulkan botol-botol bekas dari acara kantor kemarin.
+                    Jangan biarkan berakhir di TPA!
+                  </p>
+                  <div class="flex justify-between items-center text-xs text-gray-500 mt-3">
+                    <span class="font-semibold"><i class="far fa-heart mr-1 text-red-400"></i> 32
+                      Suka</span>
+                    <span>1 minggu yang lalu</span>
                   </div>
-                </a>
+                </div>
+              </a>
 
-                <a
-                  href="#"
-                  class="group block bg-gray-50 rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition-shadow"
-                >
-                  <div class="h-48 overflow-hidden">
-                    <img
-                      src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800"
-                      alt="Postingan Botol"
-                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div class="p-4">
-                    <p class="text-gray-700 text-sm truncate">
-                      Mengumpulkan botol-botol bekas dari acara kantor kemarin.
-                      Jangan biarkan berakhir di TPA!
+              <a href="#"
+                class="group block bg-gray-50 rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition-shadow">
+                <div class="p-4 h-full flex flex-col justify-between">
+                  <div>
+                    <p class="text-gray-700 text-sm mb-4">
+                      Apakah ada yang punya tips untuk mendaur ulang kemasan
+                      sachet? Masih bingung bagaimana cara mengelolanya dengan
+                      benar. #TanyaEcoWaste
                     </p>
-                    <div
-                      class="flex justify-between items-center text-xs text-gray-500 mt-3"
-                    >
-                      <span class="font-semibold"
-                        ><i class="far fa-heart mr-1 text-red-400"></i> 32
-                        Suka</span
-                      >
-                      <span>1 minggu yang lalu</span>
-                    </div>
                   </div>
-                </a>
-
-                <a
-                  href="#"
-                  class="group block bg-gray-50 rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition-shadow"
-                >
-                  <div class="p-4 h-full flex flex-col justify-between">
-                    <div>
-                      <p class="text-gray-700 text-sm mb-4">
-                        Apakah ada yang punya tips untuk mendaur ulang kemasan
-                        sachet? Masih bingung bagaimana cara mengelolanya dengan
-                        benar. #TanyaEcoWaste
-                      </p>
-                    </div>
-                    <div
-                      class="flex justify-between items-center text-xs text-gray-500 mt-3"
-                    >
-                      <span class="font-semibold"
-                        ><i class="far fa-heart mr-1 text-red-400"></i> 12
-                        Suka</span
-                      >
-                      <span>2 minggu yang lalu</span>
-                    </div>
+                  <div class="flex justify-between items-center text-xs text-gray-500 mt-3">
+                    <span class="font-semibold"><i class="far fa-heart mr-1 text-red-400"></i> 12
+                      Suka</span>
+                    <span>2 minggu yang lalu</span>
                   </div>
-                </a>
-              </div>
+                </div>
+              </a>
             </div>
           </div>
         </div>
       </div>
-    </main>
-  </body>
+    </div>
+  </main>
+  <script>
+    function load_profile() {
+      fetch("../../api/user_profile")
+        .then(response => response.json())
+        .then(data_profile => {
+          console.log(data_profile);
+          if (data_profile.status == "sukses") {
+            profile_name = document.getElementById("profile-name");
+            profile_desc = document.getElementById("profile-desc");
+
+            profile_name.innerText = data_profile.fullname;
+            profile_desc.innerText = "Aku adalah bagian dari masadepan yang cerah!"
+          }
+        })
+    }
+    load_profile();
+  </script>
+  <script src="../../assets/js/sampahkita_main.js"></script>
+</body>
+
 </html>
