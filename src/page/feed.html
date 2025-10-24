@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Feed Komunitas - EcoWaste Connect</title>
+    <title>Feed Komunitas - EcoWaste Connect</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,7 +13,8 @@
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       rel="stylesheet"
-    />
+    />
+
     <style>
       body {
         font-family: 'Poppins', 'Segoe UI', sans-serif;
@@ -31,15 +32,52 @@
         backdrop-filter: blur(8px);
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
       }
-      .feed-post {
-        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+      dialog {
+        border: none;
+        padding: 0;
+        border-radius: 1rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        max-width: 400px;
+        width: 90%;
       }
-      .feed-post:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+
+      dialog::backdrop {
+        background-color: rgba(0, 0, 0, 0.6);
+      }
+
+      /* TOAST BAR STYLING */
+      #toast-container {
+        position: fixed;
+        top: 1rem;
+        left: 50%;
+        transform: translateX(-50%); /* Memastikan kontainer di tengah */
+        z-index: 10000;
+        pointer-events: none;
+        display: flex; /* Untuk menumpuk toast secara vertikal di tengah */
+        flex-direction: column;
+        align-items: center; /* Memastikan setiap toast di tengah kontainer */
+        width: 100%; /* Agar bisa di-center dengan translateX */
+        max-width: fit-content; /* Atau batasi lebar maksimal jika perlu */
+      }
+      .toast-bar {
+        transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+        opacity: 0;
+        transform: translateY(-100%); /* Masuk dari atas */
+        margin-bottom: 0.75rem; /* Memberikan sedikit jarak antar toast */
+        width: fit-content; /* Agar lebar toast sesuai kontennya */
+        min-width: 250px; /* Lebar minimum agar terlihat */
+      }
+      .toast-bar.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .toast-bar.hide {
+        transform: translateY(-120%); /* Keluar ke atas */
+        opacity: 0;
       }
     </style>
-    <link rel="stylesheet" crossorigin href="/assets/style-dfAWuXzu.css">
+    <link rel="stylesheet" crossorigin href="/assets/style-DINC20y2.css">
   </head>
   <body>
     <header class="sticky-header">
@@ -174,6 +212,7 @@
             />
             <input
               type="text"
+              id="new-post-input"
               placeholder="Apa yang ingin Anda bagikan hari ini, John?"
               class="flex-grow p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none"
             />
@@ -197,6 +236,7 @@
               </button>
             </div>
             <button
+              id="post-new-button"
               class="px-5 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold"
             >
               Posting
@@ -206,16 +246,59 @@
 
         <div
           class="bg-white rounded-xl shadow-md p-6 mb-6 feed-post border border-gray-100"
+          data-post-id="123"
         >
-          <div class="flex items-center mb-4">
-            <img
-              src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400"
-              alt="Profil Pengguna"
-              class="w-12 h-12 rounded-full object-cover mr-4"
-            />
-            <div>
-              <p class="font-semibold text-gray-800">Rina Setyawati</p>
-              <p class="text-sm text-gray-500">@rina_eco • 2 jam yang lalu</p>
+          <div class="flex justify-between items-start mb-4">
+            <div class="flex items-center">
+              <img
+                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400"
+                alt="Profil Pengguna"
+                class="w-12 h-12 rounded-full object-cover mr-4"
+              />
+              <div>
+                <p class="font-semibold text-gray-800">Rina Setyawati</p>
+                <p class="text-sm text-gray-500">@rina_eco • 2 jam yang lalu</p>
+              </div>
+            </div>
+
+            <div class="relative">
+              <button
+                class="text-gray-500 hover:text-gray-700 transition w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center"
+                aria-expanded="false"
+                data-dropdown-toggle
+                data-target-id="menu-123"
+              >
+                <i class="fas fa-ellipsis-v"></i>
+              </button>
+
+              <div
+                id="menu-123"
+                class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-xl py-1 z-10 hidden"
+                role="menu"
+              >
+                <a
+                  href="edit_postingan.html?id=123"
+                  class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-green-600 transition"
+                  role="menuitem"
+                >
+                  <i class="fas fa-edit w-4"></i> Edit Postingan
+                </a>
+                <button
+                  class="w-full text-left flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition"
+                  role="menuitem"
+                  data-action="delete"
+                >
+                  <i class="fas fa-trash-alt w-4"></i> Hapus Postingan
+                </button>
+                <div class="border-t border-gray-100 my-1"></div>
+                <button
+                  class="w-full text-left flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
+                  role="menuitem"
+                  data-action="report"
+                >
+                  <i class="fas fa-flag w-4"></i> Laporkan
+                </button>
+              </div>
             </div>
           </div>
           <p class="text-gray-700 mb-4">
@@ -251,18 +334,61 @@
 
         <div
           class="bg-white rounded-xl shadow-md p-6 mb-6 feed-post border border-gray-100"
+          data-post-id="124"
         >
-          <div class="flex items-center mb-4">
-            <img
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400"
-              alt="Profil Pengguna"
-              class="w-12 h-12 rounded-full object-cover mr-4"
-            />
-            <div>
-              <p class="font-semibold text-gray-800">Andi Pratama</p>
-              <p class="text-sm text-gray-500">
-                @andi_peduli • 5 jam yang lalu
-              </p>
+          <div class="flex justify-between items-start mb-4">
+            <div class="flex items-center">
+              <img
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400"
+                alt="Profil Pengguna"
+                class="w-12 h-12 rounded-full object-cover mr-4"
+              />
+              <div>
+                <p class="font-semibold text-gray-800">Andi Pratama</p>
+                <p class="text-sm text-gray-500">
+                  @andi_peduli • 5 jam yang lalu
+                </p>
+              </div>
+            </div>
+
+            <div class="relative">
+              <button
+                class="text-gray-500 hover:text-gray-700 transition w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center"
+                aria-expanded="false"
+                data-dropdown-toggle
+                data-target-id="menu-124"
+              >
+                <i class="fas fa-ellipsis-v"></i>
+              </button>
+
+              <div
+                id="menu-124"
+                class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-xl py-1 z-10 hidden"
+                role="menu"
+              >
+                <a
+                  href="edit_postingan.html?id=124"
+                  class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-green-600 transition"
+                  role="menuitem"
+                >
+                  <i class="fas fa-edit w-4"></i> Edit Postingan
+                </a>
+                <button
+                  class="w-full text-left flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition"
+                  role="menuitem"
+                  data-action="delete"
+                >
+                  <i class="fas fa-trash-alt w-4"></i> Hapus Postingan
+                </button>
+                <div class="border-t border-gray-100 my-1"></div>
+                <button
+                  class="w-full text-left flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
+                  role="menuitem"
+                  data-action="report"
+                >
+                  <i class="fas fa-flag w-4"></i> Laporkan
+                </button>
+              </div>
             </div>
           </div>
           <p class="text-gray-700 mb-4">
@@ -391,5 +517,266 @@
         </div>
       </div>
     </footer>
+
+    <div id="toast-container"></div>
+    <dialog id="delete-modal">
+      <div class="p-6 md:p-8 bg-white">
+        <header class="mb-4 flex items-center gap-3">
+          <div
+            class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center text-red-600"
+          >
+            <i class="fas fa-exclamation-triangle text-xl"></i>
+          </div>
+          <h2
+            class="text-xl font-bold text-gray-800 font-lora"
+            id="modal-title"
+          >
+            Konfirmasi Penghapusan
+          </h2>
+        </header>
+        <div class="mb-6" id="modal-content">
+          <p class="text-gray-600">
+            Apakah Anda <strong>yakin</strong> ingin menghapus postingan ini?
+            Tindakan ini <strong>tidak dapat dibatalkan</strong>.
+          </p>
+          <input type="hidden" id="post-to-delete-id" value="" />
+        </div>
+        <footer class="flex justify-end gap-3">
+          <button
+            id="cancel-delete-button"
+            class="w-full sm:w-auto px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition font-semibold text-sm"
+          >
+            Batal
+          </button>
+          <button
+            id="confirm-delete-button"
+            class="w-full sm:w-auto px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-semibold text-sm"
+          >
+            <i class="fas fa-trash-alt mr-1"></i> Hapus Permanen
+          </button>
+        </footer>
+      </div>
+    </dialog>
+
+    <script>
+      // =======================================================
+      // DOM ELEMENTS
+      // =======================================================
+      const deleteModal = document.getElementById('delete-modal');
+      const confirmDeleteButton = document.getElementById(
+        'confirm-delete-button'
+      );
+      const cancelDeleteButton = document.getElementById(
+        'cancel-delete-button'
+      );
+      const postToDeleteIdInput = document.getElementById('post-to-delete-id');
+      const postNewButton = document.getElementById('post-new-button'); // Tombol Posting baru
+      const newPostInput = document.getElementById('new-post-input'); // Input Post baru
+      const toastContainer = document.getElementById('toast-container'); // Container Toast
+
+      // =======================================================
+      // TOAST BAR FUNCTION
+      // =======================================================
+
+      /**
+       * Menampilkan Toast Bar di pojok kanan atas.
+       * @param {string} message - Pesan yang akan ditampilkan.
+       * @param {string} type - Tipe pesan ('success' atau 'error').
+       * @param {number} duration - Durasi tampilan (ms). Default: 3000ms.
+       */
+      function showToast(message, type = 'success', duration = 3000) {
+        const icon =
+          type === 'success' ? 'fas fa-check-circle' : 'fas fa-times-circle';
+        const colorClass = type === 'success' ? 'bg-green-500' : 'bg-red-500';
+
+        // Buat elemen toast
+        const toast = document.createElement('div');
+        toast.className = `toast-bar ${colorClass} text-white px-4 py-3 rounded-lg shadow-xl max-w-xs`;
+        toast.innerHTML = `
+          <div class="flex items-center gap-3">
+            <i class="${icon} text-lg"></i>
+            <span class="font-semibold text-sm">${message}</span>
+          </div>
+        `;
+
+        // Tambahkan toast ke bagian atas container
+        toastContainer.prepend(toast);
+
+        // Paksa reflow agar CSS transition bekerja
+        void toast.offsetWidth;
+
+        // Tampilkan toast
+        toast.classList.add('show');
+
+        // Sembunyikan dan hapus toast setelah durasi
+        setTimeout(() => {
+          toast.classList.remove('show');
+          toast.classList.add('hide');
+
+          // Hapus elemen dari DOM setelah transisi selesai
+          toast.addEventListener('transitionend', () => {
+            if (toast.classList.contains('hide')) {
+              toast.remove();
+            }
+          });
+        }, duration);
+      }
+
+      // =======================================================
+      // DROP DOWN LOGIC (Toggle dan Outside Click)
+      // =======================================================
+      function toggleDropdown(button) {
+        const targetId = button.getAttribute('data-target-id');
+        const menu = document.getElementById(targetId);
+        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+        // 1. Tutup SEMUA dropdown yang sedang terbuka
+        document
+          .querySelectorAll('[data-dropdown-toggle][aria-expanded="true"]')
+          .forEach(openButton => {
+            if (openButton !== button) {
+              const openMenu = document.getElementById(
+                openButton.getAttribute('data-target-id')
+              );
+              openButton.setAttribute('aria-expanded', 'false');
+              if (openMenu) openMenu.classList.add('hidden');
+            }
+          });
+
+        // 2. Toggle (Buka/Tutup) dropdown yang ditargetkan
+        if (menu) {
+          if (isExpanded) {
+            button.setAttribute('aria-expanded', 'false');
+            menu.classList.add('hidden');
+          } else {
+            button.setAttribute('aria-expanded', 'true');
+            menu.classList.remove('hidden');
+          }
+        }
+      }
+
+      // 3. Event Listener untuk semua tombol toggle
+      document.querySelectorAll('[data-dropdown-toggle]').forEach(button => {
+        button.addEventListener('click', event => {
+          event.stopPropagation();
+          toggleDropdown(button);
+        });
+      });
+
+      // 4. Penanganan "Outside Click" untuk menutup semua dropdown
+      document.addEventListener('click', event => {
+        document
+          .querySelectorAll('[data-dropdown-toggle][aria-expanded="true"]')
+          .forEach(button => {
+            const targetId = button.getAttribute('data-target-id');
+            const menu = document.getElementById(targetId);
+
+            // Cek apakah klik TIDAK berasal dari tombol ATAU menu itu sendiri
+            if (
+              !button.contains(event.target) &&
+              menu &&
+              !menu.contains(event.target)
+            ) {
+              button.setAttribute('aria-expanded', 'false');
+              menu.classList.add('hidden');
+            }
+          });
+      });
+
+      // =======================================================
+      // MODAL & POST ACTIONS LOGIC
+      // =======================================================
+
+      // SIMULASI: Tambah Post (Tombol Posting)
+      postNewButton.addEventListener('click', () => {
+        const postText = newPostInput.value.trim();
+        if (postText) {
+          // Simulasi kirim data ke server (Asumsi berhasil)
+          console.log('Posting baru:', postText);
+
+          // Tampilkan Toast Sukses
+          showToast('Postingan berhasil ditambahkan!');
+
+          // Bersihkan input
+          newPostInput.value = '';
+
+          // Tambahkan logika untuk menambahkan elemen post baru ke DOM di sini
+        } else {
+          showToast('Isi postingan tidak boleh kosong.', 'error');
+        }
+      });
+
+      // 5. Penanganan Aksi (Delete) yang memicu Modal
+      document.addEventListener('click', event => {
+        const actionButton = event.target.closest('[data-action]');
+        if (actionButton) {
+          const action = actionButton.getAttribute('data-action');
+          const postContainer = actionButton.closest('.feed-post');
+          const postId = postContainer
+            ? postContainer.getAttribute('data-post-id')
+            : null;
+
+          // Tutup menu dropdown setelah aksi dipilih
+          const menu = actionButton.closest('div[role="menu"]');
+          const toggleButton = menu
+            ? document.querySelector(`[data-target-id="${menu.id}"]`)
+            : null;
+          if (toggleButton) {
+            toggleButton.setAttribute('aria-expanded', 'false');
+            menu.classList.add('hidden');
+          }
+
+          if (action === 'delete' && postId) {
+            postToDeleteIdInput.value = postId;
+            deleteModal.showModal();
+          } else if (action === 'report') {
+            alert('Anda memilih Laporkan untuk ID: ' + postId);
+          }
+        }
+      });
+
+      // 6. Logika Tutup Modal via Backdrop (Outside Click)
+      deleteModal.addEventListener('click', event => {
+        const dialogDimensions = deleteModal.getBoundingClientRect();
+        if (
+          event.clientX < dialogDimensions.left ||
+          event.clientX > dialogDimensions.right ||
+          event.clientY < dialogDimensions.top ||
+          event.clientY > dialogDimensions.bottom
+        ) {
+          deleteModal.close('backdrop');
+        }
+      });
+
+      // 7. Logika Tutup Modal via Tombol Batal
+      cancelDeleteButton.addEventListener('click', () => {
+        deleteModal.close('batal');
+      });
+
+      // 8. Logika Konfirmasi Hapus
+      confirmDeleteButton.addEventListener('click', () => {
+        deleteModal.close('hapus');
+      });
+
+      // 9. Tindakan Pasca-Tutup Modal
+      deleteModal.addEventListener('close', () => {
+        const postId = postToDeleteIdInput.value;
+        const result = deleteModal.returnValue;
+
+        if (result === 'hapus' && postId) {
+          // --- LOGIKA HAPUS POSTINGAN YANG SEBENARNYA DI SINI ---
+          console.log(`Menghapus postingan dengan ID: ${postId}...`);
+
+          // Tampilkan Toast Sukses Penghapusan
+          showToast(`Postingan ID ${postId} berhasil dihapus!`);
+
+          // Opsional: Hapus elemen DOM post di sini
+          // document.querySelector(`[data-post-id="${postId}"]`).remove();
+        } else {
+          console.log(`Aksi dibatalkan. Return value: ${result}`);
+        }
+        postToDeleteIdInput.value = '';
+      });
+    </script>
   </body>
 </html>

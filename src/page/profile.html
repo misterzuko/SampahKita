@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Profil Pengguna - EcoWaste Connect</title>
-    <link rel="stylesheet" crossorigin href="/assets/style-dfAWuXzu.css" />
+    <link rel="stylesheet" crossorigin href="/assets/style-DINC20y2.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -31,6 +31,76 @@
         background-color: rgba(255, 255, 255, 0.8);
         backdrop-filter: blur(8px);
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+      /* Custom utility for History Status colors */
+      .status-metal {
+        background-color: #a0aec0;
+        color: #2d3748;
+      }
+      .status-plastik {
+        background-color: #63b3ed;
+        color: #1e3a8a;
+      }
+      .status-kaca {
+        background-color: #81e6d9;
+        color: #065f46;
+      }
+      .status-kertas {
+        background-color: #f6ad55;
+        color: #78350f;
+      }
+
+      /* Styling untuk Tab aktif */
+      .tab-active {
+        border-bottom: 3px solid #10b981; /* green-500 */
+        color: #047857; /* green-700 */
+        font-weight: 600;
+      }
+
+      /* STYLING MODAL FORM */
+      dialog {
+        border: none;
+        padding: 0;
+        border-radius: 1rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        max-width: 768px; /* Lebih lebar untuk form yang panjang */
+        width: 90%;
+        max-height: 90vh; /* Batasi tinggi viewport */
+        overflow-y: auto; /* Aktifkan scroll jika kontennya panjang */
+      }
+      dialog::backdrop {
+        background-color: rgba(0, 0, 0, 0.6);
+      }
+
+      /* TOAST BAR STYLING */
+      #toast-container {
+        position: fixed;
+        top: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10000;
+        pointer-events: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: fit-content;
+      }
+      .toast-bar {
+        transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+        opacity: 0;
+        transform: translateY(-100%);
+        margin-bottom: 0.75rem;
+        width: fit-content;
+        min-width: 250px;
+      }
+      .toast-bar.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .toast-bar.hide {
+        transform: translateY(-120%);
+        opacity: 0;
       }
     </style>
   </head>
@@ -101,29 +171,44 @@
                 class="relative -mt-24 md:-mt-32 w-28 h-28 md:w-36 md:h-36 flex-shrink-0"
               >
                 <img
+                  id="profile-img-display"
                   src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400"
                   alt="Foto Profil"
                   class="w-full h-full rounded-full object-cover border-4 border-white shadow-md"
                 />
               </div>
               <div class="mt-4 sm:mt-0 sm:ml-6 w-full">
-                <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
-                  <h1
-                    class="font-lora text-2xl md:text-3xl font-bold text-gray-900"
+                <div
+                  class="flex flex-wrap items-center justify-between gap-x-4 gap-y-2"
+                >
+                  <div class="flex items-center gap-x-4">
+                    <h1
+                      class="font-lora text-2xl md:text-3xl font-bold text-gray-900"
+                      id="profile-name"
+                    >
+                      Rina Setyawati
+                    </h1>
+                    <span
+                      class="flex items-center gap-1.5 px-3 py-1 bg-green-100 text-green-800 text-xs font-bold rounded-full"
+                    >
+                      <i class="fas fa-check-circle"></i> Kontributor
+                      Terverifikasi
+                    </span>
+                  </div>
+                  <button
+                    id="edit-profile-btn"
+                    class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition font-semibold text-sm flex items-center gap-2"
                   >
-                    Rina Setyawati
-                  </h1>
-                  <span
-                    class="flex items-center gap-1.5 px-3 py-1 bg-green-100 text-green-800 text-xs font-bold rounded-full"
-                  >
-                    <i class="fas fa-check-circle"></i> Kontributor
-                    Terverifikasi
-                  </span>
+                    <i class="fas fa-user-edit"></i> Edit Profil
+                  </button>
                 </div>
                 <p class="text-base md:text-lg text-gray-700 mt-1">
                   EcoWarrior Level 5 | Pahlawan Lingkungan
                 </p>
-                <p class="text-sm text-gray-500 mt-2 flex items-center gap-2">
+                <p
+                  class="text-sm text-gray-500 mt-2 flex items-center gap-2"
+                  id="profile-location"
+                >
                   <i class="fas fa-map-marker-alt"></i> Jakarta Selatan,
                   Indonesia
                 </p>
@@ -159,7 +244,24 @@
               </div>
             </div>
 
-            <div>
+            <div class="border-b border-gray-200 mb-6">
+              <nav class="flex space-x-8">
+                <button
+                  class="py-3 text-gray-500 hover:text-green-700 transition tab-active"
+                  data-tab="feed"
+                >
+                  <i class="fas fa-newspaper mr-2"></i> Feed Terbaru
+                </button>
+                <button
+                  class="py-3 text-gray-500 hover:text-green-700 transition"
+                  data-tab="scan-history"
+                >
+                  <i class="fas fa-history mr-2"></i> History Scan
+                </button>
+              </nav>
+            </div>
+
+            <div id="tab-feed" class="tab-content">
               <h2 class="text-xl font-bold text-gray-800 mb-4">Feed Terbaru</h2>
               <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <a
@@ -267,9 +369,1249 @@
                 </a>
               </div>
             </div>
+
+            <div id="tab-scan-history" class="tab-content hidden">
+              <h2 class="text-xl font-bold text-gray-800 mb-4">
+                Riwayat Scan Sampah
+              </h2>
+
+              <div class="overflow-x-auto bg-white rounded-lg border">
+                <table class="min-w-full divide-y divide-gray-200">
+                  <thead class="bg-gray-50">
+                    <tr>
+                      <th
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        Tanggal Scan
+                      </th>
+                      <th
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        Hasil Scan
+                      </th>
+                      <th
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        Aksi
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-200">
+                    <tr>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                      >
+                        24 Okt 2025, 10:30
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <span
+                          class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full status-plastik"
+                        >
+                          Plastik PET
+                        </span>
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm font-medium"
+                      >
+                        <a
+                          href="bank_sampah.html"
+                          class="px-3 py-2.5 bg-green-500 text-white rounded-md text-xs hover:bg-green-600 transition"
+                          >Jadikan Uang</a
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                      >
+                        23 Okt 2025, 17:15
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <span
+                          class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full status-kaca"
+                        >
+                          Kaca Botol
+                        </span>
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm font-medium"
+                      >
+                        <a
+                          href="bank_sampah.html"
+                          class="px-3 py-2.5 bg-green-500 text-white rounded-md text-xs hover:bg-green-600 transition"
+                          >Jadikan Uang</a
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                      >
+                        22 Okt 2025, 08:05
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <span
+                          class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full status-kertas"
+                        >
+                          Kertas Karton
+                        </span>
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm font-medium"
+                      >
+                        <a
+                          href="bank_sampah.html"
+                          class="px-3 py-2.5 bg-green-500 text-white rounded-md text-xs hover:bg-green-600 transition"
+                          >Jadikan Uang</a
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                      >
+                        20 Okt 2025, 12:45
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <span
+                          class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full status-metal"
+                        >
+                          Metal Kaleng
+                        </span>
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm font-medium"
+                      >
+                        <a
+                          href="bank_sampah.html"
+                          class="px-3 py-2.5 bg-green-500 text-white rounded-md text-xs hover:bg-green-600 transition"
+                          >Jadikan Uang</a
+                        >
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </main>
+
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-8 mb-12">
+          <div>
+            <div class="flex items-center gap-2 mb-4">
+              <div
+                class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center"
+              >
+                <i class="fas fa-leaf"></i>
+              </div>
+              <span class="text-2xl font-bold">EcoWaste</span>
+            </div>
+            <p class="text-gray-400 text-sm">
+              Platform digital untuk manajemen sampah yang efisien dan
+              berkelanjutan.
+            </p>
+          </div>
+          <div>
+            <h4 class="text-lg font-bold mb-4">Halaman</h4>
+            <ul class="space-y-2 text-gray-400 font-semibold">
+              <li>
+                <a
+                  href="bank_sampah.html"
+                  class="hover:text-green-400 transition"
+                  >Bank Sampah</a
+                >
+              </li>
+              <li>
+                <a href="feed.html" class="hover:text-green-400 transition"
+                  >Feed</a
+                >
+              </li>
+              <li>
+                <a
+                  href="leaderboard.html"
+                  class="hover:text-green-400 transition"
+                  >Leaderboard</a
+                >
+              </li>
+              <li>
+                <a
+                  href="src/page/about_us.html"
+                  class="hover:text-green-400 transition"
+                  >Tentang Kami</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-bold mb-4">Hubungi Kami</h4>
+            <ul class="space-y-2 text-gray-400 font-semibold">
+              <li>
+                <a
+                  href="mailto:info@ecowaste.com"
+                  class="hover:text-green-400 transition"
+                  >info@ecowaste.com</a
+                >
+              </li>
+              <li>
+                <a
+                  href="tel:+62123456789"
+                  class="hover:text-green-400 transition"
+                  >+62 123 4567 890</a
+                >
+              </li>
+              <li class="text-sm">Jl. Hijau No. 123, Semarang</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-bold mb-4">Ikuti Kami</h4>
+            <div class="flex gap-4">
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"
+                ><i class="fab fa-facebook"></i
+              ></a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"
+                ><i class="fab fa-youtube"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+          <p>&copy; 2025 EcoWaste Connect. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <div id="toast-container"></div>
+    <dialog id="edit-profile-modal">
+      <div class="p-6 md:p-8 bg-white">
+        <header class="mb-6 flex justify-between items-center">
+          <h2 class="font-lora text-2xl font-bold text-gray-800">
+            Edit Informasi Profil
+          </h2>
+          <button
+            class="text-gray-500 hover:text-gray-700"
+            id="close-modal-btn"
+          >
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </header>
+
+        <form id="edit-profile-form">
+          <div class="space-y-6">
+            <div class="flex items-center gap-6 border-b pb-4">
+              <div class="w-20 h-20 flex-shrink-0 relative">
+                <img
+                  id="modal-profile-preview"
+                  src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400"
+                  alt="Preview Foto Profil"
+                  class="w-full h-full rounded-full object-cover border-2 border-green-500"
+                />
+                <label
+                  for="profile-image-upload"
+                  class="absolute bottom-0 right-0 w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center cursor-pointer hover:bg-green-600 transition"
+                  title="Ganti Foto"
+                >
+                  <i class="fas fa-camera text-xs"></i>
+                </label>
+                <input
+                  type="file"
+                  id="profile-image-upload"
+                  name="profile_image"
+                  class="hidden"
+                  accept="image/*"
+                />
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-700">Foto Profil</h3>
+                <p class="text-sm text-gray-500">
+                  Gunakan foto wajah yang jelas.
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <label
+                for="full-name"
+                class="block text-sm font-semibold text-gray-700 mb-1"
+                >Nama Lengkap</label
+              >
+              <input
+                type="text"
+                id="full-name"
+                name="full_name"
+                value="Rina Setyawati"
+                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+              />
+            </div>
+
+            <div>
+              <label
+                for="bio"
+                class="block text-sm font-semibold text-gray-700 mb-1"
+                >Bio Singkat</label
+              >
+              <textarea
+                id="bio"
+                name="bio"
+                rows="3"
+                placeholder="Ceritakan tentang diri Anda..."
+                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none resize-none"
+              >
+EcoWarrior Level 5 | Pahlawan Lingkungan</textarea
+              >
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label
+                  for="province"
+                  class="block text-sm font-semibold text-gray-700 mb-1"
+                  >Provinsi</label
+                >
+                <select
+                  id="province"
+                  name="province"
+                  class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none bg-white"
+                ></select>
+              </div>
+              <div>
+                <label
+                  for="city"
+                  class="block text-sm font-semibold text-gray-700 mb-1"
+                  >Kota/Kabupaten</label
+                >
+                <select
+                  id="city"
+                  name="city"
+                  class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none bg-white"
+                ></select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label
+                  for="email"
+                  class="block text-sm font-semibold text-gray-700 mb-1"
+                  >Email</label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value="rina.setyawati@mail.com"
+                  class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+                />
+              </div>
+              <div>
+                <label
+                  for="phone"
+                  class="block text-sm font-semibold text-gray-700 mb-1"
+                  >Nomor Telepon</label
+                >
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value="081234567890"
+                  class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
+                for="birth-date"
+                class="block text-sm font-semibold text-gray-700 mb-1"
+                >Tanggal Lahir</label
+              >
+              <input
+                type="date"
+                id="birth-date"
+                name="birth_date"
+                value="1995-05-15"
+                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+              />
+            </div>
+          </div>
+
+          <div class="flex justify-end gap-3 mt-8 pt-4 border-t">
+            <button
+              type="button"
+              id="cancel-edit-btn"
+              class="px-5 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition font-semibold"
+            >
+              Batal
+            </button>
+            <button
+              type="submit"
+              class="px-5 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold flex items-center gap-2"
+            >
+              <i class="fas fa-save"></i> Simpan Perubahan
+            </button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+    <script>
+      // =======================================================
+      // DUMMY DATA LOKASI INDONESIA
+      // =======================================================
+      const INDONESIA_LOCATIONS = {
+        Aceh: [
+          'Banda Aceh',
+          'Sabang',
+          'Lhokseumawe',
+          'Langsa',
+          'Subulussalam',
+          'Kab. Aceh Barat',
+          'Kab. Aceh Barat Daya',
+          'Kab. Aceh Besar',
+          'Kab. Aceh Jaya',
+          'Kab. Aceh Selatan',
+          'Kab. Aceh Singkil',
+          'Kab. Aceh Tamiang',
+          'Kab. Aceh Tengah',
+          'Kab. Aceh Tenggara',
+          'Kab. Aceh Timur',
+          'Kab. Aceh Utara',
+          'Kab. Bener Meriah',
+          'Kab. Bireuen',
+          'Kab. Gayo Lues',
+          'Kab. Nagan Raya',
+          'Kab. Pidie',
+          'Kab. Pidie Jaya',
+          'Kab. Simeulue',
+        ],
+        'Sumatera Utara': [
+          'Medan',
+          'Pematangsiantar',
+          'Binjai',
+          'Tebing Tinggi',
+          'Sibolga',
+          'Tanjungbalai',
+          'Padangsidimpuan',
+          'Gunungsitoli',
+          'Kab. Asahan',
+          'Kab. Batubara',
+          'Kab. Dairi',
+          'Kab. Deli Serdang',
+          'Kab. Humbang Hasundutan',
+          'Kab. Karo',
+          'Kab. Labuhanbatu',
+          'Kab. Labuhanbatu Selatan',
+          'Kab. Labuhanbatu Utara',
+          'Kab. Langkat',
+          'Kab. Mandailing Natal',
+          'Kab. Nias',
+          'Kab. Nias Barat',
+          'Kab. Nias Selatan',
+          'Kab. Nias Utara',
+          'Kab. Padang Lawas',
+          'Kab. Padang Lawas Utara',
+          'Kab. Pakpak Bharat',
+          'Kab. Samosir',
+          'Kab. Serdang Bedagai',
+          'Kab. Simalungun',
+          'Kab. Tapanuli Selatan',
+          'Kab. Tapanuli Tengah',
+          'Kab. Tapanuli Utara',
+          'Kab. Toba',
+        ],
+        'Sumatera Barat': [
+          'Padang',
+          'Bukittinggi',
+          'Payakumbuh',
+          'Pariaman',
+          'Sawahlunto',
+          'Solok',
+          'Padang Panjang',
+          'Kab. Agam',
+          'Kab. Dharmasraya',
+          'Kab. Kepulauan Mentawai',
+          'Kab. Lima Puluh Kota',
+          'Kab. Padang Pariaman',
+          'Kab. Pasaman',
+          'Kab. Pasaman Barat',
+          'Kab. Pesisir Selatan',
+          'Kab. Sijunjung',
+          'Kab. Solok',
+          'Kab. Solok Selatan',
+          'Kab. Tanah Datar',
+        ],
+        Riau: [
+          'Pekanbaru',
+          'Dumai',
+          'Kab. Bengkalis',
+          'Kab. Indragiri Hilir',
+          'Kab. Indragiri Hulu',
+          'Kab. Kampar',
+          'Kab. Kuantan Singingi',
+          'Kab. Pelalawan',
+          'Kab. Rokan Hilir',
+          'Kab. Rokan Hulu',
+          'Kab. Siak',
+          'Kab. Kepulauan Meranti',
+        ],
+        'Kepulauan Riau': [
+          'Tanjung Pinang',
+          'Batam',
+          'Kab. Bintan',
+          'Kab. Karimun',
+          'Kab. Natuna',
+          'Kab. Lingga',
+          'Kab. Kepulauan Anambas',
+        ],
+        Jambi: [
+          'Jambi',
+          'Sungai Penuh',
+          'Kab. Batanghari',
+          'Kab. Bungo',
+          'Kab. Kerinci',
+          'Kab. Merangin',
+          'Kab. Muaro Jambi',
+          'Kab. Sarolangun',
+          'Kab. Tanjung Jabung Barat',
+          'Kab. Tanjung Jabung Timur',
+          'Kab. Tebo',
+        ],
+        'Sumatera Selatan': [
+          'Palembang',
+          'Prabumulih',
+          'Lubuklinggau',
+          'Pagar Alam',
+          'Lahat',
+          'Kab. Banyuasin',
+          'Kab. Empat Lawang',
+          'Kab. Lahat',
+          'Kab. Muara Enim',
+          'Kab. Musi Banyuasin',
+          'Kab. Musi Rawas',
+          'Kab. Musi Rawas Utara',
+          'Kab. Ogan Ilir',
+          'Kab. Ogan Komering Ilir',
+          'Kab. Ogan Komering Ulu',
+          'Kab. Ogan Komering Ulu Selatan',
+          'Kab. Ogan Komering Ulu Timur',
+          'Kab. Penukal Abab Lematang Ilir',
+        ],
+        Bengkulu: [
+          'Bengkulu',
+          'Kab. Bengkulu Selatan',
+          'Kab. Bengkulu Tengah',
+          'Kab. Bengkulu Utara',
+          'Kab. Kaur',
+          'Kab. Kepahiang',
+          'Kab. Lebong',
+          'Kab. Mukomuko',
+          'Kab. Rejang Lebong',
+          'Kab. Seluma',
+        ],
+        Lampung: [
+          'Bandar Lampung',
+          'Metro',
+          'Kab. Lampung Barat',
+          'Kab. Lampung Selatan',
+          'Kab. Lampung Tengah',
+          'Kab. Lampung Timur',
+          'Kab. Lampung Utara',
+          'Kab. Mesuji',
+          'Kab. Pesawaran',
+          'Kab. Pesisir Barat',
+          'Kab. Pringsewu',
+          'Kab. Tanggamus',
+          'Kab. Tulang Bawang',
+          'Kab. Tulang Bawang Barat',
+          'Kab. Way Kanan',
+        ],
+        'Bangka Belitung': [
+          'Pangkal Pinang',
+          'Kab. Bangka',
+          'Kab. Bangka Barat',
+          'Kab. Bangka Selatan',
+          'Kab. Bangka Tengah',
+          'Kab. Belitung',
+          'Kab. Belitung Timur',
+        ],
+        'DKI Jakarta': [
+          'Jakarta Pusat',
+          'Jakarta Selatan',
+          'Jakarta Barat',
+          'Jakarta Timur',
+          'Jakarta Utara',
+          'Kab. Kepulauan Seribu',
+        ],
+        'Jawa Barat': [
+          'Bandung',
+          'Bekasi',
+          'Bogor',
+          'Depok',
+          'Cirebon',
+          'Tasikmalaya',
+          'Cimahi',
+          'Sukabumi',
+          'Banjar',
+          'Kab. Bandung',
+          'Kab. Bandung Barat',
+          'Kab. Bekasi',
+          'Kab. Bogor',
+          'Kab. Ciamis',
+          'Kab. Cianjur',
+          'Kab. Cirebon',
+          'Kab. Garut',
+          'Kab. Indramayu',
+          'Kab. Karawang',
+          'Kab. Kuningan',
+          'Kab. Majalengka',
+          'Kab. Pangandaran',
+          'Kab. Purwakarta',
+          'Kab. Subang',
+          'Kab. Sukabumi',
+          'Kab. Sumedang',
+          'Kab. Tasikmalaya',
+        ],
+        'Jawa Tengah': [
+          'Semarang',
+          'Surakarta (Solo)',
+          'Magelang',
+          'Tegal',
+          'Pekalongan',
+          'Salatiga',
+          'Klaten',
+          'Kab. Banjarnegara',
+          'Kab. Banyumas',
+          'Kab. Batang',
+          'Kab. Blora',
+          'Kab. Boyolali',
+          'Kab. Brebes',
+          'Kab. Cilacap',
+          'Kab. Demak',
+          'Kab. Grobogan',
+          'Kab. Jepara',
+          'Kab. Karanganyar',
+          'Kab. Kebumen',
+          'Kab. Kendal',
+          'Kab. Klaten',
+          'Kab. Kudus',
+          'Kab. Magelang',
+          'Kab. Pati',
+          'Kab. Pekalongan',
+          'Kab. Pemalang',
+          'Kab. Purbalingga',
+          'Kab. Purworejo',
+          'Kab. Rembang',
+          'Kab. Semarang',
+          'Kab. Sragen',
+          'Kab. Sukoharjo',
+          'Kab. Tegal',
+          'Kab. Temanggung',
+          'Kab. Wonogiri',
+          'Kab. Wonosobo',
+        ],
+        'DI Yogyakarta': [
+          'Yogyakarta',
+          'Kab. Bantul',
+          'Kab. Gunung Kidul',
+          'Kab. Kulon Progo',
+          'Kab. Sleman',
+        ],
+        'Jawa Timur': [
+          'Surabaya',
+          'Malang',
+          'Kediri',
+          'Madiun',
+          'Batu',
+          'Blitar',
+          'Mojokerto',
+          'Probolinggo',
+          'Pasuruan',
+          'Kab. Bangkalan',
+          'Kab. Banyuwangi',
+          'Kab. Blitar',
+          'Kab. Bojonegoro',
+          'Kab. Bondowoso',
+          'Kab. Gresik',
+          'Kab. Jember',
+          'Kab. Jombang',
+          'Kab. Kediri',
+          'Kab. Lamongan',
+          'Kab. Lumajang',
+          'Kab. Madiun',
+          'Kab. Magetan',
+          'Kab. Malang',
+          'Kab. Mojokerto',
+          'Kab. Nganjuk',
+          'Kab. Ngawi',
+          'Kab. Pacitan',
+          'Kab. Pamekasan',
+          'Kab. Pasuruan',
+          'Kab. Probolinggo',
+          'Kab. Sampang',
+          'Kab. Sidoarjo',
+          'Kab. Situbondo',
+          'Kab. Sumenep',
+          'Kab. Trenggalek',
+          'Kab. Tuban',
+          'Kab. Tulungagung',
+        ],
+        Banten: [
+          'Serang',
+          'Tangerang',
+          'Cilegon',
+          'Tangerang Selatan',
+          'Kab. Lebak',
+          'Kab. Pandeglang',
+          'Kab. Serang',
+          'Kab. Tangerang',
+        ],
+        Bali: [
+          'Denpasar',
+          'Kab. Badung',
+          'Kab. Bangli',
+          'Kab. Buleleng',
+          'Kab. Gianyar',
+          'Kab. Jembrana',
+          'Kab. Karangasem',
+          'Kab. Klungkung',
+          'Kab. Tabanan',
+        ],
+        'Nusa Tenggara Barat': [
+          'Mataram',
+          'Bima',
+          'Kab. Bima',
+          'Kab. Dompu',
+          'Kab. Lombok Barat',
+          'Kab. Lombok Tengah',
+          'Kab. Lombok Timur',
+          'Kab. Lombok Utara',
+          'Kab. Sumbawa',
+          'Kab. Sumbawa Barat',
+        ],
+        'Nusa Tenggara Timur': [
+          'Kupang',
+          'Kab. Alor',
+          'Kab. Belu',
+          'Kab. Ende',
+          'Kab. Flores Timur',
+          'Kab. Kupang',
+          'Kab. Lembata',
+          'Kab. Malaka',
+          'Kab. Manggarai',
+          'Kab. Manggarai Barat',
+          'Kab. Manggarai Timur',
+          'Kab. Ngada',
+          'Kab. Nagekeo',
+          'Kab. Rote Ndao',
+          'Kab. Sabu Raijua',
+          'Kab. Sikka',
+          'Kab. Sumba Barat',
+          'Kab. Sumba Barat Daya',
+          'Kab. Sumba Tengah',
+          'Kab. Sumba Timur',
+          'Kab. Timor Tengah Selatan',
+          'Kab. Timor Tengah Utara',
+        ],
+        'Kalimantan Barat': [
+          'Pontianak',
+          'Singkawang',
+          'Kab. Bengkayang',
+          'Kab. Kapuas Hulu',
+          'Kab. Kayong Utara',
+          'Kab. Ketapang',
+          'Kab. Kubu Raya',
+          'Kab. Landak',
+          'Kab. Melawi',
+          'Kab. Mempawah',
+          'Kab. Sambas',
+          'Kab. Sanggau',
+          'Kab. Sekadau',
+          'Kab. Sintang',
+        ],
+        'Kalimantan Selatan': [
+          'Banjarmasin',
+          'Banjarbaru',
+          'Kab. Balangan',
+          'Kab. Banjar',
+          'Kab. Barito Kuala',
+          'Kab. Hulu Sungai Selatan',
+          'Kab. Hulu Sungai Tengah',
+          'Kab. Hulu Sungai Utara',
+          'Kab. Kotabaru',
+          'Kab. Tabalong',
+          'Kab. Tanah Bumbu',
+          'Kab. Tanah Laut',
+          'Kab. Tapin',
+        ],
+        'Kalimantan Tengah': [
+          'Palangkaraya',
+          'Kab. Barito Selatan',
+          'Kab. Barito Timur',
+          'Kab. Barito Utara',
+          'Kab. Gunung Mas',
+          'Kab. Kapuas',
+          'Kab. Katingan',
+          'Kab. Kotawaringin Barat',
+          'Kab. Kotawaringin Timur',
+          'Kab. Lamandau',
+          'Kab. Murung Raya',
+          'Kab. Pulang Pisau',
+          'Kab. Sukamara',
+          'Kab. Seruyan',
+        ],
+        'Kalimantan Timur': [
+          'Samarinda',
+          'Balikpapan',
+          'Bontang',
+          'Kab. Berau',
+          'Kab. Kutai Barat',
+          'Kab. Kutai Kartanegara',
+          'Kab. Kutai Timur',
+          'Kab. Mahakam Ulu',
+          'Kab. Paser',
+          'Kab. Penajam Paser Utara',
+        ],
+        'Kalimantan Utara': [
+          'Tarakan',
+          'Kab. Bulungan',
+          'Kab. Malinau',
+          'Kab. Nunukan',
+          'Kab. Tana Tidung',
+        ],
+        'Sulawesi Utara': [
+          'Manado',
+          'Bitung',
+          'Tomohon',
+          'Kotamobagu',
+          'Kab. Bolaang Mongondow',
+          'Kab. Bolaang Mongondow Selatan',
+          'Kab. Bolaang Mongondow Timur',
+          'Kab. Bolaang Mongondow Utara',
+          'Kab. Kepulauan Sangihe',
+          'Kab. Kepulauan Siau Tagulandang Biaro',
+          'Kab. Kepulauan Talaud',
+          'Kab. Minahasa',
+          'Kab. Minahasa Selatan',
+          'Kab. Minahasa Tenggara',
+          'Kab. Minahasa Utara',
+        ],
+        'Sulawesi Tengah': [
+          'Palu',
+          'Kab. Banggai',
+          'Kab. Banggai Kepulauan',
+          'Kab. Banggai Laut',
+          'Kab. Buol',
+          'Kab. Donggala',
+          'Kab. Morowali',
+          'Kab. Morowali Utara',
+          'Kab. Parigi Moutong',
+          'Kab. Poso',
+          'Kab. Sigi',
+          'Kab. Tojo Una-Una',
+          'Kab. Toli-Toli',
+        ],
+        'Sulawesi Selatan': [
+          'Makassar',
+          'Parepare',
+          'Palopo',
+          'Kab. Bantaeng',
+          'Kab. Barru',
+          'Kab. Bone',
+          'Kab. Bulukumba',
+          'Kab. Enrekang',
+          'Kab. Gowa',
+          'Kab. Jeneponto',
+          'Kab. Kepulauan Selayar',
+          'Kab. Luwu',
+          'Kab. Luwu Timur',
+          'Kab. Luwu Utara',
+          'Kab. Maros',
+          'Kab. Pangkajene dan Kepulauan',
+          'Kab. Pinrang',
+          'Kab. Sidenreng Rappang',
+          'Kab. Sinjai',
+          'Kab. Soppeng',
+          'Kab. Takalar',
+          'Kab. Tana Toraja',
+          'Kab. Toraja Utara',
+          'Kab. Wajo',
+        ],
+        'Sulawesi Tenggara': [
+          'Kendari',
+          'Bau-Bau',
+          'Kab. Bombana',
+          'Kab. Buton',
+          'Kab. Buton Selatan',
+          'Kab. Buton Tengah',
+          'Kab. Buton Utara',
+          'Kab. Kolaka',
+          'Kab. Kolaka Utara',
+          'Kab. Konawe',
+          'Kab. Konawe Selatan',
+          'Kab. Konawe Utara',
+          'Kab. Muna',
+          'Kab. Muna Barat',
+          'Kab. Wakatobi',
+        ],
+        Gorontalo: [
+          'Gorontalo',
+          'Kab. Boalemo',
+          'Kab. Bone Bolango',
+          'Kab. Gorontalo',
+          'Kab. Gorontalo Utara',
+          'Kab. Pohuwato',
+        ],
+        'Sulawesi Barat': [
+          'Mamuju',
+          'Kab. Majene',
+          'Kab. Mamasa',
+          'Kab. Mamuju',
+          'Kab. Mamuju Tengah',
+          'Kab. Pasangkayu',
+          'Kab. Polewali Mandar',
+        ],
+        Maluku: [
+          'Ambon',
+          'Tual',
+          'Kab. Buru',
+          'Kab. Buru Selatan',
+          'Kab. Kepulauan Aru',
+          'Kab. Maluku Barat Daya',
+          'Kab. Maluku Tengah',
+          'Kab. Maluku Tenggara',
+          'Kab. Kepulauan Tanimbar',
+          'Kab. Seram Bagian Barat',
+          'Kab. Seram Bagian Timur',
+        ],
+        'Maluku Utara': [
+          'Ternate',
+          'Tidore Kepulauan',
+          'Kab. Halmahera Barat',
+          'Kab. Halmahera Selatan',
+          'Kab. Halmahera Tengah',
+          'Kab. Halmahera Timur',
+          'Kab. Halmahera Utara',
+          'Kab. Kepulauan Sula',
+          'Kab. Pulau Morotai',
+          'Kab. Pulau Taliabu',
+        ],
+        Papua: [
+          'Jayapura',
+          'Kab. Biak Numfor',
+          'Kab. Jayapura',
+          'Kab. Keerom',
+          'Kab. Kepulauan Yapen',
+          'Kab. Mamberamo Raya',
+          'Kab. Sarmi',
+          'Kab. Supiori',
+          'Kab. Waropen',
+        ],
+        'Papua Barat': [
+          'Manokwari',
+          'Sorong',
+          'Kab. Fakfak',
+          'Kab. Kaimana',
+          'Kab. Manokwari',
+          'Kab. Manokwari Selatan',
+          'Kab. Maybrat',
+          'Kab. Pegunungan Arfak',
+          'Kab. Raja Ampat',
+          'Kab. Sorong',
+          'Kab. Sorong Selatan',
+          'Kab. Tambrauw',
+          'Kab. Teluk Bintuni',
+          'Kab. Teluk Wondama',
+        ],
+        'Papua Selatan': [
+          'Merauke',
+          'Kab. Asmat',
+          'Kab. Boven Digoel',
+          'Kab. Mappi',
+        ],
+        'Papua Tengah': [
+          'Nabire',
+          'Kab. Deiyai',
+          'Kab. Dogiyai',
+          'Kab. Intan Jaya',
+          'Kab. Mimika',
+          'Kab. Paniai',
+          'Kab. Puncak',
+          'Kab. Puncak Jaya',
+        ],
+        'Papua Pegunungan': [
+          'Jayawijaya',
+          'Kab. Lanny Jaya',
+          'Kab. Mamberamo Tengah',
+          'Kab. Nduga',
+          'Kab. Pegunungan Bintang',
+          'Kab. Tolikara',
+          'Kab. Yahukimo',
+          'Kab. Yalimo',
+        ],
+      };
+
+      // =======================================================
+      // TOAST BAR FUNCTION (Reusable)
+      // =======================================================
+      const toastContainer = document.getElementById('toast-container');
+
+      function showToast(message, type = 'success', duration = 3000) {
+        const icon =
+          type === 'success' ? 'fas fa-check-circle' : 'fas fa-times-circle';
+        const colorClass = type === 'success' ? 'bg-green-500' : 'bg-red-500';
+
+        const toast = document.createElement('div');
+        toast.className = `toast-bar ${colorClass} text-white px-4 py-3 rounded-lg shadow-xl max-w-xs`;
+        toast.innerHTML = `
+          <div class="flex items-center gap-3">
+            <i class="${icon} text-lg"></i>
+            <span class="font-semibold text-sm">${message}</span>
+          </div>
+        `;
+
+        toastContainer.prepend(toast);
+        void toast.offsetWidth;
+        toast.classList.add('show');
+
+        setTimeout(() => {
+          toast.classList.remove('show');
+          toast.classList.add('hide');
+
+          toast.addEventListener('transitionend', () => {
+            if (toast.classList.contains('hide')) {
+              toast.remove();
+            }
+          });
+        }, duration);
+      }
+
+      // =======================================================
+      // TAB SWITCHING LOGIC
+      // =======================================================
+      function initTabSwitching() {
+        const tabButtons = document.querySelectorAll('[data-tab]');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        function activateTab(tabName) {
+          tabButtons.forEach(button => {
+            button.classList.remove('tab-active');
+          });
+
+          tabContents.forEach(content => {
+            content.classList.add('hidden');
+          });
+
+          const activeTabButton = document.querySelector(
+            `[data-tab="${tabName}"]`
+          );
+          const activeTabContent = document.getElementById(`tab-${tabName}`);
+
+          if (activeTabButton) {
+            activeTabButton.classList.add('tab-active');
+          }
+          if (activeTabContent) {
+            activeTabContent.classList.remove('hidden');
+          }
+        }
+
+        tabButtons.forEach(button => {
+          button.addEventListener('click', () => {
+            const tabName = button.getAttribute('data-tab');
+            activateTab(tabName);
+          });
+        });
+
+        activateTab('feed');
+      }
+
+      // =======================================================
+      // MODAL EDIT PROFIL LOGIC
+      // =======================================================
+      const modal = document.getElementById('edit-profile-modal');
+      const editBtn = document.getElementById('edit-profile-btn');
+      const closeModalBtn = document.getElementById('close-modal-btn');
+      const cancelEditBtn = document.getElementById('cancel-edit-btn');
+      const profileForm = document.getElementById('edit-profile-form');
+      const provinceSelect = document.getElementById('province');
+      const citySelect = document.getElementById('city');
+      const profileImageUpload = document.getElementById(
+        'profile-image-upload'
+      );
+      const modalProfilePreview = document.getElementById(
+        'modal-profile-preview'
+      );
+
+      // Data dummy untuk diisi kembali (asumsi ini data dari server)
+      const currentProfileData = {
+        fullName: 'Rina Setyawati',
+        bio: 'EcoWarrior Level 5 | Pahlawan Lingkungan',
+        province: 'DKI Jakarta', // Data awal
+        city: 'Jakarta Selatan', // Data awal
+        email: 'rina.setyawati@mail.com',
+        phone: '081234567890',
+        birthDate: '1995-05-15',
+        imgSrc:
+          'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400',
+      };
+
+      // Fungsi untuk mengisi opsi Kota berdasarkan Provinsi
+      function populateCities(selectedProvince) {
+        citySelect.innerHTML =
+          '<option value="" disabled selected>Pilih Kota/Kabupaten</option>';
+        if (INDONESIA_LOCATIONS[selectedProvince]) {
+          INDONESIA_LOCATIONS[selectedProvince].forEach(city => {
+            const option = document.createElement('option');
+            option.value = city;
+            option.textContent = city;
+            // Jika kota saat ini adalah kota yang sedang di edit, set sebagai selected
+            if (city === currentProfileData.city) {
+              option.selected = true;
+            }
+            citySelect.appendChild(option);
+          });
+        }
+      }
+
+      // Fungsi untuk mengisi semua data ke dalam form modal
+      function loadProfileDataToModal() {
+        // Isi input teks
+        document.getElementById('full-name').value =
+          currentProfileData.fullName;
+        document.getElementById('bio').value = currentProfileData.bio;
+        document.getElementById('email').value = currentProfileData.email;
+        document.getElementById('phone').value = currentProfileData.phone;
+        document.getElementById('birth-date').value =
+          currentProfileData.birthDate;
+        modalProfilePreview.src = currentProfileData.imgSrc;
+
+        // Isi Provinsi
+        provinceSelect.innerHTML =
+          '<option value="" disabled selected>Pilih Provinsi</option>';
+        Object.keys(INDONESIA_LOCATIONS).forEach(province => {
+          const option = document.createElement('option');
+          option.value = province;
+          option.textContent = province;
+          if (province === currentProfileData.province) {
+            option.selected = true;
+          }
+          provinceSelect.appendChild(option);
+        });
+
+        // Isi Kota (berdasarkan provinsi yang sudah di set)
+        populateCities(currentProfileData.province);
+      }
+
+      // Event: Tampilkan Modal
+      editBtn.addEventListener('click', () => {
+        loadProfileDataToModal();
+        modal.showModal();
+      });
+
+      // Event: Tutup Modal via Tombol X atau Batal
+      closeModalBtn.addEventListener('click', () => modal.close());
+      cancelEditBtn.addEventListener('click', () => modal.close());
+
+      // Event: Tutup Modal via Backdrop (Outside Click)
+      modal.addEventListener('click', event => {
+        const rect = modal.getBoundingClientRect();
+        if (
+          event.clientX < rect.left ||
+          event.clientX > rect.right ||
+          event.clientY < rect.top ||
+          event.clientY > rect.bottom
+        ) {
+          modal.close();
+        }
+      });
+
+      // Event: Update Kota saat Provinsi berubah
+      provinceSelect.addEventListener('change', e => {
+        populateCities(e.target.value);
+        // Set kota yang diedit ke null/default karena provinsi berubah
+        currentProfileData.city = '';
+      });
+
+      // Event: Preview Gambar saat file dipilih
+      profileImageUpload.addEventListener('change', event => {
+        const file = event.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = e => {
+            modalProfilePreview.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      // Event: Submit Form
+      profileForm.addEventListener('submit', event => {
+        event.preventDefault();
+
+        // 1. Ambil data dari form
+        const formData = new FormData(profileForm);
+        const updatedData = {};
+        formData.forEach((value, key) => {
+          updatedData[key] = value;
+        });
+
+        // Cek apakah ada file gambar baru
+        const imageFile = profileImageUpload.files[0];
+        if (imageFile) {
+          // Di sini harusnya ada logika upload file ke server.
+          console.log('Mengunggah gambar baru...');
+        }
+
+        // 2. Simulasi Kirim data ke server (Ganti ini dengan fetch() yang sesungguhnya)
+        console.log('Data yang dikirim:', updatedData);
+
+        // 3. Update data tampilan utama (simulasi berhasil)
+        currentProfileData.fullName = updatedData.full_name;
+        currentProfileData.bio = updatedData.bio;
+        currentProfileData.province = updatedData.province;
+        currentProfileData.city = updatedData.city;
+        currentProfileData.email = updatedData.email;
+        currentProfileData.phone = updatedData.phone;
+        currentProfileData.birthDate = updatedData.birth_date;
+
+        // Jika gambar diunggah, update imgSrc
+        if (imageFile) {
+          currentProfileData.imgSrc = modalProfilePreview.src;
+        }
+
+        // 4. Update tampilan halaman profil
+        document.getElementById('profile-name').textContent =
+          currentProfileData.fullName;
+        document.getElementById(
+          'profile-location'
+        ).innerHTML = `<i class="fas fa-map-marker-alt"></i> ${currentProfileData.city}, ${currentProfileData.province}`;
+        document.getElementById('profile-img-display').src =
+          currentProfileData.imgSrc;
+
+        // 5. Tutup modal
+        modal.close();
+
+        // 6. Tampilkan Toast Notifikasi
+        showToast('Profil berhasil diperbarui!');
+      });
+
+      // Inisialisasi: Panggil logika tab switching saat DOM siap
+      document.addEventListener('DOMContentLoaded', initTabSwitching);
+    </script>
   </body>
 </html>

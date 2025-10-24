@@ -32,29 +32,51 @@
         color: #1f2937;
         background-color: #f9fafb;
       }
-      .font-lora { font-family: 'Lora', serif; }
+      .font-lora {
+        font-family: 'Lora', serif;
+      }
       .sticky-header {
-        position: sticky; top: 0; z-index: 50;
+        position: sticky;
+        top: 0;
+        z-index: 50;
         background-color: rgba(255, 255, 255, 0.8);
         backdrop-filter: blur(8px);
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
       }
       .section-title {
-        font-family: 'Lora', serif; font-size: 2.25rem; md:font-size: 2.8rem;
-        font-weight: 700; text-align: center; margin-bottom: 3rem; md:margin-bottom: 60px;
+        font-family: 'Lora', serif;
+        font-size: 2.25rem;
+        /* ... (style section-title lainnya) ... */
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 3rem;
         color: #064e3b;
       }
       /* Leaflet popup customization */
       .leaflet-popup-content-wrapper {
         border-radius: 8px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
       }
       .leaflet-popup-content {
         font-family: 'Poppins', sans-serif;
         margin: 12px 18px;
       }
+
+      /* KUSTOMISASI ICON MARKER DENGAN CSS */
+      /* Menggunakan Font Awesome map-marker yang memang sudah berlubang */
+      .fa-map-marker-alt-custom {
+        color: rgb(22, 123, 90); /* Warna hijau EcoWaste */
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        font-size: 40px; /* Ukuran yang lebih teratur */
+      }
+
+      /* Menghapus gaya bawaan L.divIcon */
+      .leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive {
+        background: none !important;
+        border: none !important;
+      }
     </style>
-    <link rel="stylesheet" crossorigin href="/assets/style-dfAWuXzu.css">
+    <link rel="stylesheet" crossorigin href="/assets/style-DINC20y2.css">
   </head>
   <body>
     <header class="sticky-header">
@@ -342,7 +364,6 @@
     </footer>
 
     <script>
-      // --- DATA LOKASI BANK SAMPAH (Dummy) ---
       const locations = [
         {
           id: 1,
@@ -387,10 +408,14 @@
       ];
 
       let map;
+
+      // Menggunakan fa-map-marker-alt yang memiliki bentuk pin yang lebih baik
       const fontAwesomeIcon = L.divIcon({
-        html: '<i class="fa-solid fa-location-dot fa-3x text-green-400"></i>',
-        iconSize: [20, 20],
-        className: 'myDivIcon',
+        html: '<i class="fas fa-map-marker-alt fa-3x fa-map-marker-alt-custom"></i>',
+        iconSize: [30, 42], // Sesuaikan ukuran ikon
+        iconAnchor: [15, 42], // Posisikan agar ujung pin tepat di koordinat
+        popupAnchor: [0, -35], // Posisikan popup di atas pin
+        className: 'custom-map-marker', // Kelas CSS khusus untuk menargetkan ikon
       });
 
       function initMap() {
@@ -408,14 +433,13 @@
         locations.forEach(location => {
           // Buat Popup
           const popupContent = `
-                    <div class="p-1">
-                        <h3 class="font-bold text-base mb-1">${location.name}</h3>
-                        <p class="text-sm text-gray-600">${location.address}</p>
-                        <p class="text-sm text-gray-600 mt-1">
-                            <i class="fas fa-phone-alt mr-2 text-green-600"></i>${location.phone}
-                        </p>
-                       
-                    </div>`;
+            <div class="p-1">
+              <h3 class="font-bold text-base mb-1">${location.name}</h3>
+              <p class="text-sm text-gray-600">${location.address}</p>
+              <p class="text-sm text-gray-600 mt-1">
+                <i class="fas fa-phone-alt mr-2 text-green-600"></i>${location.phone}
+              </p>
+            </div>`;
 
           // Buat Marker dan ikat Popup
           L.marker([location.lat, location.lng], {
