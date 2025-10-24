@@ -2,7 +2,7 @@
 session_start();
 header('Content-Type: application/json');
 
-if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_SESSION["user_id"])) {
+if (isset($_SESSION["user_id"])) {
     session_unset();
     session_destroy();
     echo json_encode([
