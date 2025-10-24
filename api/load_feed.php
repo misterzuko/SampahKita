@@ -39,8 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $j = $length - 1;
 
 
-
-    $user_id = $_SESSION["user_id"] ? $_SESSION["user_id"] : null;
+    if(isset($_SESSION["user_id"])){
+    $user_id = $_SESSION["user_id"];
+    }
     while ($i <= $length) {
 
         //Query apakah user like feed_id ke ?
@@ -84,3 +85,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     exit;
 }
+echo json_encode([
+    "status" => "error",
+    "message" => "Belum ada data leaderboard."
+]);
+exit;
