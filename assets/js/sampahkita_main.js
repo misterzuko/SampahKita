@@ -1,5 +1,5 @@
 function load_navbar() {
-    fetch("../../assets/html/navbar.html")
+    fetch("../../assets/templates/navbar")
         .then(response => response.text())
         .then(data => {
             const navbar = document.getElementById("navbar-sk");
@@ -7,7 +7,7 @@ function load_navbar() {
         })
 }
 load_navbar();
-
+s
 
 //Peruntukan mobile view 
 function setupMobileMenu() {
