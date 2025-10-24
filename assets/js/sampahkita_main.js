@@ -1,5 +1,5 @@
 function load_navbar() {
-    fetch("../../assets/js/navbar.html")
+    fetch("../../assets/html/navbar.html")
         .then(response => response.text())
         .then(data => {
             const navbar = document.getElementById("navbar-sk");

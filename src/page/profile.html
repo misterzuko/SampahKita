@@ -66,7 +66,7 @@
                   Terverifikasi
                 </span>
               </div>
-              <p class="text-base md:text-lg text-gray-700 mt-1">
+              <p id="progress-desc" class="text-base md:text-lg text-gray-700 mt-1">
                 EcoWarrior Level 5 | Pahlawan Lingkungan
               </p>
               <p class="text-sm text-gray-500 mt-2 flex items-center gap-2">
@@ -81,22 +81,22 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 my-8 py-6 border-y border-gray-200">
             <div class="text-center">
-              <p class="font-lora text-3xl font-bold text-green-600">
+              <p id="progress-point" class="font-lora text-3xl font-bold text-green-600">
                 10,200
               </p>
-              <p class="text-sm font-semibold text-gray-500">Total Poin</p>
+              <p  class="text-sm font-semibold text-gray-500">Total Poin</p>
             </div>
             <div class="text-center">
-              <p class="font-lora text-3xl font-bold text-green-600">#2</p>
+              <p id="progress-rank" class="font-lora text-3xl font-bold text-green-600">#2</p>
               <p class="text-sm font-semibold text-gray-500">
                 Peringkat di Leaderboard
               </p>
             </div>
             <div class="text-center">
-              <p class="font-lora text-3xl font-bold text-green-600">
+              <p id="progress-recycle" class="font-lora text-3xl font-bold text-green-600">
                 152 kg
               </p>
-              <p class="text-sm font-semibold text-gray-500">
+              <p  class="text-sm font-semibold text-gray-500">
                 Total Sampah Disetor
               </p>
             </div>
@@ -189,6 +189,25 @@
     </div>
   </main>
   <script>
+    function load_progress() {
+      fetch("../../api/user_progress")
+        .then(response => response.json())
+        .then(data_p => {
+          if (data_p.status == "sukses") {
+            p_desc = document.getElementById("progress-desc");
+            p_point = document.getElementById("progress-point");
+            p_recycle = document.getElementById("progress-recycle");
+            p_rank= document.getElementById("progress-rank");
+
+            p_desc.innerText = `${data_p.tier} Level ${data_p.level} | ${data_p.title}`
+            p_point.innerText = data_p.points;
+            p_recycle.innerText = data_p.total_recycle;
+            p_rank.innerText = `#${data_p.rank}`;
+          }
+        })
+    }
+    load_progress();
+
     function load_profile() {
       fetch("../../api/user_profile")
         .then(response => response.json())
@@ -199,7 +218,7 @@
             profile_desc = document.getElementById("profile-desc");
 
             profile_name.innerText = data_profile.fullname;
-            profile_desc.innerText = "Aku adalah bagian dari masadepan yang cerah!"
+            profile_desc.innerText = "Aku adalah bagian dari masadepan yang cerah!";
           }
         })
     }

@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $sql = "SELECT f.feed_id, f.content, f.image, CONVERT_TZ(f.publish_at, '+00:00', '+07:00'), u.email, up.fullname
             FROM Feed f
             JOIN Users u ON f.user_id = u.user_id
-            JOIN UserProfile up ON u.user_id = up.user_id
+            JOIN User_Profile up ON u.user_id = up.user_id
             ORDER BY f.publish_at DESC";
 
     //Query Ambil Data Feed

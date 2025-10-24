@@ -25,20 +25,26 @@ if ($_SESSION["user_id"]) {
 
         $stmt = $conn->prepare("INSERT INTO Feed (user_id, content, image) VALUES (?,?,?)");
         $stmt->bind_param("iss", $user_id, $content, $img);
+        $stmt->execute();
+        $stmt->close();
 
-        if ($stmt->execute()) {
+        $stmt_updt = $conn->prepare("UPDATE User_Progress SET points = points + 1000 WHERE user_id = ?");
+        $stmt_updt->bind_param("i", $user_id);
+        $result = $stmt_updt->execute();
+        $stmt_updt->close();
+
+        if ($result) {
             echo json_encode([
                 "status" => "sukses",
                 "message" => "Konten telah diposting"
             ]);
-            $stmt->close();
+            
             exit;
         } else {
             echo json_encode([
                 "status" => "error",
                 "message" => "Terjadi kesalahan saat menyimpan data: " . $conn->error
             ]);
-            $stmt->close();
             exit;
         }
     }

@@ -64,12 +64,12 @@
           Mari kita mulai perjalanan hijau Anda.
         </p>
 
-        <form action="#" class="space-y-6">
+        <form id="signupForm" class="space-y-6">
           <div>
             <label for="fullname" class="block font-semibold text-gray-700 mb-2">Nama Lengkap</label>
             <div class="relative">
               <i class="fas fa-user form-input-icon"></i>
-              <input type="text" id="fullname" placeholder="John Doe"
+              <input type="text" id="fullname" placeholder="Masukan Nama Lengkap"
                 class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none" />
             </div>
           </div>
@@ -102,6 +102,49 @@
       </div>
     </div>
   </div>
+  <script>
+    const form = document.getElementById('signupForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const data_form = {
+        fullname: document.getElementById('fullname').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value
+      };
+
+      try {
+        const response = await fetch('../../api/auth_signup.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data_form)
+        });
+
+        const resp = await response.json();
+        console.log(resp)
+
+        if (resp.status == "sukses") {
+          window.location.href = "login";
+        }
+      } catch (err) {
+        console.error('Error:', err);
+      }
+    });
+
+    function check_session() {
+      fetch("../../api/user_profile")
+        .then(response => response.json())
+        .then(data_profile => {
+          if (data_profile.status == "sukses") {
+            window.location.href = "../../index";
+            console.log("Anda telah login sebelumnya")
+          }
+        })
+    }
+    check_session();
+  </script>
 </body>
 
 </html>

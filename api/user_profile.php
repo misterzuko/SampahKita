@@ -8,10 +8,10 @@ if (isset($_SESSION["user_id"])) {
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $user_id = $_SESSION["user_id"];
 
-        $stmt = $conn->prepare("SELECT fullname, datebirth, address, phone FROM UserProfile WHERE user_id = ?");
+        $stmt = $conn->prepare("SELECT fullname, datebirth, address, phone, description FROM User_Profile WHERE user_id = ?");
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
-        $stmt->bind_result($fullname, $datebirth, $address, $phone);
+        $stmt->bind_result($fullname, $datebirth, $address, $phone, $description);
         
 
         if ($stmt->fetch()) {
@@ -21,6 +21,7 @@ if (isset($_SESSION["user_id"])) {
                 'birthdate' => $datebirth,
                 'address' => $address,
                 'phone' => $phone,
+                'description' => $description,
             ];
 
             echo json_encode($user_profile);
@@ -47,7 +48,7 @@ if (isset($_SESSION["user_id"])) {
 
         try {
             $stmt = $conn->prepare("
-            UPDATE UserProfile
+            UPDATE User_Profile
             SET fullname = ?, datebirth = ?, address = ?, phone = ?
             WHERE user_id = ?
             ");

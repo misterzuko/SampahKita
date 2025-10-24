@@ -3,19 +3,14 @@ require '../connect_db.php';
 require '../php-config.php';
 
 header('Content-Type: application/json');
-session_start();
-
-if(isset($_SESSION["user_id"])){
-    header("Location: ../src/page/bank_sampah");
-}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $input = json_decode(file_get_contents('php://input'), true);
 
     // DUMMY data
-    $fullname = "Baskoro Adi Widagdo";
-    $email = "baskoro@admin.com";
-    $password = "admin123";
+    $fullname = $input["fullname"];
+    $email = $input["email"];
+    $password = $input["password"];
 
     if (!$email || !$password) {
         echo json_encode([
@@ -51,11 +46,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $user_id = $conn->insert_id;
 
-        // Insert ke tabel UserProfile
-        $profile_stmt = $conn->prepare("INSERT INTO UserProfile (user_id, fullname) VALUES (?, ?)");
+        // Insert ke tabel User_Profile
+        $profile_stmt = $conn->prepare("INSERT INTO User_Profile (user_id, fullname) VALUES (?, ?)");
         $profile_stmt->bind_param("is", $user_id, $fullname);
         $profile_stmt->execute();
         $profile_stmt->close();
+
+        // Insert ke tabel User_Progress
+        $up_stmt = $conn->prepare("INSERT INTO User_Progress (user_id) VALUES (?)");
+        $up_stmt->bind_param("i", $user_id);
+        $up_stmt->execute();
+        $up_stmt->close();
 
         echo json_encode([
             "status" => "sukses",
