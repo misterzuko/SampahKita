@@ -24,7 +24,7 @@
   "main": "purgecss.config.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/misterzuko/SampahKita/tree/front-end--development.git"
+    "url": "git+https://github.com/misterzuko/SampahKita.git"
   },
   "keywords": [],
   "author": "",
