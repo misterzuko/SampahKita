@@ -26,6 +26,7 @@
       integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
       crossorigin=""
     ></script>
+    <script type="module" src="../js/bankSampahScript.js"></script>
 
     <style>
       body {
@@ -33,26 +34,48 @@
         color: #1f2937;
         background-color: #f9fafb;
       }
-      .font-lora { font-family: 'Lora', serif; }
+      .font-lora {
+        font-family: 'Lora', serif;
+      }
       .sticky-header {
-        position: sticky; top: 0; z-index: 50;
+        position: sticky;
+        top: 0;
+        z-index: 50;
         background-color: rgba(255, 255, 255, 0.8);
         backdrop-filter: blur(8px);
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
       }
       .section-title {
-        font-family: 'Lora', serif; font-size: 2.25rem; md:font-size: 2.8rem;
-        font-weight: 700; text-align: center; margin-bottom: 3rem; md:margin-bottom: 60px;
+        font-family: 'Lora', serif;
+        font-size: 2.25rem;
+        /* ... (style section-title lainnya) ... */
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 3rem;
         color: #064e3b;
       }
       /* Leaflet popup customization */
       .leaflet-popup-content-wrapper {
         border-radius: 8px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
       }
       .leaflet-popup-content {
         font-family: 'Poppins', sans-serif;
         margin: 12px 18px;
+      }
+
+      /* KUSTOMISASI ICON MARKER DENGAN CSS */
+      /* Menggunakan Font Awesome map-marker yang memang sudah berlubang */
+      .fa-map-marker-alt-custom {
+        color: rgb(22, 123, 90); /* Warna hijau EcoWaste */
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        font-size: 40px; /* Ukuran yang lebih teratur */
+      }
+
+      /* Menghapus gaya bawaan L.divIcon */
+      .leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive {
+        background: none !important;
+        border: none !important;
       }
     </style>
   </head>
@@ -340,93 +363,5 @@
         </div>
       </div>
     </footer>
-
-    <script>
-      // --- DATA LOKASI BANK SAMPAH (Dummy) ---
-      const locations = [
-        {
-          id: 1,
-          name: 'Bank Sampah Melati Bersih',
-          address: 'Jl. Mawar No. 12, Jakarta Pusat',
-          lat: -6.175,
-          lng: 106.828,
-          phone: '0812-1111-2222',
-        },
-        {
-          id: 2,
-          name: 'EcoWaste Center Kemang',
-          address: 'Jl. Kemang Raya No. 88, Jakarta Selatan',
-          lat: -6.261,
-          lng: 106.812,
-          phone: '0812-3333-4444',
-        },
-        {
-          id: 3,
-          name: 'Bank Sampah Hijau Lestari',
-          address: 'Jl. Cendrawasih No. 45, Jakarta Barat',
-          lat: -6.16,
-          lng: 106.75,
-          phone: '0812-5555-6666',
-        },
-        {
-          id: 4,
-          name: 'Kolektor Kelapa Gading',
-          address: 'Jl. Boulevard Raya, Kelapa Gading, Jakarta Utara',
-          lat: -6.155,
-          lng: 106.901,
-          phone: '0812-7777-8888',
-        },
-        {
-          id: 5,
-          name: 'Bank Sampah Menteng',
-          address: 'Jl. Teuku Umar, Menteng, Jakarta Pusat',
-          lat: -6.195,
-          lng: 106.83,
-          phone: '0812-9999-0000',
-        },
-      ];
-
-      let map;
-      const fontAwesomeIcon = L.divIcon({
-        html: '<i class="fa fa-map-marker fa-4x"></i>',
-        iconSize: [20, 20],
-        className: 'myDivIcon',
-      });
-
-      function initMap() {
-        // Inisialisasi peta Leaflet, berpusat di Jakarta
-        map = L.map('map').setView([-6.208, 106.845], 12);
-
-        // Tambahkan tile layer dari OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 19,
-          attribution:
-            '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        }).addTo(map);
-
-        // Tambahkan marker untuk setiap lokasi
-        locations.forEach(location => {
-          // Buat Popup
-          const popupContent = `
-                    <div class="p-1">
-                        <h3 class="font-bold text-base mb-1">${location.name}</h3>
-                        <p class="text-sm text-gray-600">${location.address}</p>
-                        <p class="text-sm text-gray-600 mt-1">
-                            <i class="fas fa-phone-alt mr-2 text-green-600"></i>${location.phone}
-                        </p>
-                       
-                    </div>`;
-
-          // Buat Marker dan ikat Popup
-          L.marker([location.lat, location.lng], {
-            icon: fontAwesomeIcon,
-          })
-            .addTo(map)
-            .bindPopup(popupContent);
-        });
-      }
-
-      initMap();
-    </script>
   </body>
 </html>
