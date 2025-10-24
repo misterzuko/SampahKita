@@ -40,9 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 
 
-    $user_id = isset($_SESSION["user_id"]);
+    $user_id = $_SESSION["user_id"] ? $_SESSION["user_id"] : null;
     while ($i <= $length) {
-        
+
         //Query apakah user like feed_id ke ?
         $check_stmt = $conn->prepare("SELECT user_id FROM Feed_Likes WHERE feed_id = ? AND user_id = ?");
         $check_stmt->bind_param("ii", $i, $user_id);
@@ -53,7 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         } else {
             $liked = false;
         }
-        $feeds[$j]["user_data"]["liked"] = $liked;
         $check_stmt->close();
 
 
@@ -71,9 +70,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $count_stmt->fetch();
         $count_stmt->close();
 
+        $feeds[$j]["user_data"]["liked"] = $liked;
+        $feeds[$j]["user_data"]["user_id"] = $user_id;
         $feeds[$j]["total_likes"] = $total_likes;
         $feeds[$j]["total_comment"] = $total_comment;
-        
+
         $i++;
         $j--;
 
