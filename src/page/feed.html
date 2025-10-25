@@ -36,6 +36,10 @@
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
       }
 
+      .feed-dropdown-menu {
+        left: 0;
+      }
+
       @media (max-width: 768px) {
         .mobile-stack {
           flex-direction: column;
@@ -387,7 +391,7 @@
                 </button>
 
                 <div id="menu-${feed.feed_id}"
-                  class="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-xl py-1 z-10 hidden"
+                  class="absolute feed-dropdown-menu  mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-xl py-1 z-10 hidden"
                   role="menu">
                   <a href="edit_postingan.html?id=123"
                     class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-green-600 transition"
