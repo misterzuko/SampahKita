@@ -28,7 +28,7 @@ if ($_SESSION["user_id"]) {
         $stmt->execute();
         $stmt->close();
 
-        $stmt_updt = $conn->prepare("UPDATE User_Progress SET points = points + 1000 WHERE user_id = ?");
+        $stmt_updt = $conn->prepare("UPDATE User_Progress SET points = points + 3000 WHERE user_id = ?");
         $stmt_updt->bind_param("i", $user_id);
         $result = $stmt_updt->execute();
         $stmt_updt->close();

@@ -72,34 +72,8 @@
 </head>
 
 <body>
-  <header class="sticky-header">
-    <div class="max-w-7xl mx-auto px-4 py-4">
-      <div class="flex justify-between items-center">
-        <a href="index.html" class="flex items-center gap-2">
-          <div
-            class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center">
-            <i class="fas fa-leaf text-white"></i>
-          </div>
-          <span class="text-2xl font-bold text-green-700">EcoWaste</span>
-        </a>
-        <nav class="hidden md:flex gap-8 font-semibold">
-          <a href="#" class="text-gray-700 hover:text-green-600 transition">Bank Sampah</a>
-          <a href="./feed.html" class="text-gray-700 hover:text-green-600 transition">Feed</a>
-          <a href="./leaderboard.html" class="text-gray-700 hover:text-green-600 transition">Leaderboard</a>
-          <a href="./scan.html" class="text-green-600 hover:text-green-700 transition">Scan Sampah</a>
-          <a href="./about_us.html" class="text-gray-700 hover:text-green-600 transition">Tentang Kami</a>
-        </nav>
-        <div class="flex items-center gap-4">
-          <button
-            class="hidden md:block px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold">
-            Profil
-          </button>
-          <button class="md:hidden text-2xl text-gray-700">
-            <i class="fas fa-bars"></i>
-          </button>
-        </div>
-      </div>
-    </div>
+  <header id="navbar-sk" class="sticky-header top-0 z-50 bg-white/80 backdrop-blur-sm shadow-sm">
+
   </header>
 
   <main class="max-w-4xl mx-auto px-4 py-12 md:py-16">
@@ -113,7 +87,6 @@
     </div>
 
     <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100">
-      <!-- Upload Area -->
       <div id="upload-area" class="text-center upload-box rounded-xl p-6 sm:p-10 cursor-pointer">
         <input type="file" id="image-upload" class="hidden" accept="image/jpeg, image/png, image/jpg" />
         <label for="image-upload" class="cursor-pointer">
@@ -131,7 +104,6 @@
         </label>
       </div>
 
-      <!-- Preview Area -->
       <div id="preview-area" class="hidden text-center">
         <p class="font-semibold text-lg text-gray-700 mb-4">
           Pratinjau Gambar:
@@ -150,8 +122,6 @@
           </label>
           <input type="file" id="change-image-upload" class="hidden" accept="image/jpeg, image/png, image/jpg" />
         </div>
-
-        <!-- Hasil Deteksi -->
         <div id="result-area" class="hidden mt-10 text-center">
           <div id="loading-spinner" class="hidden">
             <div class="spinner"></div>
@@ -169,9 +139,8 @@
       <p>&copy; 2025 EcoWaste Connect. All Rights Reserved.</p>
     </div>
   </footer>
-
+  <script src="../../assets/js/sampahkita_main.js"></script>
   <script>
-    // ==== Bagian Upload & Preview ====
     const uploadArea = document.getElementById("upload-area");
     const previewArea = document.getElementById("preview-area");
     const imageUploadInput = document.getElementById("image-upload");
@@ -185,17 +154,9 @@
         reader.onload = (e) => {
           const imageDataUrl = e.target.result;
           imagePreview.src = imageDataUrl;
-
-          // ===================================
-          // ==== PERUBAHAN UTAMA (BARIS INI) ====
-          // Simpan gambar ke session storage untuk digunakan di result.html
           sessionStorage.setItem('scannedImage', imageDataUrl);
-          // ===================================
-
           uploadArea.classList.add("hidden");
           previewArea.classList.remove("hidden");
-
-          // Sembunyikan hasil/loading sebelumnya jika ada
           document.getElementById("result-area").classList.add("hidden");
           document.getElementById("loading-spinner").classList.add("hidden");
           document.getElementById("label-container").innerHTML = "";
@@ -225,7 +186,6 @@
       }
     });
 
-    // ==== Bagian Model ====
     const MODEL_URL = "https://teachablemachine.withgoogle.com/models/sc6d226r_/";
     let model, maxPredictions;
 
@@ -244,7 +204,6 @@
 
     initModel();
 
-    // ==== BAGIAN SCAN (MODIFIKASI) ====
     const scanButton = document.getElementById("scan-button");
     const scanButtonText = document.getElementById("scan-button-text");
     const resultArea = document.getElementById("result-area");
@@ -258,14 +217,13 @@
         alert("Model belum siap. Mohon tunggu sebentar...");
         return;
       }
-      
-      // 1. Tampilkan status loading
+
       scanButton.disabled = true;
       scanButtonText.textContent = "Mendeteksi...";
       resultArea.classList.remove("hidden");
       loadingSpinner.classList.remove("hidden");
       labelContainer.innerHTML = ""; // Kosongkan hasil lama
-      resultBox.classList.add("hidden"); // Sembunyikan kotak hasil lama
+      resultBox.classList.add("hidden"); 
 
       const image = document.getElementById("image-preview");
 
@@ -274,28 +232,19 @@
 
         // Urutkan hasil dari yang tertinggi
         prediction.sort((a, b) => b.probability - a.probability);
-
-        // Ambil prediksi teratas
         const top = prediction[0];
-        
+
         if (!top) {
-            throw new Error("Tidak ada prediksi yang ditemukan.");
+          throw new Error("Tidak ada prediksi yang ditemukan.");
         }
-
         const topClass = top.className.toLowerCase();
-
-        // 2. PINDAH HALAMAN (REDIRECT)
-        // Beri jeda 500ms agar pengguna melihat spinner
         setTimeout(() => {
-          // Alihkan pengguna ke result.html dan kirim kelas terdeteksi
           window.location.href = `result.html?class=${topClass}`;
         }, 500);
 
       } catch (error) {
         console.error("Error saat prediksi:", error);
         alert("Gagal melakukan prediksi. Coba lagi.");
-        
-        // 3. Sembunyikan loading jika gagal
         scanButton.disabled = false;
         scanButtonText.textContent = "Scan Sekarang";
         resultArea.classList.add("hidden");
