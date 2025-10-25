@@ -380,7 +380,7 @@
               <div class="relative">
                 <button
                   class="text-gray-500 hover:text-gray-700 transition w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center"
-                  aria-expanded="false" data-dropdown-toggle data-target-id="${
+                  aria-expanded="false" data-dropdown-toggle data-target-id="menu-${
                     feed.feed_id
                   }">
                   <i class="fas fa-ellipsis-v"></i>
@@ -565,66 +565,49 @@
     <script>
       /**
        *
-       * Dropdown Script
+       * Dropdown Script (Versi Perbaikan dengan Event Delegation)
        *
        **/
 
-      function toggleDropdown(button) {
-        const targetId = button.getAttribute('data-target-id');
-        const menu = document.getElementById(targetId);
-        const isExpanded = button.getAttribute('aria-expanded') === 'true';
-
-        // 1. Tutup SEMUA dropdown yang sedang terbuka
-        document
-          .querySelectorAll('[data-dropdown-toggle][aria-expanded="true"]')
-          .forEach(openButton => {
-            if (openButton !== button) {
-              const openMenu = document.getElementById(
-                openButton.getAttribute('data-target-id')
-              );
-              openButton.setAttribute('aria-expanded', 'false');
-              if (openMenu) openMenu.classList.add('hidden');
-            }
-          });
-
-        // 2. Toggle (Buka/Tutup) dropdown yang ditargetkan
-        if (menu) {
-          if (isExpanded) {
-            button.setAttribute('aria-expanded', 'false');
-            menu.classList.add('hidden');
-          } else {
-            button.setAttribute('aria-expanded', 'true');
-            menu.classList.remove('hidden');
-          }
-        }
-      }
-
-      // 3. Event Listener untuk semua tombol toggle
-      document.querySelectorAll('[data-dropdown-toggle]').forEach(button => {
-        button.addEventListener('click', event => {
-          event.stopPropagation();
-          toggleDropdown(button);
-        });
-      });
-
-      // 4. Penanganan "Outside Click" untuk menutup semua dropdown
+      // Listener tunggal pada 'document' untuk menangani SEMUA klik dropdown
       document.addEventListener('click', event => {
-        document
-          .querySelectorAll('[data-dropdown-toggle][aria-expanded="true"]')
-          .forEach(button => {
-            const targetId = button.getAttribute('data-target-id');
-            const menu = document.getElementById(targetId);
+        // 1. Temukan tombol dropdown yang mungkin diklik
+        const clickedButton = event.target.closest('[data-dropdown-toggle]'); // 2. Ambil semua menu yang sedang terbuka
 
-            // Cek apakah klik TIDAK berasal dari tombol ATAU menu itu sendiri
-            if (
-              !button.contains(event.target) &&
-              menu &&
-              !menu.contains(event.target)
-            ) {
-              button.setAttribute('aria-expanded', 'false');
-              menu.classList.add('hidden');
-            }
-          });
+        const allOpenMenus = document.querySelectorAll(
+          '[role="menu"]:not(.hidden)'
+        );
+
+        let currentMenu = null;
+        let isExpanding = false; // 3. Jika yang diklik ADALAH tombol dropdown
+
+        if (clickedButton) {
+          const targetId = clickedButton.getAttribute('data-target-id');
+          currentMenu = document.getElementById(targetId);
+          if (currentMenu) {
+            isExpanding = currentMenu.classList.contains('hidden');
+          }
+        } // 4. Tutup SEMUA menu yang terbuka
+
+        allOpenMenus.forEach(menu => {
+          // Jangan tutup menu yang baru saja akan dibuka
+          if (menu !== currentMenu) {
+            menu.classList.add('hidden'); // Update status 'aria-expanded' tombolnya
+            const button = document.querySelector(
+              `[data-target-id="${menu.id}"]`
+            );
+            if (button) button.setAttribute('aria-expanded', 'false');
+          }
+        }); // 5. Jika kita mengklik tombol dan menu itu akan dibuka
+
+        if (currentMenu && isExpanding) {
+          currentMenu.classList.remove('hidden');
+          clickedButton.setAttribute('aria-expanded', 'true');
+        } else if (currentMenu && !isExpanding) {
+          // Jika kita mengklik tombol yang menunya sudah terbuka (untuk menutupnya)
+          currentMenu.classList.add('hidden');
+          clickedButton.setAttribute('aria-expanded', 'false');
+        }
       });
     </script>
   </body>
