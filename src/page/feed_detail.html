@@ -178,7 +178,19 @@
     const params = new URLSearchParams(window.location.search);
     const post_id = params.get("feed_id");
     console.log(post_id)
+    function check_session(){
+    fetch(`../../api/session_info`)
+      .then(response => response.json())
+      .then(sessions => {
+        if (sessions.status == "sukses") {
+          window.location.href = `feed_detail?feed_id=${post_id}`;
+        } else {
+          window.location.href = "login";
+        }
 
+      })
+    }
+    check_session()
 
     function load_profile() {
       fetch("../../api/user_profile")
