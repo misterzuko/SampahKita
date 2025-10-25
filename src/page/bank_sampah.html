@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bank Sampah - EcoWaste Connect</title>
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+
+    <style>
+      body {
+        font-family: 'Poppins', 'Segoe UI', sans-serif;
+        color: #1f2937;
+        background-color: #f9fafb;
+      }
+      .font-lora {
+        font-family: 'Lora', serif;
+      }
+      .sticky-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background-color: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(8px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+      .section-title {
+        font-family: 'Lora', serif;
+        font-size: 2.25rem;
+        /* ... (style section-title lainnya) ... */
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 3rem;
+        color: #064e3b;
+      }
+      /* Leaflet popup customization */
+      .leaflet-popup-content-wrapper {
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+      .leaflet-popup-content {
+        font-family: 'Poppins', sans-serif;
+        margin: 12px 18px;
+      }
+
+      /* KUSTOMISASI ICON MARKER DENGAN CSS */
+      /* Menggunakan Font Awesome map-marker yang memang sudah berlubang */
+      .fa-map-marker-alt-custom {
+        color: rgb(22, 123, 90); /* Warna hijau EcoWaste */
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        font-size: 40px; /* Ukuran yang lebih teratur */
+      }
+
+      /* Menghapus gaya bawaan L.divIcon */
+      .leaflet-marker-icon.leaflet-zoom-animated.leaflet-interactive {
+        background: none !important;
+        border: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="sticky-header">
+      <div class="max-w-7xl mx-auto px-4 py-4">
+        <div class="flex justify-between items-center">
+          <a href="index.html" class="flex items-center gap-2">
+            <div
+              class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center"
+            >
+              <i class="fas fa-leaf text-white"></i>
+            </div>
+            <span class="text-2xl font-bold text-green-700">EcoWaste</span>
+          </a>
+          <nav class="hidden md:flex gap-8 font-semibold">
+            <a
+              href="bank_sampah.html"
+              class="text-green-600 hover:text-green-700 transition"
+              >Bank Sampah</a
+            >
+            <a
+              href="feed.html"
+              class="text-gray-700 hover:text-green-600 transition"
+              >Feed</a
+            >
+            <a
+              href="leaderboard.html"
+              class="text-gray-700 hover:text-green-600 transition"
+              >Leaderboard</a
+            >
+            <a
+              href="scan.html"
+              class="text-gray-700 hover:text-green-600 transition"
+              >Scan Sampah</a
+            >
+          </nav>
+          <div class="flex items-center gap-4">
+            <button
+              class="hidden md:block px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold"
+            >
+              Profil
+            </button>
+            <button class="md:hidden text-2xl text-gray-700">
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section
+        class="relative h-[450px] bg-cover bg-center"
+        style="
+          background-image: url('https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1600');
+        "
+      >
+        <div class="absolute inset-0 bg-black/50"></div>
+        <div
+          class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4"
+        >
+          <h1 class="font-lora text-4xl md:text-5xl font-extrabold mb-4">
+            Ubah Sampah Anda Menjadi Saldo Hijau
+          </h1>
+          <p class="text-lg md:text-xl max-w-3xl mx-auto">
+            Temukan Bank Sampah terdekat dan mulai kumpulkan poin dari setiap
+            sampah yang Anda setorkan.
+          </p>
+        </div>
+      </section>
+
+      <section class="py-16 md:py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+          <h2 class="section-title">Bagaimana Memulainya?</h2>
+          <div class="grid md:grid-cols-3 gap-10 md:gap-12 text-center">
+            <div class="fade-in">
+              <div
+                class="flex justify-center items-center w-24 h-24 mx-auto bg-green-100 rounded-full mb-6 border-4 border-white shadow-md"
+              >
+                <span class="font-lora text-4xl font-bold text-green-600"
+                  >1</span
+                >
+              </div>
+              <h3 class="text-xl md:text-2xl font-bold mb-3">
+                Pilah Sampah Anda
+              </h3>
+              <p class="text-gray-600">
+                Pisahkan sampah anorganik seperti botol plastik, kertas, kardus,
+                dan logam dari sampah lainnya.
+              </p>
+            </div>
+            <div class="fade-in" style="animation-delay: 0.2s">
+              <div
+                class="flex justify-center items-center w-24 h-24 mx-auto bg-green-100 rounded-full mb-6 border-4 border-white shadow-md"
+              >
+                <span class="font-lora text-4xl font-bold text-green-600"
+                  >2</span
+                >
+              </div>
+              <h3 class="text-xl md:text-2xl font-bold mb-3">Temukan Lokasi</h3>
+              <p class="text-gray-600">
+                Gunakan peta interaktif di bawah ini untuk menemukan Bank Sampah
+                terdekat dari lokasi Anda.
+              </p>
+            </div>
+            <div class="fade-in" style="animation-delay: 0.4s">
+              <div
+                class="flex justify-center items-center w-24 h-24 mx-auto bg-green-100 rounded-full mb-6 border-4 border-white shadow-md"
+              >
+                <span class="font-lora text-4xl font-bold text-green-600"
+                  >3</span
+                >
+              </div>
+              <h3 class="text-xl md:text-2xl font-bold mb-3">
+                Setor & Dapatkan Poin
+              </h3>
+              <p class="text-gray-600">
+                Bawa sampah terpilah Anda ke lokasi, timbang, dan saksikan saldo
+                Anda bertambah!
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-16 md:py-20 bg-green-50/50">
+        <div class="max-w-7xl mx-auto px-4 text-center mb-10">
+          <h2 class="section-title">Peta Lokasi Bank Sampah</h2>
+        </div>
+        <div
+          class="max-w-7xl mx-auto h-[60vh] md:h-[70vh] shadow-xl rounded-2xl overflow-hidden border"
+        >
+          <div id="map" class="w-full h-full"></div>
+        </div>
+      </section>
+
+      <section class="py-16 md:py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+          <h2 class="section-title">Proses Penukaran Sampah</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="flex items-start gap-4">
+              <i class="fas fa-sign-in-alt text-3xl text-green-500 mt-1"></i>
+              <div>
+                <h3 class="text-xl font-bold mb-2">1. Datang ke Lokasi</h3>
+                <p class="text-gray-600">
+                  Serahkan sampah yang sudah Anda pilah kepada petugas di Bank
+                  Sampah.
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <i
+                class="fas fa-balance-scale-right text-3xl text-green-500 mt-1"
+              ></i>
+              <div>
+                <h3 class="text-xl font-bold mb-2">2. Penimbangan</h3>
+                <p class="text-gray-600">
+                  Petugas akan menimbang setiap jenis sampah secara terpisah dan
+                  akurat.
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <i
+                class="fas fa-clipboard-check text-3xl text-green-500 mt-1"
+              ></i>
+              <div>
+                <h3 class="text-xl font-bold mb-2">3. Pencatatan Digital</h3>
+                <p class="text-gray-600">
+                  Hasil timbangan akan dicatat dan dikonversi menjadi nilai
+                  Rupiah sesuai harga yang berlaku.
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <i class="fas fa-wallet text-3xl text-green-500 mt-1"></i>
+              <div>
+                <h3 class="text-xl font-bold mb-2">4. Saldo Bertambah</h3>
+                <p class="text-gray-600">
+                  Nilai Rupiah akan langsung ditambahkan ke saldo akun EcoWaste
+                  Connect Anda secara real-time.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-8 mb-12">
+          <div>
+            <div class="flex items-center gap-2 mb-4">
+              <div
+                class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center"
+              >
+                <i class="fas fa-leaf"></i>
+              </div>
+              <span class="text-2xl font-bold">EcoWaste</span>
+            </div>
+            <p class="text-gray-400 text-sm">
+              Platform digital untuk manajemen sampah yang efisien dan
+              berkelanjutan.
+            </p>
+          </div>
+          <div>
+            <h4 class="text-lg font-bold mb-4">Halaman</h4>
+            <ul class="space-y-2 text-gray-400 font-semibold">
+              <li>
+                <a href="#" class="hover:text-green-400 transition"
+                  >Bank Sampah</a
+                >
+              </li>
+              <li>
+                <a href="feed.html" class="hover:text-green-400 transition"
+                  >Feed</a
+                >
+              </li>
+              <li>
+                <a
+                  href="leaderboard.html"
+                  class="hover:text-green-400 transition"
+                  >Leaderboard</a
+                >
+              </li>
+              <li>
+                <a
+                  href="src/page/about_us.html"
+                  class="hover:text-green-400 transition"
+                  >Tentang Kami</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-bold mb-4">Hubungi Kami</h4>
+            <ul class="space-y-2 text-gray-400 font-semibold">
+              <li>
+                <a
+                  href="mailto:info@ecowaste.com"
+                  class="hover:text-green-400 transition"
+                  >info@ecowaste.com</a
+                >
+              </li>
+              <li>
+                <a
+                  href="tel:+62123456789"
+                  class="hover:text-green-400 transition"
+                  >+62 123 4567 890</a
+                >
+              </li>
+              <li class="text-sm">Jl. Hijau No. 123, Semarang</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-bold mb-4">Ikuti Kami</h4>
+            <div class="flex gap-4">
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"
+                ><i class="fab fa-facebook"></i
+              ></a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"
+                ><i class="fab fa-youtube"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+          <p>&copy; 2025 EcoWaste Connect. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const locations = [
+        {
+          id: 1,
+          name: 'Bank Sampah Melati Bersih',
+          address: 'Jl. Mawar No. 12, Jakarta Pusat',
+          lat: -6.175,
+          lng: 106.828,
+          phone: '0812-1111-2222',
+        },
+        {
+          id: 2,
+          name: 'EcoWaste Center Kemang',
+          address: 'Jl. Kemang Raya No. 88, Jakarta Selatan',
+          lat: -6.261,
+          lng: 106.812,
+          phone: '0812-3333-4444',
+        },
+        {
+          id: 3,
+          name: 'Bank Sampah Hijau Lestari',
+          address: 'Jl. Cendrawasih No. 45, Jakarta Barat',
+          lat: -6.16,
+          lng: 106.75,
+          phone: '0812-5555-6666',
+        },
+        {
+          id: 4,
+          name: 'Kolektor Kelapa Gading',
+          address: 'Jl. Boulevard Raya, Kelapa Gading, Jakarta Utara',
+          lat: -6.155,
+          lng: 106.901,
+          phone: '0812-7777-8888',
+        },
+        {
+          id: 5,
+          name: 'Bank Sampah Menteng',
+          address: 'Jl. Teuku Umar, Menteng, Jakarta Pusat',
+          lat: -6.195,
+          lng: 106.83,
+          phone: '0812-9999-0000',
+        },
+      ];
+
+      let map;
+
+      // Menggunakan fa-map-marker-alt yang memiliki bentuk pin yang lebih baik
+      const fontAwesomeIcon = L.divIcon({
+        html: '<i class="fas fa-map-marker-alt fa-3x fa-map-marker-alt-custom"></i>',
+        iconSize: [30, 42], // Sesuaikan ukuran ikon
+        iconAnchor: [15, 42], // Posisikan agar ujung pin tepat di koordinat
+        popupAnchor: [0, -35], // Posisikan popup di atas pin
+        className: 'custom-map-marker', // Kelas CSS khusus untuk menargetkan ikon
+      });
+
+      function initMap() {
+        // Inisialisasi peta Leaflet, berpusat di Jakarta
+        map = L.map('map').setView([-6.208, 106.845], 12);
+
+        // Tambahkan tile layer dari OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19,
+          attribution:
+            '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        }).addTo(map);
+
+        // Tambahkan marker untuk setiap lokasi
+        locations.forEach(location => {
+          // Buat Popup
+          const popupContent = `
+            <div class="p-1">
+              <h3 class="font-bold text-base mb-1">${location.name}</h3>
+              <p class="text-sm text-gray-600">${location.address}</p>
+              <p class="text-sm text-gray-600 mt-1">
+                <i class="fas fa-phone-alt mr-2 text-green-600"></i>${location.phone}
+              </p>
+            </div>`;
+
+          // Buat Marker dan ikat Popup
+          L.marker([location.lat, location.lng], {
+            icon: fontAwesomeIcon,
+          })
+            .addTo(map)
+            .bindPopup(popupContent);
+        });
+      }
+
+      initMap();
+    </script>
+  </body>
+</html>
