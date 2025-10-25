@@ -41,6 +41,15 @@
         width: 13rem;
       }
 
+      .feed-menu-delete:hover {
+        background-color: #fef2f2;
+        cursor: pointer;
+      }
+
+      .feed-menu-report:hover {
+        cursor: pointer;
+      }
+
       @media (max-width: 768px) {
         .mobile-stack {
           flex-direction: column;
@@ -400,13 +409,13 @@
                     <i class="fas fa-edit w-4"></i> Edit Postingan
                   </a>
                   <button
-                    class="w-full text-left flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition"
+                    class="w-full text-left flex items-center feed-menu-delete gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition"
                     role="menuitem" data-action="delete">
                     <i class="fas fa-trash-alt w-4"></i> Hapus Postingan
                   </button>
                   <div class="border-t border-gray-100 my-1"></div>
                   <button
-                    class="w-full text-left flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
+                    class="w-full text-left flex feed-menu-report items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
                     role="menuitem" data-action="report">
                     <i class="fas fa-flag w-4"></i> Laporkan
                   </button>
