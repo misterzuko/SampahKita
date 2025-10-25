@@ -17,7 +17,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.12.0/dist/tf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
 
-  <link rel="stylesheet" href="../../assets/css/sampah_kita.css" />
+  <link rel="stylesheet" href="../../assets/css/sampah_kita.css">
   <style>
     body {
       font-family: "Poppins", "Segoe UI", sans-serif;
@@ -72,8 +72,34 @@
 </head>
 
 <body>
-  <header id="navbar-sk" class="sticky-header top-0 z-50 bg-white/80 backdrop-blur-sm shadow-sm">
-
+  <header class="sticky-header">
+    <div class="max-w-7xl mx-auto px-4 py-4">
+      <div class="flex justify-between items-center">
+        <a href="index.html" class="flex items-center gap-2">
+          <div
+            class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center">
+            <i class="fas fa-leaf text-white"></i>
+          </div>
+          <span class="text-2xl font-bold text-green-700">EcoWaste</span>
+        </a>
+        <nav class="hidden md:flex gap-8 font-semibold">
+          <a href="#" class="text-gray-700 hover:text-green-600 transition">Bank Sampah</a>
+          <a href="./feed.html" class="text-gray-700 hover:text-green-600 transition">Feed</a>
+          <a href="./leaderboard.html" class="text-gray-700 hover:text-green-600 transition">Leaderboard</a>
+          <a href="./scan.html" class="text-green-600 hover:text-green-700 transition">Scan Sampah</a>
+          <a href="./about_us.html" class="text-gray-700 hover:text-green-600 transition">Tentang Kami</a>
+        </nav>
+        <div class="flex items-center gap-4">
+          <button
+            class="hidden md:block px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold">
+            Profil
+          </button>
+          <button class="md:hidden text-2xl text-gray-700">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </div>
   </header>
 
   <main class="max-w-4xl mx-auto px-4 py-12 md:py-16">
@@ -143,7 +169,7 @@
       <p>&copy; 2025 EcoWaste Connect. All Rights Reserved.</p>
     </div>
   </footer>
-  <script src="../../assets/js/sampahkita_main.js"></script>
+
   <script>
     // ==== Bagian Upload & Preview ====
     const uploadArea = document.getElementById("upload-area");
@@ -157,9 +183,22 @@
       if (file) {
         const reader = new FileReader();
         reader.onload = (e) => {
-          imagePreview.src = e.target.result;
+          const imageDataUrl = e.target.result;
+          imagePreview.src = imageDataUrl;
+
+          // ===================================
+          // ==== PERUBAHAN UTAMA (BARIS INI) ====
+          // Simpan gambar ke session storage untuk digunakan di result.html
+          sessionStorage.setItem('scannedImage', imageDataUrl);
+          // ===================================
+
           uploadArea.classList.add("hidden");
           previewArea.classList.remove("hidden");
+
+          // Sembunyikan hasil/loading sebelumnya jika ada
+          document.getElementById("result-area").classList.add("hidden");
+          document.getElementById("loading-spinner").classList.add("hidden");
+          document.getElementById("label-container").innerHTML = "";
         };
         reader.readAsDataURL(file);
       }
@@ -193,76 +232,75 @@
     async function initModel() {
       const modelURL = MODEL_URL + "model.json";
       const metadataURL = MODEL_URL + "metadata.json";
-      model = await tmImage.load(modelURL, metadataURL);
-      maxPredictions = model.getTotalClasses();
+      try {
+        model = await tmImage.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+        console.log("Model Teachable Machine berhasil dimuat.");
+      } catch (e) {
+        console.error("Gagal memuat model:", e);
+        alert("Gagal memuat model AI. Coba refresh halaman.");
+      }
     }
 
     initModel();
 
+    // ==== BAGIAN SCAN (MODIFIKASI) ====
     const scanButton = document.getElementById("scan-button");
     const scanButtonText = document.getElementById("scan-button-text");
+    const resultArea = document.getElementById("result-area");
+    const loadingSpinner = document.getElementById("loading-spinner");
+    const labelContainer = document.getElementById("label-container");
+    const resultBox = document.getElementById("result-box");
+
 
     scanButton.addEventListener("click", async () => {
       if (!model) {
         alert("Model belum siap. Mohon tunggu sebentar...");
         return;
       }
+      
+      // 1. Tampilkan status loading
+      scanButton.disabled = true;
+      scanButtonText.textContent = "Mendeteksi...";
+      resultArea.classList.remove("hidden");
+      loadingSpinner.classList.remove("hidden");
+      labelContainer.innerHTML = ""; // Kosongkan hasil lama
+      resultBox.classList.add("hidden"); // Sembunyikan kotak hasil lama
 
       const image = document.getElementById("image-preview");
-      const prediction = await model.predict(image, false);
 
-      // Urutkan hasil dari yang tertinggi
-      prediction.sort((a, b) => b.probability - a.probability);
+      try {
+        const prediction = await model.predict(image, false);
 
-      // Hanya tampilkan yang >= 20%
-      const filtered = prediction.filter((p) => p.probability * 100 >= 20);
+        // Urutkan hasil dari yang tertinggi
+        prediction.sort((a, b) => b.probability - a.probability);
 
-      const labelContainer = document.getElementById("label-container");
-      const resultBox = document.getElementById("result-box");
-      const resultArea = document.getElementById("result-area");
-
-      labelContainer.innerHTML = "";
-      resultBox.classList.remove("hidden");
-      resultArea.classList.remove("hidden");
-
-      if (filtered.length === 0) {
-        labelContainer.textContent =
-          "Tidak ada prediksi yang cukup kuat (semua di bawah 20%).";
-        resultBox.classList.add("hidden");
-        return;
-      }
-
-      filtered.forEach((p) => {
-        const div = document.createElement("div");
-        div.textContent = `${p.className}: ${(p.probability * 100).toFixed(2)}%`;
-        labelContainer.appendChild(div);
-      });
-
-      const top = filtered[0];
-      const topClass = top.className.toLowerCase();
-      const topProb = top.probability * 100;
-      let pesan = "";
-      let warna = "";
-
-      // === Logika pengelolaan sampah ===
-      if (["plastic", "paper", "metal", "glass"].includes(topClass)) {
-        if (topProb < 50) {
-          pesan = "🚮 Kondisi tidak memungkinkan didaur ulang. Buang ke TPA.";
-          warna = "#dc2626";
-        } else {
-          pesan = "♻️ Sampah ini dapat didaur ulang.";
-          warna = "#16a34a";
+        // Ambil prediksi teratas
+        const top = prediction[0];
+        
+        if (!top) {
+            throw new Error("Tidak ada prediksi yang ditemukan.");
         }
-      } else if (topClass === "organic") {
-        pesan = "🌱 Sampah ini sebaiknya dijadikan kompos.";
-        warna = "#22c55e";
-      } else {
-        pesan = "🚮 Sampah ini sebaiknya dibuang ke TPA.";
-        warna = "#dc2626";
-      }
 
-      resultBox.style.backgroundColor = warna;
-      resultBox.textContent = pesan;
+        const topClass = top.className.toLowerCase();
+
+        // 2. PINDAH HALAMAN (REDIRECT)
+        // Beri jeda 500ms agar pengguna melihat spinner
+        setTimeout(() => {
+          // Alihkan pengguna ke result.html dan kirim kelas terdeteksi
+          window.location.href = `result.html?class=${topClass}`;
+        }, 500);
+
+      } catch (error) {
+        console.error("Error saat prediksi:", error);
+        alert("Gagal melakukan prediksi. Coba lagi.");
+        
+        // 3. Sembunyikan loading jika gagal
+        scanButton.disabled = false;
+        scanButtonText.textContent = "Scan Sekarang";
+        resultArea.classList.add("hidden");
+        loadingSpinner.classList.add("hidden");
+      }
     });
   </script>
 

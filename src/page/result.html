@@ -4,24 +4,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hasil Scan - EcoWaste Connect</title>
-  <link rel="stylesheet" crossorigin href="/assets/style-dfAWuXzu.css" />
+  <title>Scan Sampah - EcoWaste Connect</title>
+
+  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@400;600;700&display=swap"
     rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+  <!-- TensorFlow & Teachable Machine -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.12.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+
   <link rel="stylesheet" href="../../assets/css/sampah_kita.css">
   <style>
     body {
-      font-family: 'Poppins', 'Segoe UI', sans-serif;
+      font-family: "Poppins", "Segoe UI", sans-serif;
       color: #1f2937;
-      background-color: #f9fafb;
-      /* Latar belakang netral */
+      background-color: #f0fdf4;
     }
 
     .font-lora {
-      font-family: 'Lora', serif;
+      font-family: "Lora", serif;
     }
 
     .sticky-header {
@@ -31,6 +36,37 @@
       background-color: rgba(255, 255, 255, 0.8);
       backdrop-filter: blur(8px);
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .upload-box {
+      border: 3px dashed #a7f3d0;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .upload-box:hover {
+      background-color: #d1fae5;
+      border-color: #6ee7b7;
+    }
+
+    /* Spinner untuk loading deteksi */
+    .spinner {
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #22c55e;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
     }
   </style>
 </head>
@@ -128,62 +164,48 @@
     </div>
   </main>
 
-  <script>
-    const wasteData = {
-      battery: {
-        type: 'Baterai Bekas',
-        confidence: '95%',
-        recyclable: 'Ya, Limbah B3',
-        carbon_fact: 'Daur ulang 1 ton baterai mengurangi 75% emisi karbon.',
-        education:
-          'Baterai mengandung logam berat berbahaya. Selalu buang di titik pengumpulan limbah elektronik khusus agar tidak mencemari tanah dan air.',
-        image:
-          'https://images.unsplash.com/photo-1599234333863-85b4f6535b91?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600',
-      },
-      plastic: {
-        type: 'Botol Plastik',
-        confidence: '93%',
-        recyclable: 'Ya (Jenis PET)',
-        carbon_fact:
-          'Daur ulang 1 ton plastik hemat energi setara 2.000 galon bensin.',
-        education:
-          'Plastik adalah ancaman besar bagi ekosistem laut. Pastikan botol dalam keadaan bersih dan remuk sebelum dibuang untuk menghemat ruang.',
-        image:
-          'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800',
-      },
-      // ... (data lainnya sama seperti sebelumnya) ...
-      cardboard: {
-        type: 'Kardus',
-        confidence: '99%',
-        recyclable: 'Ya',
-        carbon_fact:
-          'Mendaur ulang 1 ton kardus dapat menyelamatkan sekitar 17 pohon.',
-        education:
-          'Kardus adalah salah satu material yang paling mudah didaur ulang. Pastikan dalam keadaan kering dan tidak terkontaminasi minyak.',
-        image:
-          'https://images.unsplash.com/photo-1560935384-5f5a890786d5?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600',
-      },
-      trash: {
-        type: 'Sampah Residu',
-        confidence: '90%',
-        recyclable: 'Tidak',
-        carbon_fact:
-          'Sampah di TPA menghasilkan gas metana, 25x lebih merusak dari CO2.',
-        education:
-          'Ini adalah sampah sisa yang tidak bisa didaur ulang/dikompos. Contohnya popok bekas atau kemasan sachet. Tujuan kita adalah mengurangi produksi sampah jenis ini.',
-        image:
-          'https://images.unsplash.com/photo-1574974671999-523e59324748?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600',
-      },
-    };
+<script>
+    // Hapus database konten statis
+    // const wasteData = { ... };
 
     document.addEventListener('DOMContentLoaded', () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const wasteClass = urlParams.get('class') || 'plastic';
+      
+      // ===================================
+      // ==== PERUBAHAN UTAMA (BLOK INI) ====
+      // Ambil gambar dari session storage dan tampilkan
+      const imageData = sessionStorage.getItem('scannedImage');
+      const scannedImageEl = document.getElementById('scanned-image');
+      
+      if (imageData && scannedImageEl) {
+        scannedImageEl.src = imageData;
+      }
+      // Opsional: hapus gambar dari storage setelah ditampilkan
+      // sessionStorage.removeItem('scannedImage');
+      // ===================================
 
-      const data = wasteData[wasteClass];
+      const urlParams = new URLSearchParams(window.location.search);
+      const wasteClass = urlParams.get('class'); // Hapus '|| 'plastic'' agar error jika class tidak ada
+
+      // Panggil fungsi untuk mengambil data dinamis
+      loadWasteData(wasteClass);
+    });
+
+    // Fungsi baru untuk memuat data (menggantikan logika lama)
+    async function loadWasteData(wasteClass) {
+      const mainElement = document.querySelector('main');
+
+      if (!wasteClass) {
+        // Tampilkan error jika tidak ada parameter 'class'
+        mainElement.innerHTML = `<div class="text-center"><h1 class="font-lora text-3xl font-bold text-red-600">Error: Jenis Sampah Tidak Dikenali</h1><p class="text-gray-600 mt-4">Parameter 'class' tidak ditemukan. Silakan scan ulang.</p><a href="scan.html" class="mt-8 inline-block px-6 py-3 bg-green-600 text-white rounded-lg">Coba Scan Lagi</a></div>`;
+        return;
+      }
+
+      // Di sini Anda akan memanggil API Gemini
+      // Untuk sekarang, kita gunakan data dummy dari model Gemini
+      // GANTILAH LOGIKA INI DENGAN PANGGILAN API GEMINI ANDA
+      const data = await getDynamicWasteData(wasteClass);
 
       if (data) {
-        document.getElementById('scanned-image').src = data.image;
         document.getElementById('waste-type').textContent = data.type;
         document.getElementById(
           'confidence-score'
@@ -193,12 +215,106 @@
         document.getElementById('carbon-fact').textContent = data.carbon_fact;
         document.getElementById('education-info').textContent =
           data.education;
+        
+        // Logika untuk tombol "Temukan Lokasi" (jika Anda ingin kembangkan)
+        const disposeButton = document.getElementById('dispose-button');
+        if (data.recyclable === 'Tidak') {
+            disposeButton.innerHTML = '<i class="fas fa-trash-alt"></i> <span>Temukan TPA Terdekat</span>';
+            // Tambahkan logika geolocation untuk TPA di sini
+        } else {
+            disposeButton.innerHTML = '<i class="fas fa-recycle"></i> <span>Temukan Bank Sampah Terdekat</span>';
+            // Tambahkan logika geolocation untuk Bank Sampah di sini
+        }
+
       } else {
-        document.querySelector(
-          'main'
-        ).innerHTML = `<div class="text-center"><h1 class="font-lora text-3xl font-bold text-red-600">Error: Jenis Sampah Tidak Dikenali</h1><p class="text-gray-600 mt-4">Maaf, kami tidak dapat menemukan informasi untuk jenis sampah tersebut.</p><a href="scan.html" class="mt-8 inline-block px-6 py-3 bg-green-600 text-white rounded-lg">Coba Scan Lagi</a></div>`;
+        // Tampilkan error jika data tidak ditemukan
+        mainElement.innerHTML = `<div class="text-center"><h1 class="font-lora text-3xl font-bold text-red-600">Error: Data Tidak Ditemukan</h1><p class="text-gray-600 mt-4">Maaf, kami tidak dapat menemukan informasi untuk jenis sampah '${wasteClass}'.</p><a href="scan.html" class="mt-8 inline-block px-6 py-3 bg-green-600 text-white rounded-lg">Coba Scan Lagi</a></div>`;
       }
-    });
+    }
+    
+    /**
+     * INI ADALAH FUNGSI SIMULASI PANGGILAN API GEMINI
+     * Gantilah fungsi ini dengan logika panggilan API Gemini Anda yang sesungguhnya
+     * seperti yang kita buat di file 'index.html' sebelumnya.
+     */
+    async function getDynamicWasteData(wasteClass) {
+        console.log(`Simulasi panggilan API Gemini untuk: ${wasteClass}`);
+        // Tampilkan loader (jika ada)
+        
+        // Logika dummy (ganti dengan 'await getGeminiRecommendation(prompt)')
+        const mockDatabase = {
+          battery: {
+            type: 'Baterai Bekas',
+            confidence: '95%',
+            recyclable: 'Ya, Limbah B3',
+            carbon_fact: 'Daur ulang 1 ton baterai mengurangi 75% emisi karbon.',
+            education:
+              'Baterai mengandung logam berat berbahaya. Selalu buang di titik pengumpulan limbah elektronik khusus agar tidak mencemari tanah dan air.',
+          },
+          plastic: {
+            type: 'Botol Plastik',
+            confidence: '93%',
+            recyclable: 'Ya (Jenis PET)',
+            carbon_fact:
+              'Daur ulang 1 ton plastik hemat energi setara 2.000 galon bensin.',
+            education:
+              'Plastik adalah ancaman besar bagi ekosistem laut. Pastikan botol dalam keadaan bersih dan remuk sebelum dibuang untuk menghemat ruang.',
+          },
+          cardboard: {
+            type: 'Kardus',
+            confidence: '99%',
+            recyclable: 'Ya',
+            carbon_fact:
+              'Mendaur ulang 1 ton kardus dapat menyelamatkan sekitar 17 pohon.',
+            education:
+              'Kardus adalah salah satu material yang paling mudah didaur ulang. Pastikan dalam keadaan kering dan tidak terkontaminasi minyak.',
+          },
+          trash: {
+            type: 'Sampah Residu',
+            confidence: '90%',
+            recyclable: 'Tidak',
+            carbon_fact:
+              'Sampah di TPA menghasilkan gas metana, 25x lebih merusak dari CO2.',
+            education:
+              'Ini adalah sampah sisa yang tidak bisa didaur ulang/dikompos. Contohnya popok bekas atau kemasan sachet. Tujuan kita adalah mengurangi produksi sampah jenis ini.',
+          },
+          // Tambahkan kelas lain dari model Anda
+          metal: {
+            type: 'Logam',
+            confidence: '92%',
+            recyclable: 'Ya',
+            carbon_fact: 'Daur ulang aluminium menghemat 95% energi dibanding membuatnya dari baru.',
+            education: 'Kaleng aluminium dan logam lainnya dapat didaur ulang berkali-kali tanpa kehilangan kualitas. Pastikan bersih sebelum dibuang.'
+          },
+          glass: {
+            type: 'Kaca',
+            confidence: '97%',
+            recyclable: 'Ya',
+            carbon_fact: 'Kaca 100% dapat didaur ulang dan tidak pernah terurai di TPA.',
+            education: 'Botol dan toples kaca dapat didaur ulang. Pisahkan berdasarkan warna (jika diminta) dan pastikan tidak pecah.'
+          },
+          organic: {
+            type: 'Organik',
+            confidence: '94%',
+            recyclable: 'Ya (Kompos)',
+            carbon_fact: 'Mengompos sampah organik mengurangi emisi metana dari TPA.',
+            education: 'Sampah sisa makanan dan kebun dapat diolah menjadi kompos yang menyuburkan tanah. Jangan campur dengan sampah lain.'
+          },
+          paper: {
+            type: 'Kertas',
+            confidence: '96%',
+            recyclable: 'Ya',
+            carbon_fact: 'Daur ulang 1 ton kertas selamatkan 17 pohon dan hemat 7.000 galon air.',
+            education: 'Kertas seperti koran, majalah, dan HVS dapat didaur ulang. Hindari kertas yang kotor, berminyak, atau berlapis plastik/lilin.'
+          }
+        };
+
+        // Simulasikan jeda jaringan
+        await new Promise(resolve => setTimeout(resolve, 500)); 
+
+        return mockDatabase[wasteClass.toLowerCase()] || null; 
+    }
+
   </script>
 </body>
 
