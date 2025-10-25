@@ -104,7 +104,7 @@ if (isset($_GET["feed_id"])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-    $sql = "SELECT f.feed_id, f.content, f.image, CONVERT_TZ(f.publish_at, '+00:00', '+07:00'), u.email, up.fullname
+    $sql = "SELECT f.feed_id, f.content, f.image, CONVERT_TZ(f.publish_at, '+00:00', '+07:00'), u.user_id, up.fullname
             FROM Feed f
             JOIN Users u ON f.user_id = u.user_id
             JOIN User_Profile up ON u.user_id = up.user_id
@@ -113,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     //Query Ambil Data Feed
     $stmt = $conn->prepare($sql);
     $stmt->execute();
-    $stmt->bind_result($feed_id, $content, $image, $publish_at, $email, $fullname);
+    $stmt->bind_result($feed_id, $content, $image, $publish_at, $user_id, $fullname);
 
 
     $feeds = [];
@@ -123,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             'content' => $content,
             'image' => $image,
             'publish_at' => $publish_at,
-            'email' => $email,
+            'user_id' => $user_id,
             'fullname' => $fullname,
         ];
 

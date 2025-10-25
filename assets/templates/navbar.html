@@ -1,6 +1,5 @@
 <div class="max-w-7xl mx-auto px-4 py-4 navbar">
     <div class="flex justify-between items-center">
-        <!-- Logo -->
         <a href="../../index" class="flex items-center gap-2">
             <div
                 class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center">
@@ -9,37 +8,34 @@
             <span class="text-2xl font-bold text-green-700">EcoWaste</span>
         </a>
 
-        <!-- Desktop Navigation -->
+
         <nav class="hidden md:flex gap-8 font-semibold">
             <a href="bank_sampah" class="text-gray-700 hover:text-green-600 transition">Bank Sampah</a>
             <a href="feed" class="text-gray-700 hover:text-green-600 transition">Feed</a>
+            <a href="scan" class="text-gray-700 hover:text-green-600 transition">Scan Sampah</a>
             <a href="learderboard" class="text-gray-700 hover:text-green-600 transition">Leaderboard</a>
             <a href="about_us" class="text-gray-700 hover:text-green-600 transition">Tentang Kami</a>
         </nav>
 
-        <!-- Right Side (Session + Mobile Menu Button) -->
         <div class="flex items-center gap-4">
-            <div id="session" class="flex items-center gap-4">
-                <!-- Session content -->
+            <div id="session" class="hidden md:flex items-center gap-4">
             </div>
 
-            <!-- Mobile Menu Button -->
             <button id="mobileMenuBtn" class="md:hidden text-gray-700 hover:text-green-600 transition">
                 <i class="fas fa-bars text-2xl"></i>
             </button>
         </div>
     </div>
 
-    <!-- Mobile Navigation Menu -->
     <nav id="mobileMenu" class="hidden md:hidden mt-4 pb-4 border-t border-gray-200">
-        <div class="flex flex-col gap-4 pt-4">
+        <div class="flex flex-col gap-4 mt-4 pt-4">
+            <a id="session-mobile" href="" class="text-gray-700 hover:text-green-600 transition font-semibold">Login</a>
             <a href="bank_sampah" class="text-gray-700 hover:text-green-600 transition font-semibold">Bank Sampah</a>
-            <a href="feed.html" class="text-gray-700 hover:text-green-600 transition font-semibold">Feed</a>
-            <a href="learderboard"
-                class="text-gray-700 hover:text-green-600 transition font-semibold">Leaderboard</a>
-            <a href="about_us"
-                class="text-gray-700 hover:text-green-600 transition font-semibold">Tentang
-                Kami</a>
+            <a href="feed" class="text-gray-700 hover:text-green-600 transition font-semibold">Feed</a>
+            <a href="scan" class="text-gray-700 hover:text-green-600 transition font-semibold">Scan Sampah</a>
+            <a href="learderboard" class="text-gray-700 hover:text-green-600 transition font-semibold">Leaderboard</a>
+            <a href="about_us" class="text-gray-700 hover:text-green-600 transition font-semibold">Tentang Kami</a>
+            
         </div>
     </nav>
 </div>

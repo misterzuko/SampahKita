@@ -238,6 +238,7 @@
   <script src="../../assets/js/sampahkita_main.js"></script>
   <script>
 
+
     function load_profile() {
       fetch("../../api/user_profile")
         .then(response => response.json())
@@ -287,12 +288,13 @@
         .then(data => {
           const container = document.getElementById("feed-container");
           container.innerHTML = "";
+          console.log(data)
           data.forEach((feed) => {
             const div = document.createElement("div");
             div.innerHTML = `
-          <div id="${feed.feed_id}" onclick="load_detailfeed(${feed.feed_id})" class="bg-white rounded-xl shadow-md p-6 mb-6 feed-post border border-gray-100">
+          <div id="${feed.feed_id}" class="bg-white rounded-xl shadow-md p-6 mb-6 feed-post border border-gray-100">
             <div class="flex justify-between items-start mb-4">
-              <div class="flex items-center mb-4">
+              <div onclick="redirect_profile(${feed.user_id})" class="flex items-center mb-4">
                 <img src="https://api.dicebear.com/9.x/initials/svg?seed=${feed.fullname}&size=128" alt="Profil Pengguna"
                   class="w-12 h-12 rounded-full object-cover mr-4" />
                 <div>
@@ -342,7 +344,7 @@
                   <i id="like-${feed.feed_id}" class="far fa-heart"></i>
                   <p id="like-p-${feed.feed_id}">${feed.total_likes}</p>
                 </button>
-                <button class="flex items-center gap-1 hover:text-green-600 transition">
+                <button onclick="load_detailfeed(${feed.feed_id})" class="flex items-center gap-1 hover:text-green-600 transition">
                   <i class="far fa-comment"></i> 
                   <p>${feed.total_comment} Komentar</p>
                 </button>
@@ -369,7 +371,11 @@
         })
     }
 
-    function load_detailfeed(i){
+    function redirect_profile(i) {
+      window.location.href = `profile?user_id=${i}`
+    }
+
+    function load_detailfeed(i) {
       window.location.href = `feed_detail?feed_id=${i}`
     }
 

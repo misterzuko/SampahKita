@@ -44,28 +44,32 @@ function setupMobileMenu() {
 }
 setupMobileMenu();
 
-function check_session() {
-    fetch("../../api/user_profile")
+function check_session(i) {
+    fetch(`../../api/user_profile?user_id=${i}`)
         .then(response => response.json())
         .then(data_profile => {
             const session = document.getElementById("session");
-
+            const session_mobile = document.getElementById("session-mobile");
             if (data_profile.status == "error") {
                 session.innerHTML = `
-              <a href="login.html"
+              <a href="login"
                 class="hidden md:block px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold">
                 Login
               </a>
             `;
+            session_mobile.href = "login";
+            session_mobile.innerText = "Login";
             } else {
                 session.innerHTML = `
-            <a href="profile.html">
+            <a href="profile">
               <button
                 class="hidden md:block px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold">
                 Profil
               </button>
             </a>
             `;
+            session_mobile.href = "profile";
+            session_mobile.innerText = "Profile";
             }
             setupMobileMenu();
         })
