@@ -380,7 +380,9 @@
               <div class="relative">
                 <button
                   class="text-gray-500 hover:text-gray-700 transition w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center"
-                  aria-expanded="false" data-dropdown-toggle data-target-id="${feed}">
+                  aria-expanded="false" data-dropdown-toggle data-target-id="${
+                    feed.feed_id
+                  }">
                   <i class="fas fa-ellipsis-v"></i>
                 </button>
 
@@ -558,6 +560,72 @@
 
       load_feed();
       load_profile();
+    </script>
+
+    <script>
+      /**
+       *
+       * Dropdown Script
+       *
+       **/
+
+      function toggleDropdown(button) {
+        const targetId = button.getAttribute('data-target-id');
+        const menu = document.getElementById(targetId);
+        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+        // 1. Tutup SEMUA dropdown yang sedang terbuka
+        document
+          .querySelectorAll('[data-dropdown-toggle][aria-expanded="true"]')
+          .forEach(openButton => {
+            if (openButton !== button) {
+              const openMenu = document.getElementById(
+                openButton.getAttribute('data-target-id')
+              );
+              openButton.setAttribute('aria-expanded', 'false');
+              if (openMenu) openMenu.classList.add('hidden');
+            }
+          });
+
+        // 2. Toggle (Buka/Tutup) dropdown yang ditargetkan
+        if (menu) {
+          if (isExpanded) {
+            button.setAttribute('aria-expanded', 'false');
+            menu.classList.add('hidden');
+          } else {
+            button.setAttribute('aria-expanded', 'true');
+            menu.classList.remove('hidden');
+          }
+        }
+      }
+
+      // 3. Event Listener untuk semua tombol toggle
+      document.querySelectorAll('[data-dropdown-toggle]').forEach(button => {
+        button.addEventListener('click', event => {
+          event.stopPropagation();
+          toggleDropdown(button);
+        });
+      });
+
+      // 4. Penanganan "Outside Click" untuk menutup semua dropdown
+      document.addEventListener('click', event => {
+        document
+          .querySelectorAll('[data-dropdown-toggle][aria-expanded="true"]')
+          .forEach(button => {
+            const targetId = button.getAttribute('data-target-id');
+            const menu = document.getElementById(targetId);
+
+            // Cek apakah klik TIDAK berasal dari tombol ATAU menu itu sendiri
+            if (
+              !button.contains(event.target) &&
+              menu &&
+              !menu.contains(event.target)
+            ) {
+              button.setAttribute('aria-expanded', 'false');
+              menu.classList.add('hidden');
+            }
+          });
+      });
     </script>
   </body>
 </html>
