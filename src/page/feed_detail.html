@@ -49,7 +49,7 @@
       <div class="flex items-center justify-between mb-4">
         <div class="flex items-center gap-3">
           <img id="feed-profile"
-            src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800"
+            src=""
             alt="Profil Pengguna" class="w-12 h-12 rounded-full object-cover" />
           <div>
             <p id="feed-name" class="font-semibold text-gray-800"></p>
@@ -69,11 +69,11 @@
         <div class="flex gap-6">
           <button class="flex items-center gap-2 hover:text-green-600 transition text-lg">
             <i class="far fa-heart"></i>
-            <span id="feed-total-likes" class="text-sm font-semibold">25</span>
+            <span id="feed-total-likes" class="text-sm font-semibold">0</span>
           </button>
           <button class="flex items-center gap-2 hover:text-green-600 transition text-lg">
             <i class="far fa-comment"></i>
-            <span id="feed-total-comments" class="text-sm font-semibold">8</span>
+            <span id="feed-total-comments" class="text-sm font-semibold">0</span>
           </button>
         </div>
         <button class="flex items-center gap-2 hover:text-green-600 transition text-lg">
@@ -85,19 +85,19 @@
 
     <section>
       <h2 id="feed-total-comments-2" class="font-lora text-2xl font-bold text-gray-800 mb-6">
-        Komentar (8)
+        Komentar (0)
       </h2>
 
       <div class="flex items-start gap-4 mb-8">
-        <img id="profile-picture" src="https://images.unsplash.com/photo-153571387500-b6f7051e6e0d?q=80&w=400"
-          alt="Avatar Anda" class="w-10 h-10 rounded-full object-cover flex-shrink-0 mt-1" />
+        <img id="profile-picture" src="https://api.dicebear.com/9.x/initials/svg?seed=??&size=128"
+           class="w-10 h-10 rounded-full object-cover flex-shrink-0 mt-1" />
         <div class="flex-grow">
           <textarea id="text-create" rows="3"
             class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none resize-none mb-3"
-            placeholder="Tulis komentar Anda..."></textarea>
-          <button onclick="create_comment()"
+            placeholder="Login untuk komentar..."></textarea>
+          <button id="submit-comment" onclick="create_comment()"
             class="px-5 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold float-right">
-            Kirim Komentar
+            Login untuk komentar
           </button>
         </div>
       </div>
@@ -178,19 +178,24 @@
     const params = new URLSearchParams(window.location.search);
     const post_id = params.get("feed_id");
     console.log(post_id)
-    function check_session(){
-    fetch(`../../api/session_info`)
-      .then(response => response.json())
-      .then(sessions => {
-        if (sessions.status == "sukses") {
-          window.location.href = `feed_detail?feed_id=${post_id}`;
-        } else {
-          window.location.href = "login";
-        }
 
-      })
+    function check_session() {
+      fetch(`../../api/session_info`)
+        .then(response => response.json())
+        .then(sessions => {
+          if (sessions.status == "sukses") {
+            const text_comment = document.getElementById('text-create');
+            const submit_comment = document.getElementById('submit-comment');
+            text_comment.placeholder = "Apa yang ingin anda sampaikan...";
+            submit_comment.innerText = "Kirim Komentar";
+          } else {
+            window.location.href = "login";
+          }
+
+        })
     }
-    check_session()
+    check_session();
+
 
     function load_profile() {
       fetch("../../api/user_profile")
@@ -275,6 +280,7 @@
     }
 
     async function create_comment() {
+      check_session();
       const text_comment = document.getElementById('text-create').value;
       console.log(text_comment);
       const data_form = {

@@ -376,16 +376,7 @@
     }
 
     function load_detailfeed(i) {
-      fetch(`../../api/session_info`)
-        .then(response => response.json())
-        .then(sessions => {
-          if (sessions.status == "sukses") {
-            window.location.href = `feed_detail?feed_id=${i}`;
-          } else {
-            window.location.href = "login";
-          }
-
-        })
+      window.location.href = `feed_detail?feed_id=${i}`;
     }
 
     function openFileDialog() {
