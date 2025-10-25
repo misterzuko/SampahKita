@@ -7,7 +7,7 @@ function load_navbar() {
         })
 }
 load_navbar();
-s
+
 
 //Peruntukan mobile view 
 function setupMobileMenu() {

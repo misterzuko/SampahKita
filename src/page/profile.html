@@ -52,7 +52,7 @@
         <div class="p-6 md:p-8">
           <div class="relative flex flex-col sm:flex-row items-start">
             <div class="relative -mt-24 md:-mt-32 w-28 h-28 md:w-36 md:h-36 flex-shrink-0">
-              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400" alt="Foto Profil"
+              <img id="profile-picture" src="" alt="Foto Profil"
                 class="w-full h-full rounded-full object-cover border-4 border-white shadow-md" />
             </div>
             <div class="mt-4 sm:mt-0 sm:ml-6 w-full">
@@ -194,11 +194,13 @@
         .then(response => response.json())
         .then(data_p => {
           if (data_p.status == "sukses") {
+            
             p_desc = document.getElementById("progress-desc");
             p_point = document.getElementById("progress-point");
             p_recycle = document.getElementById("progress-recycle");
             p_rank= document.getElementById("progress-rank");
 
+           
             p_desc.innerText = `${data_p.tier} Level ${data_p.level} | ${data_p.title}`
             p_point.innerText = data_p.points;
             p_recycle.innerText = data_p.total_recycle;
@@ -214,9 +216,13 @@
         .then(data_profile => {
           console.log(data_profile);
           if (data_profile.status == "sukses") {
+            profile_picture = document.getElementById("profile-picture");
             profile_name = document.getElementById("profile-name");
             profile_desc = document.getElementById("profile-desc");
+            
+            console.log(profile_picture)
 
+            profile_picture.src = `https://api.dicebear.com/9.x/initials/svg?seed=${data_profile.fullname}&size=128`;
             profile_name.innerText = data_profile.fullname;
             profile_desc.innerText = "Aku adalah bagian dari masadepan yang cerah!";
           }
