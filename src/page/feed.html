@@ -290,15 +290,46 @@
           data.forEach((feed) => {
             const div = document.createElement("div");
             div.innerHTML = `
-          <div id="${feed.feed_id}" class="bg-white rounded-xl shadow-md p-6 mb-6 feed-post border border-gray-100">
-            <div class="flex items-center mb-4">
-              <img src="https://api.dicebear.com/9.x/initials/svg?seed=${feed.fullname}&size=128" alt="Profil Pengguna"
-                class="w-12 h-12 rounded-full object-cover mr-4" />
-              <div>
-                <p id="feed_name" class="font-semibold text-gray-800">${feed.fullname}</p>
-                <p id="feed_date" class="text-sm text-gray-500">${timeAgo(feed.publish_at)}</p>
+          <div id="${feed.feed_id}" onclick="load_detailfeed(${feed.feed_id})" class="bg-white rounded-xl shadow-md p-6 mb-6 feed-post border border-gray-100">
+            <div class="flex justify-between items-start mb-4">
+              <div class="flex items-center mb-4">
+                <img src="https://api.dicebear.com/9.x/initials/svg?seed=${feed.fullname}&size=128" alt="Profil Pengguna"
+                  class="w-12 h-12 rounded-full object-cover mr-4" />
+                <div>
+                  <p id="feed_name" class="font-semibold text-gray-800">${feed.fullname}</p>
+                  <p id="feed_date" class="text-sm text-gray-500">${timeAgo(feed.publish_at)}</p>
+                </div>
+              </div>
+              <div class="relative">
+                <button
+                  class="text-gray-500 hover:text-gray-700 transition w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center"
+                  aria-expanded="false" data-dropdown-toggle data-target-id="${feed}">
+                  <i class="fas fa-ellipsis-v"></i>
+                </button>
+
+                <div id="menu-123"
+                  class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-xl py-1 z-10 hidden"
+                  role="menu">
+                  <a href="edit_postingan.html?id=123"
+                    class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-green-600 transition"
+                    role="menuitem">
+                    <i class="fas fa-edit w-4"></i> Edit Postingan
+                  </a>
+                  <button
+                    class="w-full text-left flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition"
+                    role="menuitem" data-action="delete">
+                    <i class="fas fa-trash-alt w-4"></i> Hapus Postingan
+                  </button>
+                  <div class="border-t border-gray-100 my-1"></div>
+                  <button
+                    class="w-full text-left flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
+                    role="menuitem" data-action="report">
+                    <i class="fas fa-flag w-4"></i> Laporkan
+                  </button>
+                </div>
               </div>
             </div>
+            
             <p id="feed_content" class="text-gray-700 mb-4">
               ${feed.content}
             </p>
@@ -336,6 +367,10 @@
 
           });
         })
+    }
+
+    function load_detailfeed(i){
+      window.location.href = `feed_detail?feed_id=${i}`
     }
 
     function openFileDialog() {
