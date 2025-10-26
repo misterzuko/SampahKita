@@ -16,9 +16,4 @@ if (isset($_SESSION['user_id'])) {
         "message" => "Belum login"
     ]);
 }
-echo json_encode([
-    "status" => "error",
-    "message" => "Anda tidak memiliki akses"
-]);
-exit;
 
