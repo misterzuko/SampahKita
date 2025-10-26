@@ -323,7 +323,7 @@
         },
         {
           id: 2,
-          name: 'EcoWaste Center Kemang',
+          name: 'Bank Sampah SK Center Kemang',
           address: 'Jl. Kemang Raya No. 88, Jakarta Selatan',
           lat: -6.261,
           lng: 106.812,
@@ -363,19 +363,14 @@
       });
 
       function initMap() {
-        // Inisialisasi peta Leaflet, berpusat di Jakarta
         map = L.map('map').setView([-6.208, 106.845], 12);
-
-        // Tambahkan tile layer dari OpenStreetMap
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           maxZoom: 19,
           attribution:
             '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         }).addTo(map);
 
-        // Tambahkan marker untuk setiap lokasi
         locations.forEach(location => {
-          // Buat Popup
           const popupContent = `
                     <div class="p-1">
                         <h3 class="font-bold text-base mb-1">${location.name}</h3>
@@ -386,7 +381,6 @@
                        
                     </div>`;
 
-          // Buat Marker dan ikat Popup
           L.marker([location.lat, location.lng], {
             icon: fontAwesomeIcon,
           })

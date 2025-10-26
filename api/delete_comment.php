@@ -43,7 +43,10 @@ try {
     $delete = $conn->prepare("DELETE FROM Feed_Comment WHERE comment_id = ?");
     $delete->bind_param("s", $comment_id);
 
+    
     if ($delete->execute()) {
+         $conn->query("UPDATE User_Progress SET points = points - 1000 WHERE user_id = $user_id");
+
         echo json_encode(["status" => "sukses", "message" => "Komentar berhasil dihapus"]);
     } else {
         echo json_encode(["status" => "error", "message" => "Gagal menghapus komentar: " . $conn->error]);

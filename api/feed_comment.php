@@ -6,7 +6,7 @@ session_start();
 if ($_SESSION["user_id"]) {
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $feed_id = $_GET['feed_id'];
-        
+
         if (!$feed_id) {
             echo json_encode([
                 "status" => "error",
@@ -66,49 +66,40 @@ if ($_SESSION["user_id"]) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $input = json_decode(file_get_contents('php://input'), true);
 
-        //DUMMY 
         $user_id = $_SESSION["user_id"];
         $feed_id = $input['feed_id'] ?? null;
-        $comment = $input["komentar"];
+        $comment = $input["komentar"] ?? null;
 
-        $comment = htmlspecialchars($comment , ENT_QUOTES, 'UTF-8');
-
-        if (!$comment) {
+        $comment = trim((string) $comment);
+        if ($comment === '' || !$feed_id) {
             echo json_encode([
                 "status" => "error",
-                "message" => "Komentar Kosong!"
+                "message" => "Feed ID dan komentar wajib diisi"
             ]);
             exit;
         }
+        $comment = htmlspecialchars($comment, ENT_QUOTES, 'UTF-8');
+        $stmt = $conn->prepare("INSERT INTO Feed_Comment (feed_id, user_id, content) VALUES (?, ?, ?)");
+        $stmt->bind_param("iis", $feed_id, $user_id, $comment);
 
-        $sql = "INSERT INTO Feed_Comment (feed_id, user_id, content) VALUES (?, ?, ?)";
+        if ($stmt->execute()) {
+            $conn->query("UPDATE User_Progress SET points = points + 1000 WHERE user_id = $user_id");
 
-        if ($stmt = $conn->prepare($sql)) {
-            $stmt->bind_param("iis", $feed_id, $user_id, $comment);
-
-            if ($stmt->execute()) {
-                echo json_encode([
-                    "status" => "success",
-                    "message" => "Komentar berhasil ditambahkan",
-                    "comment_id" => $stmt->insert_id
-                ]);
-            } else {
-                echo json_encode([
-                    "status" => "error",
-                    "message" => "Gagal menambahkan komentar: " . $conn->error
-                ]);
-            }
-
-            $stmt->close();
+            echo json_encode([
+                "status" => "success",
+                "message" => "Komentar berhasil ditambahkan"
+            ]);
         } else {
             echo json_encode([
                 "status" => "error",
-                "message" => "Prepare failed: " . $conn->error
+                "message" => "Gagal menambahkan komentar: " . $stmt->error
             ]);
         }
 
+        $stmt->close();
         exit;
     }
+
 }
 
 echo json_encode([

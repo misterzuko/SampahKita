@@ -135,6 +135,76 @@
       </div>
     </div>
   </main>
+  <footer id="footer" class="bg-gray-900 text-white pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid md:grid-cols-4 gap-8 mb-12">
+        <div>
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center">
+              <img src="../../assets/img/logo.png" alt="">
+            </div>
+            <span class="text-2xl font-bold">SampahKita</span>
+          </div>
+          <p class="text-gray-400 text-sm">
+            Platform digital untuk manajemen sampah yang efisien dan
+            berkelanjutan.
+          </p>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold mb-4">Halaman</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li>
+              <a href="bank_sampah" class="hover:text-green-400 transition">Bank Sampah</a>
+            </li>
+            <li>
+              <a href="feed" class="hover:text-green-400 transition">Feed</a>
+            </li>
+            <li>
+              <a href="scan" class="hover:text-green-400 transition">Scan Sampah</a>
+            </li>
+            <li>
+              <a href="learderboard" class="hover:text-green-400 transition">Leaderboard</a>
+            </li>
+            <li>
+              <a href="about_us" class="hover:text-green-400 transition">Tentang Kami</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold mb-4">Hubungi Kami</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li>
+              <a href="mailto:info@sk.com" class="hover:text-green-400 transition">info@sk.com</a>
+            </li>
+            <li>
+              <a href="tel:+62123456789" class="hover:text-green-400 transition">+62 123 4567 890</a>
+            </li>
+            <li class="text-sm">Jl. Diponegoro No. 69, Salatiga</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold mb-4">Ikuti Kami</h4>
+          <div class="flex gap-4">
+            <a href="https://www.instagram.com/ftiuksw/"
+              class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"><i
+                class="fab fa-instagram"></i></a>
+            <a href="#"
+              class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"><i
+                class="fab fa-facebook"></i></a>
+            <a href="#"
+              class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"><i
+                class="fab fa-twitter"></i></a>
+            <a href="#"
+              class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"><i
+                class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+        <p>&copy; 2025 SampahKita Community. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
   <script src="../../assets/js/sampahkita.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -147,7 +217,7 @@
       }
 
       const urlParams = new URLSearchParams(window.location.search);
-      const wasteClass = urlParams.get('class'); 
+      const wasteClass = urlParams.get('class');
 
 
       loadWasteData(wasteClass);
