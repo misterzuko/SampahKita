@@ -63,7 +63,7 @@ function check_session_navbar(i) {
   class="flex items-center space-x-4 p-2 rounded-lg hover:bg-gray-100 transition"
 >
   <div class="text-right flex-grow">
-    <h1 class="text-xl font-semibold text-gray-800">Nama Pengguna Anda</h1>
+    <h1 class="text-sm font-semibold text-gray-800">Nama Pengguna Anda</h1>
   </div>
 
   <div class="w-12 h-12 flex-shrink-0">
