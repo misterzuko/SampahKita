@@ -79,4 +79,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         "image" => $img_path ?? null
     ]);
 }
-?>
+echo json_encode([
+    "status" => "error",
+    "message" => "Anda tidak memiliki akses"
+]);
+exit;

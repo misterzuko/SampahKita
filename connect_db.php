@@ -1,4 +1,5 @@
 <?php
+//KONFIGURASI SERVER
 require 'php-config.php';
 
 $host = "srv1153.hstgr.io";

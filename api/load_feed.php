@@ -187,6 +187,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 echo json_encode([
     "status" => "error",
-    "message" => "Belum ada data leaderboard."
+    "message" => "Anda tidak memiliki akses"
 ]);
 exit;

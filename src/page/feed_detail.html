@@ -324,7 +324,7 @@
                   <i class="fas fa-ellipsis-v"></i>
                 </button>
                 <div id="dropdown-${comment.comment_id}" class="dropdown-menu">
-                  <div class="dropdown-item delete" onclick="deleteComment(${comment.comment_id})">
+                  <div class="dropdown-item delete" onclick="delete_comment(${comment.comment_id})">
                     <i class="fas fa-trash"></i>
                     <span>Hapus</span>
                   </div>
@@ -381,7 +381,7 @@
       }
     });
 
-    async function deleteComment(commentId) {
+    async function delete_comment(commentId) {
       if (!confirm('Apakah Anda yakin ingin menghapus komentar ini?')) {
         return;
       }

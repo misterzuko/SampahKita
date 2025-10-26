@@ -1,5 +1,5 @@
 <?php
-//API ERROR HANDLING
+//KONFIGURASI API ERROR HANDLING 
 set_error_handler(function ($severity, $message, $file, $line) {
     $errorData = [
         'severity' => $severity,

@@ -1,4 +1,5 @@
 <?php
+//DIPERUNTUKAN PUBLIC DATA
 require '../connect_db.php';
 require '../php-config.php';
 session_start();

@@ -5,7 +5,10 @@ session_start();
 header('Content-Type: application/json');
 
 if (!isset($_SESSION["user_id"])) {
-    echo json_encode(["status" => "error", "message" => "User belum login"]);
+    echo json_encode([
+        "status" => "error", 
+        "message" => "User belum login"
+    ]);
     exit;
 }
 
@@ -17,7 +20,9 @@ $input = json_decode($raw, true);
 $comment_id = $input["comment_id"] ?? $_POST["comment_id"] ?? $_GET["comment_id"] ?? null;
 
 if (!$comment_id) {
-    echo json_encode(["status" => "error", "message" => "Parameter comment_id wajib diisi"]);
+    echo json_encode([
+        "status" => "error", 
+        "message" => "Parameter comment_id wajib diisi"]);
     exit;
 }
 
@@ -28,7 +33,9 @@ try {
     $res = $stmt->get_result();
 
     if ($res->num_rows === 0) {
-        echo json_encode(["status" => "error", "message" => "Komentar tidak ditemukan"]);
+        echo json_encode([
+            "status" => "error", 
+            "message" => "Komentar tidak ditemukan"]);
         exit;
     }
 
@@ -36,24 +43,37 @@ try {
     $stmt->close();
 
     if ($comment["user_id"] != $user_id && $role !== "admin") {
-        echo json_encode(["status" => "error", "message" => "Tidak diizinkan menghapus komentar ini"]);
+        echo json_encode([
+            "status" => "error", 
+            "message" => "Tidak diizinkan menghapus komentar ini"
+        ]);
         exit;
     }
 
     $delete = $conn->prepare("DELETE FROM Feed_Comment WHERE comment_id = ?");
     $delete->bind_param("s", $comment_id);
 
-    
-    if ($delete->execute()) {
-         $conn->query("UPDATE User_Progress SET points = points - 1000 WHERE user_id = $user_id");
 
-        echo json_encode(["status" => "sukses", "message" => "Komentar berhasil dihapus"]);
+    if ($delete->execute()) {
+        $conn->query("UPDATE User_Progress SET points = points - 1000 WHERE user_id = $user_id");
+        echo json_encode([
+        "status" => "sukses", 
+        "message" => "Komentar berhasil dihapus"
+    ]);
     } else {
-        echo json_encode(["status" => "error", "message" => "Gagal menghapus komentar: " . $conn->error]);
+        echo json_encode([
+        "status" => "error", 
+        "message" => "Gagal menghapus komentar: " . $conn->error]);
     }
     $delete->close();
     exit;
 } catch (Exception $e) {
-    echo json_encode(["status" => "error", "message" => "Terjadi kesalahan: " . $e->getMessage()]);
+    echo json_encode([
+        "status" => "error", 
+        "message" => "Terjadi kesalahan: " . $e->getMessage()
+    ]);
     exit;
 }
+
+
+

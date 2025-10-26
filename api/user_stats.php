@@ -61,4 +61,3 @@ echo json_encode([
     "message" => "Anda tidak memilik izin"
 ]);
 exit;
-?>

@@ -57,10 +57,9 @@ if (isset($_SESSION["user_id"])) {
         ]);
         exit;
     }
-} else {
-    echo json_encode([
-        "status" => "error",
-        "message" => "Need Login",
-    ]);
-    exit;
 }
+echo json_encode([
+    "status" => "error",
+    "message" => "Anda tidak memiliki akses"
+]);
+exit;
