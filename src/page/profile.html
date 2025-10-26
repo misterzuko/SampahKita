@@ -137,67 +137,8 @@
                     </th>
                   </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-200">
-                  <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      24 Okt 2025, 10:30
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full status-plastik">
-                        Plastik PET
-                      </span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <a href="bank_sampah.html"
-                        class="px-3 py-2.5 bg-green-500 text-white rounded-md text-xs hover:bg-green-600 transition">Jadikan
-                        Uang</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      23 Okt 2025, 17:15
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full status-kaca">
-                        Kaca Botol
-                      </span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <a href="bank_sampah.html"
-                        class="px-3 py-2.5 bg-green-500 text-white rounded-md text-xs hover:bg-green-600 transition">Jadikan
-                        Uang</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      22 Okt 2025, 08:05
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full status-kertas">
-                        Kertas Karton
-                      </span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <a href="bank_sampah.html"
-                        class="px-3 py-2.5 bg-green-500 text-white rounded-md text-xs hover:bg-green-600 transition">Jadikan
-                        Uang</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      20 Okt 2025, 12:45
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full status-metal">
-                        Metal Kaleng
-                      </span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <a href="bank_sampah.html"
-                        class="px-3 py-2.5 bg-green-500 text-white rounded-md text-xs hover:bg-green-600 transition">Jadikan
-                        Uang</a>
-                    </td>
-                  </tr>
+                <tbody id="scan-history-content" class="divide-y divide-gray-200">
+                  <tr></tr>
                 </tbody>
               </table>
             </div>
@@ -216,10 +157,10 @@
         const data = await res.json();
 
         if (data.status === 'sukses') {
-
           load_progress(data.user_id);
           load_profile(data.user_id);
           load_feed(data.user_id);
+          load_scan(data.user_id)
         } else {
 
         }
@@ -233,6 +174,7 @@
       load_progress(user_id);
       load_profile(user_id);
       load_feed(user_id);
+      load_scan(user_id)
     }
 
 
@@ -302,13 +244,11 @@
           if (data_profile.status == "sukses") {
             profile_picture = document.getElementById("profile-picture");
             profile_name = document.getElementById("profile-name");
-            profile_desc = document.getElementById("profile-desc");
 
             console.log(profile_picture);
 
             profile_picture.src = `https://api.dicebear.com/9.x/initials/svg?seed=${data_profile.fullname}&size=128`;
             profile_name.innerText = data_profile.fullname;
-            profile_desc.innerText = "Aku adalah bagian dari masadepan yang cerah!";
           }
         })
     }
@@ -323,6 +263,7 @@
           container.innerHTML = "";
           console.log(data)
           data.feeds.forEach((feed) => {
+
             const div = document.createElement("div");
             div.innerHTML = `
             <a href="feed_detail?feed_id=${feed.feed_id}"
@@ -345,6 +286,48 @@
           });
         })
     }
+    function load_scan(i) {
+      fetch(`../../api/user_scan_history?user_id=${i}`)
+        .then(response => response.json())
+        .then(scan_data => {
+          const table = document.getElementById("scan-history-content");
+          console.log(scan_data.data.length)
+          table.innerHTML = "";
+          if (scan_data.data.length == 0) {
+            console.log()
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td colspan="3" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                  User ini belum melakukan Scan Apapun
+                </td>
+                `;
+            table.appendChild(tr);
+          }
+          scan_data.data.forEach((scan) => {
+
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                ${scan.created_at}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full status-plastik">
+                      ${kapital(scan.result)}
+                    </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <a href="../../${scan.image_path}"
+                      class="px-3 py-2.5 bg-green-500 text-white rounded-md text-xs hover:bg-green-600 transition">Lihat Gambar</a>
+                </td>
+                `;
+            table.appendChild(tr);
+
+
+
+          });
+        })
+    }
+
     function timeAgo(datetime) {
       const now = new Date();
       const then = new Date(datetime);
@@ -362,6 +345,9 @@
       if (days < 30) return `${Math.floor(days / 7)} minggu yang lalu`;
       if (days < 365) return `${Math.floor(days / 30)} bulan yang lalu`;
       return `${Math.floor(days / 365)} tahun yang lalu`;
+    }
+    function kapital(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
   </script>

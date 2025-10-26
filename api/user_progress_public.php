@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $title = "The Eco Legend";
         } else {
             $tier = "Diamonds";
-            $tier = "Guardian of the Earth";
+            $title = "Guardian of the Earth";
         }
 
         //Cek apakah level/tier sinkron with db

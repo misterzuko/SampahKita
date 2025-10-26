@@ -1,390 +1,338 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edit Postingan - EcoWaste Connect</title>
-    <link rel="stylesheet" href="../../assets/css/sampah_kita.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      rel="stylesheet"
-    />
 
-    <style>
-      body {
-        font-family: 'Poppins', 'Segoe UI', sans-serif;
-        color: #1f2937;
-        background-color: #f0fdf4; /* Pale Green */
-      }
-      .font-lora {
-        font-family: 'Lora', serif;
-      }
-      .sticky-header {
-        position: sticky;
-        top: 0;
-        z-index: 50;
-        background-color: rgba(255, 255, 255, 0.8);
-        backdrop-filter: blur(8px);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Postingan - EcoWaste Connect</title>
+  <link rel="stylesheet" href="../../assets/css/sampah_kita.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
 
-      /* KUSTOMISASI ELEMEN <dialog> */
-      dialog {
-        border: none;
-        padding: 0;
-        border-radius: 1rem;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        max-width: 400px;
-        width: 90%;
-      }
+  <style>
+    body {
+      font-family: 'Poppins', 'Segoe UI', sans-serif;
+      color: #1f2937;
+      background-color: #f0fdf4;
+      /* Pale Green */
+    }
 
-      /* Kustomisasi Backdrop */
-      dialog::backdrop {
-        background-color: rgba(0, 0, 0, 0.6);
-      }
-    </style>
-  </head>
-  <body>
-    <header class="sticky-header">
-      <div class="max-w-7xl mx-auto px-4 py-4">
-        <div class="flex justify-between items-center">
-          <a href="index.html" class="flex items-center gap-2">
-            <div
-              class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center"
-            >
-              <i class="fas fa-leaf text-white"></i>
-            </div>
-            <span class="text-2xl font-bold text-green-700">EcoWaste</span>
-          </a>
-          <nav class="hidden md:flex gap-8 font-semibold">
-            <a
-              href="bank_sampah.html"
-              class="text-gray-700 hover:text-green-600 transition"
-              >Bank Sampah</a
-            >
-            <a
-              href="feed.html"
-              class="text-green-600 hover:text-green-700 transition"
-              >Feed</a
-            >
-            <a
-              href="leaderboard.html"
-              class="text-gray-700 hover:text-green-600 transition"
-              >Leaderboard</a
-            >
-            <a
-              href="scan.html"
-              class="text-gray-700 hover:text-green-600 transition"
-              >Scan Sampah</a
-            >
-          </nav>
-          <div class="flex items-center gap-4">
-            <a
-              href="profile.html"
-              class="hidden md:block px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold"
-              >Profil</a
-            >
-            <button class="md:hidden text-2xl text-gray-700">
-              <i class="fas fa-bars"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
+    .font-lora {
+      font-family: 'Lora', serif;
+    }
 
-    <main class="max-w-2xl mx-auto px-4 py-12 md:py-16">
-      <div class="text-center mb-10">
-        <h1 class="font-lora text-3xl md:text-4xl font-bold text-gray-800">
-          Edit Postingan Anda
-        </h1>
-        <p class="mt-2 text-gray-600">
-          Perbarui informasi atau gambar postingan feed Anda.
-        </p>
-      </div>
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background-color: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
 
-      <div
-        class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100"
-      >
-        <form id="edit-form" action="#" method="POST">
-          <div class="mb-6">
-            <label class="block font-semibold text-gray-700 mb-2"
-              >Gambar Postingan</label
-            >
-            <img
-              id="image-preview"
-              src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800"
-              alt="Pratinjau Gambar Postingan"
-              class="w-full h-auto max-h-80 object-cover rounded-lg shadow-md mb-4 border"
-            />
-            <input
-              type="file"
-              id="image-upload"
-              name="new_image"
-              class="hidden"
-              accept="image/jpeg, image/png, image/jpg"
-            />
-            <label
-              for="image-upload"
-              class="cursor-pointer inline-flex items-center gap-2 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition font-semibold text-sm"
-            >
-              <i class="fas fa-camera"></i> Ganti Gambar
-            </label>
-          </div>
+    /* KUSTOMISASI ELEMEN <dialog> */
+    dialog {
+      border: none;
+      padding: 0;
+      border-radius: 1rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      max-width: 400px;
+      width: 90%;
+    }
 
-          <div class="mb-6">
-            <label
-              for="post-text"
-              class="block font-semibold text-gray-700 mb-2"
-              >Teks Postingan</label
-            >
-            <textarea
-              id="post-text"
-              name="post_text"
-              rows="6"
-              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none resize-none"
-              placeholder="Tuliskan sesuatu..."
-            >
-Berhasil setor 5kg plastik dan 2kg kertas ke Bank Sampah Jaya Lestari hari ini! Bangga bisa ikut berkontribusi mengurangi limbah. Mari terus semangat daur ulang! #DaurUlang #EcoFriendly #BankSampah</textarea
-            >
-          </div>
+    /* Kustomisasi Backdrop */
+    dialog::backdrop {
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+  </style>
+</head>
 
+<body>
+  <header class="sticky-header">
+    <div class="max-w-7xl mx-auto px-4 py-4">
+      <div class="flex justify-between items-center">
+        <a href="index.html" class="flex items-center gap-2">
           <div
-            class="flex flex-col sm:flex-row justify-between items-center gap-4 mt-8"
-          >
-            <button
-              type="button"
-              id="delete-button"
-              class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition font-semibold order-2 sm:order-1"
-            >
-              <i class="fas fa-trash-alt"></i> Hapus Postingan
-            </button>
-            <button
-              type="submit"
-              class="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold text-lg order-1 sm:order-2"
-            >
-              <i class="fas fa-save"></i> Simpan Perubahan
-            </button>
+            class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center">
+            <i class="fas fa-leaf text-white"></i>
           </div>
-        </form>
-      </div>
-    </main>
-
-    <footer class="bg-gray-900 text-white pt-16 pb-8 mt-16">
-      <div class="max-w-7xl mx-auto px-4">
-        <div
-          class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12 text-center md:text-left"
-        >
-          <div class="md:col-span-2 lg:col-span-1">
-            <div
-              class="flex items-center justify-center md:justify-start gap-2 mb-4"
-            >
-              <div
-                class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center"
-              >
-                <i class="fas fa-leaf"></i>
-              </div>
-              <span class="text-2xl font-bold">EcoWaste</span>
-            </div>
-            <p class="text-gray-400 text-sm">
-              Platform digital untuk manajemen sampah yang efisien dan
-              berkelanjutan.
-            </p>
-          </div>
-          <div>
-            <h4 class="text-lg font-bold mb-4">Halaman</h4>
-            <ul class="space-y-2 text-gray-400 font-semibold">
-              <li>
-                <a href="#" class="hover:text-green-400 transition"
-                  >Bank Sampah</a
-                >
-              </li>
-              <li>
-                <a href="feed.html" class="hover:text-green-400 transition"
-                  >Feed</a
-                >
-              </li>
-              <li>
-                <a
-                  href="leaderboard.html"
-                  class="hover:text-green-400 transition"
-                  >Leaderboard</a
-                >
-              </li>
-              <li>
-                <a
-                  href="src/page/about_us.html"
-                  class="hover:text-green-400 transition"
-                  >Tentang Kami</a
-                >
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 class="text-lg font-bold mb-4">Hubungi Kami</h4>
-            <ul class="space-y-2 text-gray-400 font-semibold">
-              <li>
-                <a
-                  href="mailto:info@ecowaste.com"
-                  class="hover:text-green-400 transition"
-                  >info@ecowaste.com</a
-                >
-              </li>
-              <li>
-                <a
-                  href="tel:+62123456789"
-                  class="hover:text-green-400 transition"
-                  >+62 123 4567 890</a
-                >
-              </li>
-              <li class="text-sm">Jl. Hijau No. 123, Semarang</li>
-            </ul>
-          </div>
-          <div>
-            <h4 class="text-lg font-bold mb-4">Ikuti Kami</h4>
-            <div class="flex gap-4 justify-center md:justify-start">
-              <a
-                href="#"
-                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"
-                ><i class="fab fa-instagram"></i></a
-              ><a
-                href="#"
-                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"
-                ><i class="fab fa-facebook"></i></a
-              ><a
-                href="#"
-                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"
-                ><i class="fab fa-twitter"></i></a
-              ><a
-                href="#"
-                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"
-                ><i class="fab fa-youtube"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-        <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
-          <p>&copy; 2025 EcoWaste Connect. All Rights Reserved.</p>
+          <span class="text-2xl font-bold text-green-700">EcoWaste</span>
+        </a>
+        <nav class="hidden md:flex gap-8 font-semibold">
+          <a href="bank_sampah.html" class="text-gray-700 hover:text-green-600 transition">Bank Sampah</a>
+          <a href="feed.html" class="text-green-600 hover:text-green-700 transition">Feed</a>
+          <a href="leaderboard.html" class="text-gray-700 hover:text-green-600 transition">Leaderboard</a>
+          <a href="scan.html" class="text-gray-700 hover:text-green-600 transition">Scan Sampah</a>
+        </nav>
+        <div class="flex items-center gap-4">
+          <a href="profile.html"
+            class="hidden md:block px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold">Profil</a>
+          <button class="md:hidden text-2xl text-gray-700">
+            <i class="fas fa-bars"></i>
+          </button>
         </div>
       </div>
-    </footer>
+    </div>
+  </header>
 
-    <dialog id="delete-modal">
-      <div class="p-6 md:p-8 bg-white">
-        <header class="mb-4 flex items-center gap-3">
-          <div
-            class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center text-red-600"
-          >
-            <i class="fas fa-exclamation-triangle text-xl"></i>
+  <main class="max-w-2xl mx-auto px-4 py-12 md:py-16">
+    <div class="text-center mb-10">
+      <h1 class="font-lora text-3xl md:text-4xl font-bold text-gray-800">
+        Edit Postingan Anda
+      </h1>
+      <p class="mt-2 text-gray-600">
+        Perbarui informasi atau gambar postingan feed Anda.
+      </p>
+    </div>
+
+    <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-gray-100">
+      <form id="edit-form" method="POST">
+        <div class="mb-6">
+          <label class="block font-semibold text-gray-700 mb-2">Gambar Postingan</label>
+          <div id="post-image">
+
           </div>
-          <h2
-            class="text-xl font-bold text-gray-800 font-lora"
-            id="modal-title"
-          >
-            Konfirmasi Penghapusan
-          </h2>
-        </header>
-        <div class="mb-6" id="modal-content">
-          <p class="text-gray-600">
-            Apakah Anda <strong>yakin</strong> ingin menghapus postingan ini?
-            Tindakan ini <strong>tidak dapat dibatalkan</strong>.
+          <input type="file" name="image" id="image-upload" style="display: none" />
+          <label for="image-upload"
+            class="cursor-pointer inline-flex items-center gap-2 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition font-semibold text-sm">
+            <i class="fas fa-camera"></i> Ganti Gambar
+          </label>
+        </div>
+
+        <div class="mb-6">
+          <label for="post-text" class="block font-semibold text-gray-700 mb-2">Teks Postingan</label>
+          <textarea id="post-text" name="content" rows="6"
+            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none resize-none"
+            placeholder="Tuliskan sesuatu...">#SampahKita</textarea>
+        </div>
+
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mt-8">
+          <button type="button" id="delete-button"
+            class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition font-semibold order-2 sm:order-1">
+            <i class="fas fa-trash-alt"></i> Hapus Postingan
+          </button>
+          <button type="submit"
+            class="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold text-lg order-1 sm:order-2">
+            <i class="fas fa-save"></i> Simpan Perubahan
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer class="bg-gray-900 text-white pt-16 pb-8 mt-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12 text-center md:text-left">
+        <div class="md:col-span-2 lg:col-span-1">
+          <div class="flex items-center justify-center md:justify-start gap-2 mb-4">
+            <div class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+              <i class="fas fa-leaf"></i>
+            </div>
+            <span class="text-2xl font-bold">EcoWaste</span>
+          </div>
+          <p class="text-gray-400 text-sm">
+            Platform digital untuk manajemen sampah yang efisien dan
+            berkelanjutan.
           </p>
         </div>
-        <footer class="flex justify-end gap-3">
-          <button
-            id="cancel-delete-button"
-            class="w-full sm:w-auto px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition font-semibold text-sm"
-          >
-            Batal
-          </button>
-          <button
-            id="confirm-delete-button"
-            class="w-full sm:w-auto px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-semibold text-sm"
-          >
-            <i class="fas fa-trash-alt mr-1"></i> Hapus Permanen
-          </button>
-        </footer>
+        <div>
+          <h4 class="text-lg font-bold mb-4">Halaman</h4>
+          <ul class="space-y-2 text-gray-400 font-semibold">
+            <li>
+              <a href="#" class="hover:text-green-400 transition">Bank Sampah</a>
+            </li>
+            <li>
+              <a href="feed.html" class="hover:text-green-400 transition">Feed</a>
+            </li>
+            <li>
+              <a href="leaderboard.html" class="hover:text-green-400 transition">Leaderboard</a>
+            </li>
+            <li>
+              <a href="src/page/about_us.html" class="hover:text-green-400 transition">Tentang Kami</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold mb-4">Hubungi Kami</h4>
+          <ul class="space-y-2 text-gray-400 font-semibold">
+            <li>
+              <a href="mailto:info@ecowaste.com" class="hover:text-green-400 transition">info@ecowaste.com</a>
+            </li>
+            <li>
+              <a href="tel:+62123456789" class="hover:text-green-400 transition">+62 123 4567 890</a>
+            </li>
+            <li class="text-sm">Jl. Hijau No. 123, Semarang</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold mb-4">Ikuti Kami</h4>
+          <div class="flex gap-4 justify-center md:justify-start">
+            <a href="#"
+              class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"><i
+                class="fab fa-instagram"></i></a><a href="#"
+              class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"><i
+                class="fab fa-facebook"></i></a><a href="#"
+              class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"><i
+                class="fab fa-twitter"></i></a><a href="#"
+              class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"><i
+                class="fab fa-youtube"></i></a>
+          </div>
+        </div>
       </div>
-    </dialog>
+      <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+        <p>&copy; 2025 EcoWaste Connect. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
 
-    <script>
-      const imageUploadInput = document.getElementById('image-upload');
-      const imagePreview = document.getElementById('image-preview');
-      const deleteButton = document.getElementById('delete-button');
-      const deleteModal = document.getElementById('delete-modal');
-      const confirmDeleteButton = document.getElementById(
-        'confirm-delete-button'
-      );
-      const cancelDeleteButton = document.getElementById(
-        'cancel-delete-button'
-      );
-      const editForm = document.getElementById('edit-form');
+  <dialog id="delete-modal">
+    <div class="p-6 md:p-8 bg-white">
+      <header class="mb-4 flex items-center gap-3">
+        <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center text-red-600">
+          <i class="fas fa-exclamation-triangle text-xl"></i>
+        </div>
+        <h2 class="text-xl font-bold text-gray-800 font-lora" id="modal-title">
+          Konfirmasi Penghapusan
+        </h2>
+      </header>
+      <div class="mb-6" id="modal-content">
+        <p class="text-gray-600">
+          Apakah Anda <strong>yakin</strong> ingin menghapus postingan ini?
+          Tindakan ini <strong>tidak dapat dibatalkan</strong>.
+        </p>
+      </div>
+      <footer class="flex justify-end gap-3">
+        <button id="cancel-delete-button"
+          class="w-full sm:w-auto px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition font-semibold text-sm">
+          Batal
+        </button>
+        <button id="confirm-delete-button"
+          class="w-full sm:w-auto px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-semibold text-sm">
+          <i class="fas fa-trash-alt mr-1"></i> Hapus Permanen
+        </button>
+      </footer>
+    </div>
+  </dialog>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const feed_id = params.get("feed_id");
+    const postTextEl = document.getElementById("post-text");
+    const postImageWrap = document.getElementById("post-image");
+    const imageUploadInput = document.getElementById('image-upload');
+    const editForm = document.getElementById("edit-form");
+    function load_post(i) {
+      fetch(`../../api/edit_feed.php?feed_id=${i}`)
+        .then(response => response.json())
+        .then(data_feed => {
+          console.log(data_feed)
+          if (data_feed.status === "error") {
+            window.location.href = "403";
+            return;
+          }
+          postTextEl.value = data_feed.data.content ?? "";
+          if (data_feed.data.image && data_feed.data.image.trim() !== "") {
+            postImageWrap.innerHTML = `
+            <img id="image-preview"
+              src="../../${data_feed.data.image}"
+              alt="Pratinjau Gambar Postingan"
+              class="w-full h-auto max-h-80 object-cover rounded-lg shadow-md mb-4 border" />`;
+          } else {
+            postImageWrap.innerHTML = ""; 
+          }
+        })
+        .catch(err => {
+          console.error("Gagal load post:", err);
+          alert("Gagal memuat postingan.");
+        });
+    }
 
-      // Fungsi untuk menampilkan pratinjau gambar baru
-      imageUploadInput.addEventListener('change', event => {
-        const file = event.target.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = e => {
-            imagePreview.src = e.target.result;
-          };
-          reader.readAsDataURL(file);
+    if (feed_id) load_post(feed_id);
+    window._currentObjectURL = window._currentObjectURL || null;
+
+    imageUploadInput.addEventListener('change', (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      if (!file.type.startsWith('image/')) {
+        alert('Silakan pilih file gambar.');
+        imageUploadInput.value = ''; // reset input
+        return;
+      }
+
+      if (window._currentObjectURL) {
+        URL.revokeObjectURL(window._currentObjectURL);
+        window._currentObjectURL = null;
+      }
+      let img = document.getElementById('image-preview');
+      if (!img) {
+        img = document.createElement('img');
+        img.id = 'image-preview';
+        img.alt = 'Pratinjau Gambar Postingan';
+        img.className = 'w-full h-auto max-h-80 object-cover rounded-lg shadow-md mb-4 border';
+        postImageWrap.innerHTML = '';
+        postImageWrap.appendChild(img);
+      }
+      const objectURL = URL.createObjectURL(file);
+      window._currentObjectURL = objectURL;
+      img.src = objectURL;
+    });
+    editForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(editForm);
+      if (!formData.has('feed_id')) {
+        formData.append('feed_id', feed_id);
+      }
+
+      try {
+        const res = await fetch(`../../api/edit_feed.php?feed_id=${feed_id}`, {
+          method: "POST",
+          body: formData
+        });
+
+        const data = await res.json();
+        alert(data.message);
+        console.log(data);
+
+        if (data.status === "sukses") {
+          if (window._currentObjectURL) {
+            URL.revokeObjectURL(window._currentObjectURL);
+            window._currentObjectURL = null;
+            location.reload();
+          }
+          load_post(feed_id);
         }
-      });
+      } catch (err) {
+        console.error(err);
+        alert("Terjadi kesalahan saat menyimpan perubahan.");
+      }
+    });
 
-      // 1. Tambahkan event listener pada modal untuk mendeteksi klik
-      deleteModal.addEventListener('click', event => {
-        // Cek apakah target klik adalah elemen <dialog> itu sendiri,
-        // BUKAN konten di dalamnya
-        const dialogDimensions = deleteModal.getBoundingClientRect();
-        if (
-          event.clientX < dialogDimensions.left ||
-          event.clientX > dialogDimensions.right ||
-          event.clientY < dialogDimensions.top ||
-          event.clientY > dialogDimensions.bottom
-        ) {
-          // Jika klik berada di luar batas konten dialog, tutup modal
-          deleteModal.close('backdrop');
-        }
-      });
+    async function delete_feed(i) {
+      try {
+        const res = await fetch("../../api/delete_feed.php", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ feed_id: i })
+        });
+        const data = await res.json();
 
-      // 2. Tampilkan modal saat tombol Hapus diklik
-      deleteButton.addEventListener('click', event => {
-        event.preventDefault();
-        deleteModal.showModal(); // Metode bawaan <dialog> untuk menampilkan sebagai modal
-      });
-
-      // 3. Logika saat tombol Batal di modal diklik
-      cancelDeleteButton.addEventListener('click', () => {
-        deleteModal.close('batal'); // Menutup modal
-      });
-
-      // 4. Logika saat tombol Hapus Permanen di modal diklik
-      confirmDeleteButton.addEventListener('click', () => {
-        deleteModal.close('hapus'); // Menutup modal dan memberikan return value 'hapus'
-      });
-
-      // 5. Menangani penutupan modal (misalnya untuk logging atau tindakan pasca-tutup)
-      deleteModal.addEventListener('close', () => {
-        if (deleteModal.returnValue === 'hapus') {
-          console.log('Menghapus postingan...');
-          // LOGIKA HAPUS POSTINGAN YANG SEBENARNYA DI SINI
-          alert('Postingan (simulasi) berhasil dihapus!');
-          // window.location.href = '/feed.html';
-        } else if (deleteModal.returnValue === 'batal') {
-          console.log('Penghapusan dibatalkan oleh user.');
-        } else if (deleteModal.returnValue === 'backdrop') {
-          console.log('Penghapusan dibatalkan (dialog ditutup via backdrop).');
+        if (data.status === "sukses") {
+          alert(data.message);
+          window.location.href = "feed";
         } else {
-          // Ini akan menangani penutupan via tombol ESC
-          console.log('Penghapusan dibatalkan (dialog ditutup via ESC).');
+          alert(data.message);
         }
-      });
-    </script>
-  </body>
+      } catch (err) {
+        console.error(err);
+        alert("Terjadi kesalahan saat menghapus feed.");
+      }
+    }
+  </script>
+
+</body>
+
 </html>

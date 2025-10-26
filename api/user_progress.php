@@ -7,14 +7,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 
     $user_id = $_SESSION["user_id"];
-
-    // Ambil data user progress dari tabel User_Progress adws
     $stmt = $conn->prepare("SELECT points, level, tier, total_recycle FROM User_Progress WHERE user_id = ?");
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    //Level kalkuls (Per level 2000 points)
     if ($result->num_rows > 0) {
         $progress = $result->fetch_assoc();
         $points = $progress['points'];

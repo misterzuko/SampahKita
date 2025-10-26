@@ -48,9 +48,7 @@
     <article class="bg-white rounded-2xl shadow-lg p-6 md:p-8 border border-gray-100 mb-10">
       <div class="flex items-center justify-between mb-4">
         <div class="flex items-center gap-3">
-          <img id="feed-profile"
-            src=""
-            alt="Profil Pengguna" class="w-12 h-12 rounded-full object-cover" />
+          <img id="feed-profile" src="" alt="Profil Pengguna" class="w-12 h-12 rounded-full object-cover" />
           <div>
             <p id="feed-name" class="font-semibold text-gray-800"></p>
           </div>
@@ -60,15 +58,14 @@
 
       <p id="feed-content" class="text-gray-700 leading-relaxed mb-4">
       </p>
+      <div id="feed-image">
+      </div>
 
-      <img
-        src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800"
-        alt="Postingan Sampah" class="w-full h-auto rounded-lg mb-4 object-cover max-h-[500px] border" />
 
       <div class="flex justify-between items-center text-gray-600 pt-4 border-t border-gray-100">
         <div class="flex gap-6">
-          <button class="flex items-center gap-2 hover:text-green-600 transition text-lg">
-            <i class="far fa-heart"></i>
+          <button onclick="like_button()" class="flex items-center gap-2 hover:text-green-600 transition text-lg">
+            <i id="like" class="far fa-heart"></i>
             <span id="feed-total-likes" class="text-sm font-semibold">0</span>
           </button>
           <button class="flex items-center gap-2 hover:text-green-600 transition text-lg">
@@ -76,7 +73,7 @@
             <span id="feed-total-comments" class="text-sm font-semibold">0</span>
           </button>
         </div>
-        <button class="flex items-center gap-2 hover:text-green-600 transition text-lg">
+        <button onclick="button_share()" class="flex items-center gap-2 hover:text-green-600 transition text-lg">
           <i class="fas fa-share-alt"></i>
           <span class="text-sm font-semibold">Bagikan</span>
         </button>
@@ -90,7 +87,7 @@
 
       <div class="flex items-start gap-4 mb-8">
         <img id="profile-picture" src="https://api.dicebear.com/9.x/initials/svg?seed=??&size=128"
-           class="w-10 h-10 rounded-full object-cover flex-shrink-0 mt-1" />
+          class="w-10 h-10 rounded-full object-cover flex-shrink-0 mt-1" />
         <div class="flex-grow">
           <textarea id="text-create" rows="3"
             class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none resize-none mb-3"
@@ -177,7 +174,6 @@
   <script>
     const params = new URLSearchParams(window.location.search);
     const post_id = params.get("feed_id");
-    console.log(post_id)
 
     function check_session() {
       fetch(`../../api/session_info`)
@@ -204,10 +200,7 @@
           console.log(data_profile);
           if (data_profile.status == "sukses") {
             profile_picture = document.getElementById("profile-picture");
-            profile_name = document.getElementById("profile-name");
-
             profile_picture.src = `https://api.dicebear.com/9.x/initials/svg?seed=${data_profile.fullname}&size=128`;
-            profile_name.innerText = data_profile.fullname;
           }
         })
     }
@@ -217,6 +210,7 @@
       fetch(`../../api/load_feed?feed_id=${i}`)
         .then(response => response.json())
         .then(data_feed => {
+          console.log(data_feed)
           feed_profile = document.getElementById("feed-profile");
           feed_name = document.getElementById("feed-name");
           feed_content = document.getElementById("feed-content");
@@ -224,6 +218,8 @@
           feed_total_likes = document.getElementById("feed-total-likes");
           feed_total_comments = document.getElementById("feed-total-comments");
           feed_total_comments_2 = document.getElementById("feed-total-comments-2");
+          feed_image = document.getElementById("feed-image")
+
 
           feed_profile.src = `https://api.dicebear.com/9.x/initials/svg?seed=${data_feed.feed.fullname}&size=128`;
           feed_name.innerText = data_feed.feed.fullname;
@@ -232,6 +228,25 @@
           feed_total_likes.innerText = data_feed.feed.total_likes;
           feed_total_comments.innerText = data_feed.feed.total_comments;
           feed_total_comments_2.innerText = `Komentar (${data_feed.feed.total_comments})`;
+
+          console.log(data_feed.feed)
+          if (data_feed.feed.image != "") {
+            feed_image.innerHTML =
+              `<img
+          src="../../${data_feed.feed.image}"
+          alt="Postingan Sampah" class="w-full h-auto rounded-lg mb-4 object-cover max-h-[500px] border" />`;
+          }else {
+            feed_image.innerHTML = "";
+          }
+
+          const like = document.getElementById(`like`);
+          if (data_feed.feed.liked == true) {
+            like.className = 'fas fa-heart';
+            like.style.color = 'red';
+          } else {
+            like.className = 'far fa-heart';
+            like.style.color = '';
+          }
 
           const container = document.getElementById("comment-container");
           container.innerHTML = "";
@@ -259,6 +274,30 @@
         })
     }
     load_post(post_id)
+
+    function like_button() {
+      fetch(`../../api/feed_like_button?feed_id=${post_id}`)
+        .then(response => response.json())
+        .then(data_like => {
+          if (data_like.status == 'error') {
+            window.location.href = 'login.html';
+          } else {
+            const like = document.getElementById(`like`);
+            const like_p = document.getElementById("feed-total-likes");
+            if (like.style.color == 'red') {
+              console.log(data_like.action)
+              like.className = 'far fa-heart';
+              like.style.color = '';
+              like_p.innerText = Number(like_p.innerText) - 1;
+            } else {
+              console.log(data_like.action)
+              like.className = 'fas fa-heart';
+              like.style.color = 'red';
+              like_p.innerText = Number(like_p.innerText) + 1;
+            }
+          }
+        });
+    }
 
     function timeAgo(datetime) {
       const now = new Date();
@@ -309,6 +348,24 @@
         console.error('Error:', err);
       }
     }
+    async function button_share() {
+      const shareData = {
+        title: "Lihat postinganku di Feed!",
+        text: "Cek postingan ini, seru banget 😎",
+        url: window.location.href
+      };
+
+      try {
+        if (navigator.share) {
+          await navigator.share(shareData);
+        } else {
+          await navigator.clipboard.writeText(shareData.url);
+        }
+      } catch (err) {
+        console.error("Gagal membagikan:", err);
+      }
+    }
+
   </script>
 </body>
 

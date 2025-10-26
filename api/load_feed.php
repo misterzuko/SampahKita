@@ -20,7 +20,7 @@ if (isset($_GET["feed_id"])) {
             JOIN Users u ON f.user_id = u.user_id
             JOIN User_Profile up ON u.user_id = up.user_id
             WHERE f.feed_id = ?";
-    
+
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $feed_id);
     $stmt->execute();
@@ -119,11 +119,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $feeds = [];
     while ($stmt->fetch()) {
         $feeds[] = [
+            'user_id' => $user_id,
             'feed_id' => $feed_id,
             'content' => $content,
             'image' => $image,
             'publish_at' => $publish_at,
-            'user_id' => $user_id,
             'fullname' => $fullname,
         ];
 
@@ -137,14 +137,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $j = $length - 1;
 
 
-    if(isset($_SESSION["user_id"])){
-    $user_id = $_SESSION["user_id"];
-    }
-    while ($i <= $length) {
 
+    $user_id = $_SESSION["user_id"] ?? null;
+    $role = $_SESSION["role"] ?? null;
+    
+    while ($i <= $length) {
+        $countliked = $feeds[$j]["feed_id"];
         //Query apakah user like feed_id ke ?
         $check_stmt = $conn->prepare("SELECT user_id FROM Feed_Likes WHERE feed_id = ? AND user_id = ?");
-        $check_stmt->bind_param("ii", $i, $user_id);
+        $check_stmt->bind_param("ii", $countliked, $user_id);
         $check_stmt->execute();
         $check_stmt->store_result();
         if ($check_stmt->num_rows > 0) {
@@ -156,21 +157,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 
         $count_stmt = $conn->prepare("SELECT COUNT(*) FROM Feed_Likes WHERE feed_id = ?");
-        $count_stmt->bind_param("i", $i);
+        $count_stmt->bind_param("i", $countliked);
         $count_stmt->execute();
         $count_stmt->bind_result($total_likes);
         $count_stmt->fetch();
         $count_stmt->close();
 
-        $count_stmt = $conn->prepare("SELECT COUNT(*) FROM Feed_Comment WHERE feed_id = ?");
-        $count_stmt->bind_param("i", $i);
-        $count_stmt->execute();
-        $count_stmt->bind_result($total_comment);
-        $count_stmt->fetch();
-        $count_stmt->close();
+        $countcmnt_stmt = $conn->prepare("SELECT COUNT(*) FROM Feed_Comment WHERE feed_id = ?");
+        $countcmnt_stmt->bind_param("i", $countliked);
+        $countcmnt_stmt->execute();
+        $countcmnt_stmt->bind_result($total_comment);
+        $countcmnt_stmt->fetch();
+        $countcmnt_stmt->close();
 
         $feeds[$j]["user_data"]["liked"] = $liked;
         $feeds[$j]["user_data"]["user_id"] = $user_id;
+        $feeds[$j]["user_data"]["role"] = $role;
         $feeds[$j]["total_likes"] = $total_likes;
         $feeds[$j]["total_comment"] = $total_comment;
 
