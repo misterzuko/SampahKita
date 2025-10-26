@@ -41,12 +41,21 @@ function setupMobileMenu() {
   }
 }
 
+function split_maker(str){
+    const str_split = str.split(" ");
+    if(str_split[0].length > 12){
+        return str_split[0].slice(0, 12)
+    }
+    return str_split[0];
+}
+
 function check_session_navbar(i) {
   fetch(`../../api/user_profile?user_id=${i}`)
     .then(response => response.json())
     .then(data_profile => {
       const session = document.getElementById('session');
       const session_mobile = document.getElementById('session-mobile');
+      console.log(data_profile)
       if (data_profile.status == 'error') {
         session.innerHTML = `
               <a href="login"
@@ -59,22 +68,21 @@ function check_session_navbar(i) {
       } else {
         session.innerHTML = `
             <a
-  href="profile"
-  class="flex items-center space-x-4 gap-4 p-2 rounded-lg hover:bg-gray-100 transition"
->
-  <div class="text-right flex-grow">
-    <h1 class="text-sm font-semibold text-gray-800">Nama Pengguna Anda</h1>
-  </div>
-
-  <div class="w-12 h-12 flex-shrink-0">
-    <img
-      id="profile-picture"
-              src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200"
-      alt="Foto Profil"
-      class="w-full h-full rounded-full object-cover border-2 border-gray-300 shadow-sm"
-    />
-  </div>
-</a>
+            href="profile"
+            class="flex items-center space-x-4 gap-4 p-2 rounded-lg hover:bg-gray-0 transition"
+            >
+            <div class="text-right flex-grow">
+                <h1 class="text-sm font-semibold text-gray-800">${split_maker(data_profile.fullname)}</h1>
+            </div>
+            <div class="w-12 h-12 flex-shrink-0">
+                <img
+                id="profile-picture-navbar"
+                        src="https://api.dicebear.com/9.x/initials/svg?seed=${data_profile.fullname}&size=128"
+                alt="Foto Profil"
+                class="w-full h-full rounded-full object-cover border-2 border-gray-300 shadow-sm"
+                />
+            </div>
+            </a>
             `;
         session_mobile.href = 'profile';
         session_mobile.innerText = 'Profile';

@@ -353,7 +353,8 @@
             <h3 class="text-xl font-bold text-gray-800 mb-3">
               Krisis Sampah Plastik di Perkotaan
             </h3>
-            <a href="src/page/feed.html" class="text-green-600 font-semibold hover:text-green-700 transition">Baca Selengkapnya
+            <a href="src/page/feed.html" class="text-green-600 font-semibold hover:text-green-700 transition">Baca
+              Selengkapnya
               &rarr;</a>
           </div>
         </div>
@@ -368,7 +369,8 @@
             <h3 class="text-xl font-bold text-gray-800 mb-3">
               Pentingnya Daur Ulang untuk Ekonomi Sirkular
             </h3>
-            <a href="src/page/feed.html" class="text-green-600 font-semibold hover:text-green-700 transition">Baca Selengkapnya
+            <a href="src/page/feed.html" class="text-green-600 font-semibold hover:text-green-700 transition">Baca
+              Selengkapnya
               &rarr;</a>
           </div>
         </div>
@@ -383,7 +385,8 @@
             <h3 class="text-xl font-bold text-gray-800 mb-3">
               Peran Komunitas dalam Mengurangi Sampah
             </h3>
-            <a href="src/page/feed.html" class="text-green-600 font-semibold hover:text-green-700 transition">Baca Selengkapnya
+            <a href="src/page/feed.html" class="text-green-600 font-semibold hover:text-green-700 transition">Baca
+              Selengkapnya
               &rarr;</a>
           </div>
         </div>
@@ -435,7 +438,7 @@
         </div>
         <div class="text-center fade-in" style="animation-delay: 0.4s">
           <div class="relative w-40 h-40 mx-auto mb-4">
-            <img src="assets/img/Candra.jpg"Tim 3"
+            <img src="assets/img/Candra.jpg" Tim 3"
               class="w-full h-full rounded-full object-cover shadow-lg border-4 border-white" />
           </div>
           <h3 class="text-xl font-bold text-gray-800">Kornelius Candra</h3>
@@ -540,7 +543,6 @@
       </div>
     </div>
   </footer>
-
   <script>
     //Peruntukan mobile view 
     function setupMobileMenu() {
@@ -577,6 +579,14 @@
     }
     setupMobileMenu();
 
+
+    function split_maker(str) {
+      const str_split = str.split(" ");
+      if (str_split[0].length > 12) {
+        return str_split[0].slice(0, 12)
+      }
+      return str_split[0];
+    }
     function check_session() {
       fetch("api/user_profile")
         .then(response => response.json())
@@ -594,11 +604,21 @@
             session_mobile.innerText = "Login";
           } else {
             session.innerHTML = `
-            <a href="./src/page/profile.html">
-              <button
-                class="hidden md:block px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold">
-                Profil
-              </button>
+            <a
+            href="src/page/profile"
+            class="flex items-center space-x-4 gap-4 p-2 rounded-lg hover:bg-gray-0 transition"
+            >
+            <div class="text-right flex-grow">
+                <h1 class="text-sm font-semibold text-gray-800">${split_maker(data_profile.fullname)}</h1>
+            </div>
+            <div class="w-12 h-12 flex-shrink-0">
+                <img
+                id="profile-picture-navbar"
+                        src="https://api.dicebear.com/9.x/initials/svg?seed=${data_profile.fullname}&size=128"
+                alt="Foto Profil"
+                class="w-full h-full rounded-full object-cover border-2 border-gray-300 shadow-sm"
+                />
+            </div>
             </a>
             `;
             session_mobile.href = "src/page/profile";
