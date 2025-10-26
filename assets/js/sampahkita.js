@@ -60,7 +60,7 @@ function check_session_navbar(i) {
         session.innerHTML = `
             <a
   href="profile"
-  class="flex items-center space-x-4 p-2 rounded-lg hover:bg-gray-100 transition"
+  class="flex items-center space-x-4 gap-4 p-2 rounded-lg hover:bg-gray-100 transition"
 >
   <div class="text-right flex-grow">
     <h1 class="text-sm font-semibold text-gray-800">Nama Pengguna Anda</h1>
