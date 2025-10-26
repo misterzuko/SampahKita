@@ -367,7 +367,7 @@
             }
             const menu = document.getElementById(`menu-${feed.feed_id}`);
 
-            if (feed.user_data.user_id == feed.user_id && feed.user_id.role != "admin") {
+            if (feed.user_data.user_id == feed.user_id || feed.user_id.role == "admin") {
               menu.innerHTML = `                  
               <a href="edit_feed?feed_id=${feed.feed_id}"
                       class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-green-600 transition"
