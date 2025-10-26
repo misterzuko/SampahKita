@@ -1,13 +1,11 @@
-function load_navbar() {
-    fetch("../../assets/js/navbar.html")
-        .then(response => response.text())
-        .then(data => {
-            const navbar = document.getElementById("navbar-sk");
-            navbar.innerHTML = data;
-        })
-}
-load_navbar();
-
+fetch("../../assets/js/navbar.html")
+ .then(response => response.text())
+  .then(data => {
+    const navbar = document.getElementById("navbar-sk");
+    navbar.innerHTML = data;
+    setupMobileMenu();
+    check_session_navbar();
+})
 
 //Peruntukan mobile view 
 function setupMobileMenu() {
@@ -42,9 +40,9 @@ function setupMobileMenu() {
         });
     }
 }
-setupMobileMenu();
 
-function check_session(i) {
+
+function check_session_navbar(i) {
     fetch(`../../api/user_profile?user_id=${i}`)
         .then(response => response.json())
         .then(data_profile => {
@@ -78,4 +76,3 @@ function check_session(i) {
             setupMobileMenu();
         });
 }
-check_session();

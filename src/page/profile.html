@@ -162,10 +162,11 @@
       </div>
     </div>
   </main>
-
+  <script src="../../assets/js/sampahkita.js"></script>
   <script>
     const params = new URLSearchParams(window.location.search);
     const user_id = params.get("user_id");
+
     async function check_session() {
       try {
         const res = await fetch('../../api/session_info.php');
@@ -415,7 +416,6 @@
     }
 
   </script>
-  <script src="../../assets/js/sampahkita_main.js"></script>
 </body>
 
 </html>

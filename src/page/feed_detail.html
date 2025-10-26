@@ -16,7 +16,6 @@
       font-family: 'Poppins', 'Segoe UI', sans-serif;
       color: #1f2937;
       background-color: #f0fdf4;
-      /* Pale Green */
     }
 
     .font-lora {
@@ -176,7 +175,7 @@
       </div>
     </div>
   </footer>
-  <script src="../../assets/js/sampahkita_main.js"></script>
+  <script src="../../assets/js/sampahkita.js"></script>
   <script>
     const params = new URLSearchParams(window.location.search);
     const post_id = params.get("feed_id");
@@ -241,7 +240,7 @@
               `<img
           src="../../${data_feed.feed.image}"
           alt="Postingan Sampah" class="w-full h-auto rounded-lg mb-4 object-cover max-h-[500px] border" />`;
-          }else {
+          } else {
             feed_image.innerHTML = "";
           }
 
