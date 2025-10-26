@@ -505,7 +505,9 @@
                 ${scan.created_at}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full status-plastik text-center">
+                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full status-${
+                      scan.result
+                    } text-center">
                       ${kapital(scan.result)}
                     </span>
                 </td>
