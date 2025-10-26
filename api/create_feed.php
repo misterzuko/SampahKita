@@ -78,6 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         "feed_id" => $feed_id,
         "image" => $img_path ?? null
     ]);
+    exit;
 }
 echo json_encode([
     "status" => "error",
