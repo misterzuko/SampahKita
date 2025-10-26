@@ -71,4 +71,3 @@ echo json_encode([
     "message" => "Anda Tidak Memili Akses"
 ]);
 exit;
-?>

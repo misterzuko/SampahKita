@@ -49,8 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] === "DELETE") {
         echo json_encode(["status" => "error", "message" => "Gagal menghapus feed"]);
     }
     exit;
-} else {
-    echo json_encode(["status" => "error", "message" => "Metode request tidak valid"]);
-    exit;
 }
-?>
+echo json_encode([
+    "status" => "error",
+    "message" => "Anda tidak memiliki akses"
+]);
+exit;

@@ -6,7 +6,10 @@ header('Content-Type: application/json');
 
 // Pastikan user login
 if (!isset($_SESSION["user_id"])) {
-    echo json_encode(["status" => "error", "message" => "User belum login"]);
+    echo json_encode([
+        "status" => "error", 
+        "message" => "User belum login"
+    ]);
     exit;
 }
 
@@ -123,6 +126,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-echo json_encode(["status" => "error", "message" => "Metode request tidak valid"]);
+echo json_encode([
+    "status" => "error",
+    "message" => "Anda tidak memiliki akses"
+]);
 exit;
-?>

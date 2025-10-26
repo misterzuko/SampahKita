@@ -32,4 +32,9 @@ if (isset($_FILES["image"])) {
         "message" => "Tidak ada file dikirim."
     ]);
 }
-?>
+echo json_encode([
+    "status" => "error",
+    "message" => "Anda tidak memiliki akses"
+]);
+exit;
+

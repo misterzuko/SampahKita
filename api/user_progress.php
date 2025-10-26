@@ -1,4 +1,5 @@
 <?php
+//DIPERUNTUKAN PERSONAL DATA ONLY
 require '../connect_db.php';
 require '../php-config.php';
 session_start();

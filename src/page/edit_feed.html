@@ -277,13 +277,12 @@
 
         const data = await res.json();
         alert(data.message);
-        console.log(data);
 
         if (data.status === "sukses") {
           if (window._currentObjectURL) {
             URL.revokeObjectURL(window._currentObjectURL);
             window._currentObjectURL = null;
-            location.reload();
+
           }
           load_post(feed_id);
         }
@@ -314,7 +313,65 @@
       }
     }
   </script>
+  <script>
+    const deleteButton = document.getElementById('delete-button');
+    const deleteModal = document.getElementById('delete-modal');
+    const confirmDeleteButton = document.getElementById(
+      'confirm-delete-button'
+    );
+    const cancelDeleteButton = document.getElementById(
+      'cancel-delete-button'
+    );
 
+    imageUploadInput.addEventListener('change', event => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          imagePreview.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    deleteModal.addEventListener('click', event => {
+      const dialogDimensions = deleteModal.getBoundingClientRect();
+      if (
+        event.clientX < dialogDimensions.left ||
+        event.clientX > dialogDimensions.right ||
+        event.clientY < dialogDimensions.top ||
+        event.clientY > dialogDimensions.bottom
+      ) {
+        deleteModal.close('backdrop');
+      }
+    });
+
+    deleteButton.addEventListener('click', event => {
+      event.preventDefault();
+      deleteModal.showModal();
+    });
+
+    cancelDeleteButton.addEventListener('click', () => {
+      deleteModal.close('batal');
+    });
+
+
+    confirmDeleteButton.addEventListener('click', () => {
+      deleteModal.close('hapus');
+    });
+
+    deleteModal.addEventListener('close', () => {
+      if (deleteModal.returnValue === 'hapus') {
+        console.log('Menghapus postingan...');
+        delete_feed(feed_id);
+      } else if (deleteModal.returnValue === 'batal') {
+        console.log('Penghapusan dibatalkan oleh user.');
+      } else if (deleteModal.returnValue === 'backdrop') {
+        console.log('Penghapusan dibatalkan (dialog ditutup via backdrop).');
+      } else {
+        console.log('Penghapusan dibatalkan (dialog ditutup via ESC).');
+      }
+    });</script>
 </body>
 
 </html>

@@ -1,10 +1,11 @@
 <?php
+
 require '../connect_db.php';
 require '../php-config.php';
 header('Content-Type: application/json');
 session_start();
 
-// Ambil user_id dari GET atau session
+// Ambil user_id
 $user_id = $_GET['user_id'] ?? ($_SESSION['user_id'] ?? null);
 
 if (!$user_id) {
@@ -85,4 +86,3 @@ echo json_encode([
     "message" => "Anda tidak memiliki akses"
 ]);
 exit;
-?>
