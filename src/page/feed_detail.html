@@ -30,6 +30,61 @@
       backdrop-filter: blur(8px);
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background-color: white;
+      min-width: 150px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      z-index: 10;
+      margin-top: 4px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .dropdown-menu.show {
+      display: block;
+    }
+
+    .dropdown-item {
+      padding: 10px 16px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #374151;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      font-size: 14px;
+    }
+
+    .dropdown-item:hover {
+      background-color: #f3f4f6;
+    }
+
+    .dropdown-item.delete {
+      color: #dc2626;
+    }
+
+    .dropdown-item.delete:hover {
+      background-color: #fee2e2;
+    }
+
+    .dropdown-item:first-child {
+      border-radius: 8px 8px 0 0;
+    }
+
+    .dropdown-item:last-child {
+      border-radius: 0 0 8px 8px;
+    }
   </style>
   <link rel="stylesheet" crossorigin href="../../assets/css/sampah_kita.css">
 </head>
@@ -179,17 +234,20 @@
   <script>
     const params = new URLSearchParams(window.location.search);
     const post_id = params.get("feed_id");
+    let current_user_id = null;
 
     function check_session() {
       fetch(`../../api/session_info`)
         .then(response => response.json())
         .then(sessions => {
           if (sessions.status == "sukses") {
+            current_user_id = sessions.user_id;
             const text_comment = document.getElementById('text-create');
             const submit_comment = document.getElementById('submit-comment');
             text_comment.placeholder = "Apa yang ingin anda sampaikan...";
             submit_comment.innerText = "Kirim Komentar";
           } else {
+            alert("Login untuk dapat mengakses banyak fitur!");
             window.location.href = "login";
           }
 
@@ -257,6 +315,23 @@
           container.innerHTML = "";
           data_feed.comments.forEach((comment) => {
             const div = document.createElement("div");
+            
+            // Check if comment belongs to current user
+            const isOwner = comment.user_id === current_user_id;
+            const dropdownHTML = isOwner ? `
+              <div class="dropdown">
+                <button onclick="toggleDropdown(event, ${comment.comment_id})" class="text-gray-400 hover:text-gray-600 p-2">
+                  <i class="fas fa-ellipsis-v"></i>
+                </button>
+                <div id="dropdown-${comment.comment_id}" class="dropdown-menu">
+                  <div class="dropdown-item delete" onclick="deleteComment(${comment.comment_id})">
+                    <i class="fas fa-trash"></i>
+                    <span>Hapus</span>
+                  </div>
+                </div>
+              </div>
+            ` : '';
+
             div.innerHTML = `
             <div class="space-y-6">
             <div class="flex items-start gap-4">
@@ -265,7 +340,10 @@
               <div class="flex-grow shadow bg-white p-4 rounded-lg border border-gray-100">
                 <div class="flex justify-between items-center mb-1">
                   <span class="font-semibold text-gray-800">${comment.fullname}</span>
-                  <span class="text-xs text-gray-400">${timeAgo(comment.commented_at)}</span>
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs text-gray-400">${timeAgo(comment.commented_at)}</span>
+                    ${dropdownHTML}
+                  </div>
                 </div>
                 <p class="text-gray-600 text-sm">
                   ${comment.content}
@@ -279,6 +357,58 @@
         })
     }
     load_post(post_id)
+
+    function toggleDropdown(event, commentId) {
+      event.stopPropagation();
+      const dropdown = document.getElementById(`dropdown-${commentId}`);
+      
+      // Close all other dropdowns
+      document.querySelectorAll('.dropdown-menu').forEach(menu => {
+        if (menu.id !== `dropdown-${commentId}`) {
+          menu.classList.remove('show');
+        }
+      });
+      
+      dropdown.classList.toggle('show');
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+      if (!event.target.closest('.dropdown')) {
+        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+          menu.classList.remove('show');
+        });
+      }
+    });
+
+    async function deleteComment(commentId) {
+      if (!confirm('Apakah Anda yakin ingin menghapus komentar ini?')) {
+        return;
+      }
+
+      try {
+        const response = await fetch(`../../api/delete_comment`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            comment_id: commentId
+          })
+        });
+
+        const result = await response.json();
+        
+        if (result.status === 'sukses') {
+          location.reload();
+        } else {
+          alert('Gagal menghapus komentar: ' + result.message);
+        }
+      } catch (err) {
+        console.error('Error:', err);
+        alert('Terjadi kesalahan saat menghapus komentar');
+      }
+    }
 
     function like_button() {
       fetch(`../../api/feed_like_button?feed_id=${post_id}`)

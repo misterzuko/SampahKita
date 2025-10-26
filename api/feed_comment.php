@@ -71,6 +71,8 @@ if ($_SESSION["user_id"]) {
         $feed_id = $input['feed_id'] ?? null;
         $comment = $input["komentar"];
 
+        $comment = htmlspecialchars($comment , ENT_QUOTES, 'UTF-8');
+
         if (!$comment) {
             echo json_encode([
                 "status" => "error",

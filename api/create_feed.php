@@ -14,6 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_id = $_SESSION["user_id"];
     $content = $_POST['content'] ?? null;
 
+    $content  = htmlspecialchars($content , ENT_QUOTES, 'UTF-8');
+
     if (!$content) {
         echo json_encode(["status" => "error", "message" => "Isi konten terlebih dahulu!"]);
         exit;

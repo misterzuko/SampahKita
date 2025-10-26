@@ -73,8 +73,8 @@
                   </button>
                   <div id="profile-dropdown"
                     class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-10">
-                    <button
-                      onclick="alert(`Fitur CommingSoon Lurrr`)"class="w-full text-left flex feed-menu-report items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
+                    <button onclick="alert(`Fitur CommingSoon Lurrr`)"
+                      class="w-full text-left flex feed-menu-report items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
                       role="menuitem" data-action="report">
                       <i class="fas fa-flag w-4"></i> Laporkan Pengguna
                     </button>
@@ -180,7 +180,7 @@
           dropdown = document.getElementById("profile-dropdown");
           dropdown.innerHTML =
             `
-            <button id="logout-btn" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2">
+            <button onclick="logout_button()" id="logout-btn" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2">
             <i class="fas fa-sign-out-alt"></i>
             Logout
             </button>
@@ -259,25 +259,26 @@
           dropdown.classList.add('hidden');
         }
       });
-
-      logoutBtn.addEventListener('click', async function () {
-        try {
-          const response = await fetch('../../api/auth_logout.php', {
-            method: 'POST'
-          });
-          const data = await response.json();
-
-          if (data.status === 'sukses') {
-            window.location.href = '../../index.html';
-          } else {
-            alert('Gagal logout. Silakan coba lagi.');
-          }
-        } catch (error) {
-          console.error('Error:', error);
-          alert('Terjadi kesalahan. Silakan coba lagi.');
-        }
-      });
     });
+
+    async function logout_button() {
+      try {
+        const response = await fetch('../../api/auth_logout.php', {
+          method: 'POST'
+        });
+        const data = await response.json();
+
+        if (data.status === 'sukses') {
+          window.location.href = '../../index.html';
+        } else {
+          alert('Gagal logout. Silakan coba lagi.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan. Silakan coba lagi.');
+      }
+
+    }
 
     function load_progress(i) {
       console.log(i)

@@ -414,6 +414,7 @@
     }
 
     function load_detailfeed(i) {
+      
       window.location.href = `feed_detail?feed_id=${i}`;
     }
 
@@ -428,6 +429,7 @@
         .then(response => response.json())
         .then(data_like => {
           if (data_like.status == 'error') {
+            alert("Login untuk dapat mengakses banyak fitur!");
             window.location.href = 'login.html';
           } else {
             const like = document.getElementById(`like-${i}`);
@@ -462,6 +464,8 @@
         console.log(data)
         location.reload();
       } else {
+        alert("Login untuk dapat mengakses banyak fitur!");
+        window.location.href = "login"
         console.log(data);
       }
 
