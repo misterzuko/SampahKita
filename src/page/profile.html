@@ -41,32 +41,32 @@
         color: #2d3748;
       }
 
-      .status-plastik {
+      .status-plastic {
         background-color: #63b3ed; /* Warna biru muda */
         color: #1e3a8a; /* Warna teks biru tua */
       }
 
-      .status-kaca {
+      .status-glass {
         background-color: #81e6d9;
         color: #065f46;
       }
 
-      .status-kertas {
+      .status-paper {
         background-color: #f6ad55;
         color: #78350f;
       }
 
-      .status-organik {
+      .status-organic {
         background-color: #38a169; /* Warna hijau sedang (representasi organik) */
         color: #083344; /* Warna teks biru-hitam */
       }
 
-      .status-kardus {
+      .status-cardboard {
         background-color: #d69e2e; /* Warna cokelat/emas (representasi kardus) */
         color: #532d03; /* Warna teks cokelat sangat gelap */
       }
 
-      .status-sampah {
+      .status-trash {
         background-color: #fc8181; /* Warna merah muda (representasi umum/trash) */
         color: #742a2a; /* Warna teks merah marun */
       }
@@ -78,7 +78,11 @@
       }
 
       .table-history {
-        min-width: 100%!;
+        min-width: 100% !important;
+      }
+
+      .text-center {
+        text-align: center !important;
       }
 
       .scan-container {
@@ -497,17 +501,17 @@
             scan_data.data.forEach(scan => {
               const tr = document.createElement('tr');
               tr.innerHTML = `
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
                 ${scan.created_at}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full status-plastik">
+                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full status-plastik text-center">
                       ${kapital(scan.result)}
                     </span>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <a href="../../${scan.image_path}"
-                      class="history-cta px-3 py-2.5 bg-green-500 text-white rounded-md text-xs hover:bg-green-600 transition">Lihat Gambar</a>
+                      class="history-cta px-3 py-2.5 bg-green-500 text-white rounded-md text-xs hover:bg-green-600 transition text-center">Lihat Gambar</a>
                 </td>
                 `;
               table.appendChild(tr);
