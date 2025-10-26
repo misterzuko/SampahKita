@@ -4,7 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EcoWaste Connect - Solusi Sampah Cerdas</title>
+  <title>SampahKita - Solusi Sampah Cerdas</title>
+  <link rel="icon" type="image/png" href="assets/img/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@400;600;700&display=swap"
@@ -13,12 +14,10 @@
 
   <link rel="stylesheet" href="assets/css/sampah_kita.css">
   <style>
-    /* Gaya Baru yang Konsisten */
     body {
       font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #1f2937;
       background-color: #f0fdf4;
-      /* Pale Green */
       overflow-x: hidden;
     }
 
@@ -136,7 +135,6 @@
       text-align: center;
       margin-bottom: 60px;
       color: #064e3b;
-      /* Green-900 */
     }
 
     .card-hover {
@@ -168,16 +166,14 @@
   <header id="navbar-sk" class="sticky top-0 z-50 bg-white/80 backdrop-blur-sm shadow-sm">
     <div class="max-w-7xl mx-auto px-4 py-4 navbar">
       <div class="flex justify-between items-center">
-        <!-- Logo -->
         <a href="" class="flex items-center gap-2">
-          <div
-            class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center">
-            <i class="fas fa-leaf text-white"></i>
+          <div class="w-10 h-10 rounded-lg flex items-center justify-center">
+            <img src="assets/img/logo.png" alt="">
           </div>
-          <span class="text-2xl font-bold text-green-700">EcoWaste</span>
+          <span class="text-2xl font-bold">
+            <span style="color: #94bb46;">Sampah</span><span class="text-green-600">Kita</span>
+          </span>
         </a>
-
-        <!-- Desktop Navigation -->
         <nav class="hidden md:flex gap-8 font-semibold">
           <a href="src/page/bank_sampah" class="text-gray-700 hover:text-green-600 transition">Bank Sampah</a>
           <a href="src/page/feed" class="text-gray-700 hover:text-green-600 transition">Feed</a>
@@ -185,8 +181,6 @@
           <a href="src/page/learderboard" class="text-gray-700 hover:text-green-600 transition">Leaderboard</a>
           <a href="src/page/about_us" class="text-gray-700 hover:text-green-600 transition">Tentang Kami</a>
         </nav>
-
-        <!-- Right Side (Session + Mobile Menu Button) -->
         <div class="flex items-center gap-4">
           <div id="session" class="flex items-center gap-4">
           </div>
@@ -199,14 +193,14 @@
 
       <nav id="mobileMenu" class="hidden md:hidden mt-5 pb-4 border-t border-gray-200">
         <div class="flex flex-col gap-4 pt-4">
-           <a id="session-mobile" href="" class="text-gray-700 hover:text-green-600 transition font-semibold">Login</a>
-          <a href="./src/page/bank_sampah" class="text-gray-700 hover:text-green-600 transition font-semibold">Bank
+          <a id="session-mobile" href="" class="text-gray-700 hover:text-green-600 transition font-semibold">Login</a>
+          <a href="src/page/bank_sampah" class="text-gray-700 hover:text-green-600 transition font-semibold">Bank
             Sampah</a>
-          <a href="./src/page/feed" class="text-gray-700 hover:text-green-600 transition font-semibold">Feed</a>
-          <a href="./src/page/scan" class="text-gray-700 hover:text-green-600 transition font-semibold">Scan Sampah</a>
-          <a href="./src/page/learderboard"
+          <a href="src/page/feed" class="text-gray-700 hover:text-green-600 transition font-semibold">Feed</a>
+          <a href="src/page/scan" class="text-gray-700 hover:text-green-600 transition font-semibold">Scan Sampah</a>
+          <a href="src/page/learderboard"
             class="text-gray-700 hover:text-green-600 transition font-semibold">Leaderboard</a>
-          <a href="./src/page/about_us" class="text-gray-700 hover:text-green-600 transition font-semibold">Tentang
+          <a href="src/page/about_us" class="text-gray-700 hover:text-green-600 transition font-semibold">Tentang
             Kami</a>
         </div>
       </nav>
@@ -227,7 +221,8 @@
           memilah sampah di sekitarmu.
         </p>
         <a href="src/page/scan"
-          class="px-6 py-3 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition font-semibold">Coba Sekarang</a>
+          class="px-6 py-3 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition font-semibold">Coba
+          Sekarang</a>
       </div>
     </div>
     <div class="carousel-slide" style="
@@ -242,7 +237,7 @@
           Setiap tindakan kecil berkontribusi pada perubahan besar untuk
           planet kita.
         </p>
-        <a href="src/page/about_us.html"
+        <a href="src/page/about_us"
           class="px-6 py-3 bg-white text-green-700 border border-transparent rounded-lg shadow-sm hover:bg-green-50 transition font-semibold">Pelajari
           Lebih</a>
       </div>
@@ -358,7 +353,7 @@
             <h3 class="text-xl font-bold text-gray-800 mb-3">
               Krisis Sampah Plastik di Perkotaan
             </h3>
-            <a href="#" class="text-green-600 font-semibold hover:text-green-700 transition">Baca Selengkapnya
+            <a href="src/page/feed.html" class="text-green-600 font-semibold hover:text-green-700 transition">Baca Selengkapnya
               &rarr;</a>
           </div>
         </div>
@@ -373,7 +368,7 @@
             <h3 class="text-xl font-bold text-gray-800 mb-3">
               Pentingnya Daur Ulang untuk Ekonomi Sirkular
             </h3>
-            <a href="#" class="text-green-600 font-semibold hover:text-green-700 transition">Baca Selengkapnya
+            <a href="src/page/feed.html" class="text-green-600 font-semibold hover:text-green-700 transition">Baca Selengkapnya
               &rarr;</a>
           </div>
         </div>
@@ -388,7 +383,7 @@
             <h3 class="text-xl font-bold text-gray-800 mb-3">
               Peran Komunitas dalam Mengurangi Sampah
             </h3>
-            <a href="#" class="text-green-600 font-semibold hover:text-green-700 transition">Baca Selengkapnya
+            <a href="src/page/feed.html" class="text-green-600 font-semibold hover:text-green-700 transition">Baca Selengkapnya
               &rarr;</a>
           </div>
         </div>
@@ -424,7 +419,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
         <div class="text-center fade-in">
           <div class="relative w-40 h-40 mx-auto mb-4">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400" alt="Tim 1"
+            <img src="assets/img/Dinand.jpg" alt="Tim 1"
               class="w-full h-full rounded-full object-cover shadow-lg border-4 border-white" />
           </div>
           <h3 class="text-xl font-bold text-gray-800">Ferdinand Putra</h3>
@@ -432,7 +427,7 @@
         </div>
         <div class="text-center fade-in" style="animation-delay: 0.2s">
           <div class="relative w-40 h-40 mx-auto mb-4">
-            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400" alt="Tim 2"
+            <img src="assets/img/Daniro.jpg" alt="Tim 2"
               class="w-full h-full rounded-full object-cover shadow-lg border-4 border-white" />
           </div>
           <h3 class="text-xl font-bold text-gray-800">Daniro Prasetyo</h3>
@@ -440,7 +435,7 @@
         </div>
         <div class="text-center fade-in" style="animation-delay: 0.4s">
           <div class="relative w-40 h-40 mx-auto mb-4">
-            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=400" alt="Tim 3"
+            <img src="assets/img/Candra.jpg"Tim 3"
               class="w-full h-full rounded-full object-cover shadow-lg border-4 border-white" />
           </div>
           <h3 class="text-xl font-bold text-gray-800">Kornelius Candra</h3>
@@ -448,7 +443,7 @@
         </div>
         <div class="text-center fade-in" style="animation-delay: 0.6s">
           <div class="relative w-40 h-40 mx-auto mb-4">
-            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400" alt="Tim 4"
+            <img src="assets/img/Baskoro.jpg" alt="Tim 4"
               class="w-full h-full rounded-full object-cover shadow-lg border-4 border-white" />
           </div>
           <h3 class="text-xl font-bold text-gray-800">Baskoro Adi Widagdo</h3>
@@ -467,7 +462,7 @@
         Jadilah bagian dari komunitas yang berkomitmen untuk melindungi planet
         kita.
       </p>
-      <a href="#"
+      <a href="src/page/login"
         class="inline-block px-10 py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 fade-in"
         style="animation-delay: 0.2s">
         Daftar Sekarang
@@ -480,10 +475,10 @@
       <div class="grid md:grid-cols-4 gap-8 mb-12">
         <div>
           <div class="flex items-center gap-2 mb-4">
-            <div class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
-              <i class="fas fa-leaf"></i>
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center">
+              <img src="assets/img/logo.png" alt="">
             </div>
-            <span class="text-2xl font-bold">EcoWaste</span>
+            <span class="text-2xl font-bold">SampahKita</span>
           </div>
           <p class="text-gray-400 text-sm">
             Platform digital untuk manajemen sampah yang efisien dan
@@ -494,16 +489,19 @@
           <h4 class="text-lg font-bold mb-4">Halaman</h4>
           <ul class="space-y-2 text-gray-400">
             <li>
-              <a href="#" class="hover:text-green-400 transition">Bank Sampah</a>
+              <a href="src/page/bank_sampah" class="hover:text-green-400 transition">Bank Sampah</a>
             </li>
             <li>
-              <a href="#" class="hover:text-green-400 transition">Feed</a>
+              <a href="src/page/feed" class="hover:text-green-400 transition">Feed</a>
             </li>
             <li>
-              <a href="#" class="hover:text-green-400 transition">Leaderboard</a>
+              <a href="src/page/scan" class="hover:text-green-400 transition">Scan Sampah</a>
             </li>
             <li>
-              <a href="src/page/about_us.html" class="hover:text-green-400 transition">Tentang Kami</a>
+              <a href="src/page/learderboard" class="hover:text-green-400 transition">Leaderboard</a>
+            </li>
+            <li>
+              <a href="src/page/about_us" class="hover:text-green-400 transition">Tentang Kami</a>
             </li>
           </ul>
         </div>
@@ -511,7 +509,7 @@
           <h4 class="text-lg font-bold mb-4">Hubungi Kami</h4>
           <ul class="space-y-2 text-gray-400">
             <li>
-              <a href="mailto:info@ecowaste.com" class="hover:text-green-400 transition">info@ecowaste.com</a>
+              <a href="mailto:info@ecowaste.com" class="hover:text-green-400 transition">info@sk.com</a>
             </li>
             <li>
               <a href="tel:+62123456789" class="hover:text-green-400 transition">+62 123 4567 890</a>
@@ -522,7 +520,7 @@
         <div>
           <h4 class="text-lg font-bold mb-4">Ikuti Kami</h4>
           <div class="flex gap-4">
-            <a href="#"
+            <a href="www.instagram.com/mrzzuko_"
               class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"><i
                 class="fab fa-instagram"></i></a>
             <a href="#"
@@ -538,7 +536,7 @@
         </div>
       </div>
       <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
-        <p>&copy; 2025 EcoWaste Connect. All Rights Reserved.</p>
+        <p>&copy; 2025 SampahKita Community. All Rights Reserved.</p>
       </div>
     </div>
   </footer>

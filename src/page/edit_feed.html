@@ -4,7 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Edit Postingan - EcoWaste Connect</title>
+  <title>Edit Postingan - SampahKita</title>
+  <link rel="icon" type="image/png" href="../../assets/img/logo.png">
   <link rel="stylesheet" href="../../assets/css/sampah_kita.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -51,31 +52,8 @@
 </head>
 
 <body>
-  <header class="sticky-header">
-    <div class="max-w-7xl mx-auto px-4 py-4">
-      <div class="flex justify-between items-center">
-        <a href="index.html" class="flex items-center gap-2">
-          <div
-            class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center">
-            <i class="fas fa-leaf text-white"></i>
-          </div>
-          <span class="text-2xl font-bold text-green-700">EcoWaste</span>
-        </a>
-        <nav class="hidden md:flex gap-8 font-semibold">
-          <a href="bank_sampah.html" class="text-gray-700 hover:text-green-600 transition">Bank Sampah</a>
-          <a href="feed.html" class="text-green-600 hover:text-green-700 transition">Feed</a>
-          <a href="leaderboard.html" class="text-gray-700 hover:text-green-600 transition">Leaderboard</a>
-          <a href="scan.html" class="text-gray-700 hover:text-green-600 transition">Scan Sampah</a>
-        </nav>
-        <div class="flex items-center gap-4">
-          <a href="profile.html"
-            class="hidden md:block px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold">Profil</a>
-          <button class="md:hidden text-2xl text-gray-700">
-            <i class="fas fa-bars"></i>
-          </button>
-        </div>
-      </div>
-    </div>
+  <header id="navbar-sk" class="sticky-header top-0 z-50 bg-white/80 backdrop-blur-sm shadow-sm">
+
   </header>
 
   <main class="max-w-2xl mx-auto px-4 py-12 md:py-16">
@@ -216,6 +194,7 @@
       </footer>
     </div>
   </dialog>
+  <script src="../../assets/js/sampahkita_main.js"></script>
   <script>
     const params = new URLSearchParams(window.location.search);
     const feed_id = params.get("feed_id");

@@ -4,7 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Profil Pengguna - EcoWaste Connect</title>
+  <title>Profil Pengguna - SampahKitat</title>
+  <link rel="icon" type="image/png" href="../../assets/img/logo.png">
   <link rel="stylesheet" crossorigin href="/assets/style-dfAWuXzu.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,7 +18,6 @@
       font-family: 'Poppins', 'Segoe UI', sans-serif;
       color: #1f2937;
       background-color: #f0fdf4;
-      /* Pale Green */
     }
 
     .font-lora {
@@ -56,15 +56,30 @@
                 class="w-full h-full rounded-full object-cover border-4 border-white shadow-md" />
             </div>
             <div class="mt-4 sm:mt-0 sm:ml-6 w-full">
-              <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
-                <h1 id="profile-name" class="font-lora text-2xl md:text-3xl font-bold text-gray-900">
-                  Sobat SK!
-                </h1>
-                <span
-                  class="flex items-center gap-1.5 px-3 py-1 bg-green-100 text-green-800 text-xs font-bold rounded-full">
-                  <i class="fas fa-check-circle"></i> Kontributor
-                  Terverifikasi
-                </span>
+              <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+                <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+                  <h1 id="profile-name" class="font-lora text-2xl md:text-3xl font-bold text-gray-900">
+                    Sobat SK!
+                  </h1>
+                  <span
+                    class="flex items-center gap-1.5 px-3 py-1 bg-green-100 text-green-800 text-xs font-bold rounded-full">
+                    <i class="fas fa-check-circle"></i> Kontributor
+                    Terverifikasi
+                  </span>
+                </div>
+                <div class="relative">
+                  <button id="profile-menu-btn" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                    <i class="fas fa-ellipsis-v text-gray-600"></i>
+                  </button>
+                  <div id="profile-dropdown"
+                    class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-10">
+                    <button
+                      onclick="alert(`Fitur CommingSoon Lurrr`)"class="w-full text-left flex feed-menu-report items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
+                      role="menuitem" data-action="report">
+                      <i class="fas fa-flag w-4"></i> Laporkan Pengguna
+                    </button>
+                  </div>
+                </div>
               </div>
               <p id="progress-desc" class="text-base md:text-lg text-gray-700 mt-1">
                 EcoWarrior Level 5 | Pahlawan Lingkungan
@@ -147,10 +162,10 @@
       </div>
     </div>
   </main>
+
   <script>
     const params = new URLSearchParams(window.location.search);
     const user_id = params.get("user_id");
-
     async function check_session() {
       try {
         const res = await fetch('../../api/session_info.php');
@@ -161,13 +176,23 @@
           load_profile(data.user_id);
           load_feed(data.user_id);
           load_scan(data.user_id)
+          dropdown = document.getElementById("profile-dropdown");
+          dropdown.innerHTML =
+            `
+            <button id="logout-btn" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2">
+            <i class="fas fa-sign-out-alt"></i>
+            Logout
+            </button>
+          `;
         } else {
-
+          window.location.href = "login"
+          console.log(data)
         }
       } catch (err) {
 
       }
     }
+
     if (!user_id) {
       check_session();
     } else {
@@ -213,7 +238,46 @@
 
       activateTab('feed');
     }
+
     document.addEventListener('DOMContentLoaded', initTabSwitching);
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const menuBtn = document.getElementById('profile-menu-btn');
+      const dropdown = document.getElementById('profile-dropdown');
+      const logoutBtn = document.getElementById('logout-btn');
+
+
+      menuBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        dropdown.classList.toggle('hidden');
+      });
+
+
+      document.addEventListener('click', function (e) {
+        if (!dropdown.classList.contains('hidden') && !dropdown.contains(e.target)) {
+          dropdown.classList.add('hidden');
+        }
+      });
+
+      logoutBtn.addEventListener('click', async function () {
+        try {
+          const response = await fetch('../../api/auth_logout.php', {
+            method: 'POST'
+          });
+          const data = await response.json();
+
+          if (data.status === 'sukses') {
+            window.location.href = '../../index.html';
+          } else {
+            alert('Gagal logout. Silakan coba lagi.');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          alert('Terjadi kesalahan. Silakan coba lagi.');
+        }
+      });
+    });
+
     function load_progress(i) {
       console.log(i)
       fetch(`../../api/user_progress_public?user_id=${i}`)

@@ -4,7 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Feed Komunitas - EcoWaste Connect</title>
+  <title>Feed Komunitas - SampahKita</title>
+  <link rel="icon" type="image/png" href="../../assets/img/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@400;600;700&display=swap"
@@ -147,11 +148,13 @@
                 <i class="fas fa-image text-green-500"></i> Foto
               </button>
 
-              <button onclick="upload_vidio()" type="button" class="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md transition">
+              <button onclick="upload_vidio()" type="button"
+                class="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md transition">
                 <i class="fas fa-video text-green-500"></i> Video
               </button>
 
-              <button onclick="upload_vidio()" type="button" class="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md transition">
+              <button onclick="upload_vidio()" type="button"
+                class="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-md transition">
                 <i class="fas fa-tags text-green-500"></i> Tag
               </button>
             </div>
@@ -172,10 +175,10 @@
       <div class="grid md:grid-cols-4 gap-8 mb-12">
         <div>
           <div class="flex items-center gap-2 mb-4">
-            <div class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
-              <i class="fas fa-leaf"></i>
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center">
+              <img src="../../assets/img/logo.png" alt="">
             </div>
-            <span class="text-2xl font-bold">EcoWaste</span>
+            <span class="text-2xl font-bold">SampahKita</span>
           </div>
           <p class="text-gray-400 text-sm">
             Platform digital untuk manajemen sampah yang efisien dan
@@ -186,16 +189,19 @@
           <h4 class="text-lg font-bold mb-4">Halaman</h4>
           <ul class="space-y-2 text-gray-400">
             <li>
-              <a href="#" class="hover:text-green-400 transition">Bank Sampah</a>
+              <a href="bank_sampah" class="hover:text-green-400 transition">Bank Sampah</a>
             </li>
             <li>
-              <a href="#" class="hover:text-green-400 transition">Feed</a>
+              <a href="feed" class="hover:text-green-400 transition">Feed</a>
             </li>
             <li>
-              <a href="#" class="hover:text-green-400 transition">Leaderboard</a>
+              <a href="scan" class="hover:text-green-400 transition">Scan Sampah</a>
             </li>
             <li>
-              <a href="src/page/about_us.html" class="hover:text-green-400 transition">Tentang Kami</a>
+              <a href="learderboard" class="hover:text-green-400 transition">Leaderboard</a>
+            </li>
+            <li>
+              <a href="about_us" class="hover:text-green-400 transition">Tentang Kami</a>
             </li>
           </ul>
         </div>
@@ -203,7 +209,7 @@
           <h4 class="text-lg font-bold mb-4">Hubungi Kami</h4>
           <ul class="space-y-2 text-gray-400">
             <li>
-              <a href="mailto:info@ecowaste.com" class="hover:text-green-400 transition">info@ecowaste.com</a>
+              <a href="mailto:info@ecowaste.com" class="hover:text-green-400 transition">info@sk.com</a>
             </li>
             <li>
               <a href="tel:+62123456789" class="hover:text-green-400 transition">+62 123 4567 890</a>
@@ -214,7 +220,7 @@
         <div>
           <h4 class="text-lg font-bold mb-4">Ikuti Kami</h4>
           <div class="flex gap-4">
-            <a href="#"
+            <a href="www.instagram.com/mrzzuko_"
               class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"><i
                 class="fab fa-instagram"></i></a>
             <a href="#"
@@ -230,7 +236,7 @@
         </div>
       </div>
       <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
-        <p>&copy; 2025 EcoWaste Connect. All Rights Reserved.</p>
+        <p>&copy; 2025 SampahKita Community. All Rights Reserved.</p>
       </div>
     </div>
   </footer>
@@ -277,7 +283,7 @@
     }
     load_stats();
 
-    function upload_vidio(){
+    function upload_vidio() {
       alert("Feature Coming Soon!");
     }
 
@@ -350,7 +356,7 @@
             `;
             container.appendChild(div);
             const img = document.getElementById(`img-file-${feed.feed_id}`);
-            if(feed.image  != ""){
+            if (feed.image != "") {
               img.innerHTML = `
               <img
                   src="../../${feed.image}"
@@ -361,26 +367,34 @@
             }
             const menu = document.getElementById(`menu-${feed.feed_id}`);
 
-            
-            menu.innerHTML = `                  
-            <a href="edit_feed?feed_id=${feed.feed_id}"
-                    class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-green-600 transition"
-                    role="menuitem">
-                    <i class="fas fa-edit w-4"></i> Edit Postingan
-                  </a>
-                  <button onclick="delete_feed(${feed.feed_id})"
-                    class="w-full text-left flex items-center feed-menu-delete gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition"
-                    role="menuitem" data-action="delete">
-                    <i class="fas fa-trash-alt w-4"></i> Hapus Postingan
-                  </button>
-                  <div class="border-t border-gray-100 my-1"></div>
-                  <button
-                    class="w-full text-left flex feed-menu-report items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
-                    role="menuitem" data-action="report">
-                    <i class="fas fa-flag w-4"></i> Laporkan
-                  </button>
-          
-            `;
+            if (feed.user_data.user_id == feed.user_id && feed.user_id.role != "admin") {
+              menu.innerHTML = `                  
+              <a href="edit_feed?feed_id=${feed.feed_id}"
+                      class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-green-600 transition"
+                      role="menuitem">
+                      <i class="fas fa-edit w-4"></i> Edit Postingan
+                    </a>
+                    <button onclick="delete_feed(${feed.feed_id})"
+                      class="w-full text-left flex items-center feed-menu-delete gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition"
+                      role="menuitem" data-action="delete">
+                      <i class="fas fa-trash-alt w-4"></i> Hapus Postingan
+                    </button>
+                    <div class="border-t border-gray-100 my-1"></div>
+                    <button
+                      class="w-full text-left flex feed-menu-report items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
+                      role="menuitem" data-action="report">
+                      <i class="fas fa-flag w-4"></i> Laporkan
+                    </button>
+              `;
+            }else {
+              menu.innerHTML = `                  
+                    <button onclick="upload_vidio()"
+                      class="w-full text-left flex feed-menu-report items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
+                      role="menuitem" data-action="report">
+                      <i class="fas fa-flag w-4"></i> Laporkan
+                    </button>
+              `;
+            }
 
 
             const like = document.getElementById(`like-${feed.feed_id}`);
@@ -434,24 +448,25 @@
         });
     }
 
-      document.getElementById("post_feed").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const res = await fetch("../../api/create_feed.php", {
-          method: "POST",
-          body: formData
-        });
-
-        const data = await res.json();
-
-        if(data.status == "sukses"){
-
-        }else {
-          console.log(data);
-        }
-        
+    document.getElementById("post_feed").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const res = await fetch("../../api/create_feed.php", {
+        method: "POST",
+        body: formData
       });
-    
+
+      const data = await res.json();
+
+      if (data.status == "sukses") {
+        console.log(data)
+        location.reload();
+      } else {
+        console.log(data);
+      }
+
+    });
+
     async function delete_feed(i) {
       try {
         const res = await fetch("../../api/delete_feed.php", {

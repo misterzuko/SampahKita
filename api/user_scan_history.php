@@ -22,7 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         FROM User_Scan_History 
         WHERE user_id = ? 
         ORDER BY created_at DESC
-        ");
+        "
+    );
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -80,7 +81,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $success = $stmt->execute();
     $stmt->close();
 
+
+
     if ($success) {
+        $stmt_updt = $conn->prepare("UPDATE User_Progress SET points = points + 5000 WHERE user_id = ?");
+        $stmt_updt->bind_param("i", $user_id);
+        $stmt_updt->execute();
+        $stmt_updt->close();
         echo json_encode(["status" => "sukses", "message" => "Hasil scan berhasil disimpan"]);
     } else {
         echo json_encode(["status" => "error", "message" => "Gagal menyimpan data scan"]);
