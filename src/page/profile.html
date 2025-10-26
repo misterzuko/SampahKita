@@ -40,24 +40,72 @@
         background-color: #a0aec0;
         color: #2d3748;
       }
+
       .status-plastik {
-        background-color: #63b3ed;
-        color: #1e3a8a;
+        background-color: #63b3ed; /* Warna biru muda */
+        color: #1e3a8a; /* Warna teks biru tua */
       }
+
       .status-kaca {
         background-color: #81e6d9;
         color: #065f46;
       }
+
       .status-kertas {
         background-color: #f6ad55;
         color: #78350f;
       }
 
-      /* Styling untuk Tab aktif */
+      .status-organik {
+        background-color: #38a169; /* Warna hijau sedang (representasi organik) */
+        color: #083344; /* Warna teks biru-hitam */
+      }
+
+      .status-kardus {
+        background-color: #d69e2e; /* Warna cokelat/emas (representasi kardus) */
+        color: #532d03; /* Warna teks cokelat sangat gelap */
+      }
+
+      .status-sampah {
+        background-color: #fc8181; /* Warna merah muda (representasi umum/trash) */
+        color: #742a2a; /* Warna teks merah marun */
+      }
+
       .tab-active {
         border-bottom: 3px solid #10b981; /* green-500 */
         color: #047857; /* green-700 */
         font-weight: 600;
+      }
+
+      .table-history {
+        min-width: 100%!;
+      }
+
+      .scan-container {
+        overflow-x: auto;
+      }
+
+      .history-cta {
+        padding: 0.75rem 0.625rem;
+      }
+
+      .tab-feed-container {
+        display: grid;
+
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+
+        gap: 1.5rem;
+      }
+
+      @media (min-width: 1024px) {
+        .tab-feed-container {
+          /* 2 kolom untuk layar besar (large) */
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      .nav-gap-2 {
+        gap: 2rem;
       }
     </style>
   </head>
@@ -185,7 +233,7 @@
             </div>
 
             <div class="border-b border-gray-200 mb-6">
-              <nav class="flex space-x-8">
+              <nav class="flex nav-gap-2 space-x-8">
                 <button
                   class="py-3 text-gray-500 hover:text-green-700 transition tab-active"
                   data-tab="feed"
@@ -208,8 +256,12 @@
                 Riwayat Scan Sampah
               </h2>
 
-              <div class="overflow-x-auto bg-white rounded-lg border">
-                <table class="min-w-full divide-y divide-gray-200">
+              <div
+                class="scan-container overflow-x-auto bg-white rounded-lg border"
+              >
+                <table
+                  class="min-w-full divide-y divide-gray-200 table-history"
+                >
                   <thead class="bg-gray-50">
                     <tr>
                       <th
@@ -401,6 +453,7 @@
             console.log(data);
             data.feeds.forEach(feed => {
               const div = document.createElement('div');
+              div.classList.add('tab-feed-container');
               div.innerHTML = `
             <a href="feed_detail?feed_id=${feed.feed_id}"
                 class="group block bg-gray-50 rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition-shadow">
@@ -454,7 +507,7 @@
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <a href="../../${scan.image_path}"
-                      class="px-3 py-2.5 bg-green-500 text-white rounded-md text-xs hover:bg-green-600 transition">Lihat Gambar</a>
+                      class="history-cta px-3 py-2.5 bg-green-500 text-white rounded-md text-xs hover:bg-green-600 transition">Lihat Gambar</a>
                 </td>
                 `;
               table.appendChild(tr);
