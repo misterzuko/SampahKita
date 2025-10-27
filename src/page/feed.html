@@ -269,6 +269,48 @@
       .modal-button-confirm i {
         margin-right: 0.25rem; /* mr-1 */
       }
+
+      /* ===== CSS BARU UNTUK PREVIEW GAMBAR ===== */
+      .image-preview-wrapper {
+        position: relative;
+        width: 100%;
+        border: 2px dashed #d1d5db; /* gray-300 */
+        border-radius: 0.75rem; /* rounded-lg */
+        padding: 0.5rem; /* p-2 */
+        margin-bottom: 1rem; /* mb-4 */
+        background-color: #f9fafb; /* gray-50 */
+      }
+
+      #image-preview {
+        width: 100%;
+        height: auto;
+        max-height: 300px;
+        object-fit: contain; /* 'contain' lebih baik untuk preview */
+        border-radius: 0.5rem; /* rounded-md */
+      }
+
+      .remove-image-button {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 2rem; /* w-8 */
+        height: 2rem; /* h-8 */
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        border: none;
+        border-radius: 9999px; /* rounded-full */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        z-index: 10;
+      }
+
+      .remove-image-button:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+      /* ======================================= */
     </style>
   </head>
 
@@ -381,14 +423,33 @@
             </div>
 
             <div
+              id="image-preview-container"
+              class="image-preview-wrapper"
+              style="display: none"
+            >
+              <img id="image-preview" src="#" alt="Pratinjau Gambar" />
+              <button
+                type="button"
+                id="remove-image-btn"
+                class="remove-image-button"
+                aria-label="Hapus gambar"
+              >
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <div
               class="flex flex-wrap justify-between items-center text-gray-500 text-sm gap-4"
             >
-              <div class="flex flex-wrap gap-4 mobile-center mobile-full">
+              <div
+                id="feed-options-bar"
+                class="flex flex-wrap gap-4 mobile-center mobile-full"
+              >
                 <input
                   type="file"
                   name="image"
                   id="imgfile"
                   style="display: none"
+                  accept="image/*"
                 />
                 <button
                   type="button"
@@ -712,31 +773,31 @@
                 feed.user_data.role == "admin"
               ) {
                 menu.innerHTML = `
-              <a href="edit_feed?feed_id=${feed.feed_id}"
-                      class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-green-600 transition"
-                      role="menuitem">
-                      <i class="fas fa-edit w-4"></i> Edit Postingan
-                    </a>
-                    <button onclick="confirm_delete_feed(${feed.feed_id})"
-                      class="w-full text-left flex items-center feed-menu-delete gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition"
-                      role="menuitem" data-action="delete">
-                      <i class="fas fa-trash-alt w-4"></i> Hapus Postingan
-                    </button>
-                    <div class="border-t border-gray-100 my-1"></div>
-                    <button
-                      class="w-full text-left flex feed-menu-report items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
-                      role="menuitem" data-action="report">
-                      <i class="fas fa-flag w-4"></i> Laporkan
-                    </button>
-              `;
+                  <a href="edit_feed?feed_id=${feed.feed_id}"
+                        class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-green-600 transition"
+                        role="menuitem">
+                        <i class="fas fa-edit w-4"></i> Edit Postingan
+                      </a>
+                      <button onclick="confirm_delete_feed(${feed.feed_id})"
+                        class="w-full text-left flex items-center feed-menu-delete gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition"
+                        role="menuitem" data-action="delete">
+                        <i class="fas fa-trash-alt w-4"></i> Hapus Postingan
+                      </button>
+                      <div class="border-t border-gray-100 my-1"></div>
+                      <button
+                        class="w-full text-left flex feed-menu-report items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
+                        role="menuitem" data-action="report">
+                        <i class="fas fa-flag w-4"></i> Laporkan
+                      </button>
+                `;
               } else {
                 menu.innerHTML = `
-                    <button onclick="upload_vidio()"
-                      class="w-full text-left flex feed-menu-report items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
-                      role="menuitem" data-action="report">
-                      <i class="fas fa-flag w-4"></i> Laporkan
-                    </button>
-              `;
+                      <button onclick="upload_vidio()"
+                        class="w-full text-left flex feed-menu-report items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
+                        role="menuitem" data-action="report">
+                        <i class="fas fa-flag w-4"></i> Laporkan
+                      </button>
+                `;
               }
 
               const like = document.getElementById(`like-${feed.feed_id}`);
@@ -759,11 +820,8 @@
         window.location.href = `feed_detail?feed_id=${i}`;
       }
 
-      function openFileDialog() {
-        document.getElementById("imgfile").click();
-      }
-
-      document.getElementById("openimgfile").onclick = openFileDialog;
+      /* FUNGSI openFileDialog LAMA DIHAPUS */
+      /* document.getElementById("openimgfile").onclick = openFileDialog; LAMA DIHAPUS */
 
       function like_button(i) {
         fetch(`../../api/feed_like_button?feed_id=${i}`)
@@ -988,6 +1046,64 @@
           }
         });
       }
+    </script>
+
+    <script>
+      // --- Dapatkan elemen untuk preview gambar ---
+      const imgfileInput = document.getElementById("imgfile");
+      const openimgfileBtn = document.getElementById("openimgfile");
+      const previewContainer = document.getElementById(
+        "image-preview-container"
+      );
+      const previewImage = document.getElementById("image-preview");
+      const removeImageBtn = document.getElementById("remove-image-btn");
+      const feedOptionsBar = document.getElementById("feed-options-bar");
+
+      // 1. Memicu input file saat tombol "Foto" diklik
+      openimgfileBtn.addEventListener("click", () => {
+        imgfileInput.click();
+      });
+
+      // 2. Menangani saat file dipilih
+      imgfileInput.addEventListener("change", function (event) {
+        const file = event.target.files[0];
+
+        if (file && file.type.startsWith("image/")) {
+          // Hanya proses jika file adalah gambar
+          const reader = new FileReader();
+
+          reader.onload = function (e) {
+            // Tampilkan preview
+            previewImage.src = e.target.result;
+            previewContainer.style.display = "block";
+            // Sembunyikan tombol "Foto, Video, Tag"
+            feedOptionsBar.style.display = "none";
+          };
+
+          reader.readAsDataURL(file);
+        } else if (file) {
+          // Jika file dipilih tapi bukan gambar
+          showNotification("Silakan pilih file gambar yang valid.", "error");
+          imgfileInput.value = null; // Kosongkan pilihan
+        }
+      });
+
+      // 3. Menangani saat tombol "Hapus Gambar" (X) diklik
+      removeImageBtn.addEventListener("click", () => {
+        imgfileInput.value = null; // Kosongkan input file
+        previewImage.src = "#"; // Hapus sumber gambar
+        previewContainer.style.display = "none"; // Sembunyikan container preview
+        feedOptionsBar.style.display = "flex"; // Tampilkan kembali tombol "Foto, Video, Tag"
+      });
+
+      // 4. (Opsional) Reset preview saat form di-submit
+      // Dalam kasus ini, halaman akan di-reload, jadi tidak perlu
+      // Namun, jika Anda mengubahnya menjadi AJAX tanpa reload, tambahkan:
+      // document.getElementById("post_feed").addEventListener("submit", () => {
+      //   if(document.getElementById("post_feed").dataset.status === "sukses") {
+      //      removeImageBtn.click();
+      //   }
+      // });
     </script>
   </body>
 </html>
