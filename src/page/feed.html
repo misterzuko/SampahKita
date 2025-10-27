@@ -75,6 +75,11 @@
         border: none;
         max-width: 500px;
         width: 90%;
+
+        /* === TAMBAHAN UNTUK CENTER === */
+        margin: auto; /* Kunci untuk centering */
+        height: fit-content; /* Pastikan tinggi dialog pas dengan konten */
+        /* ============================== */
       }
       /* (Berasal dari 'md:p-8') */
       @media (min-width: 768px) {
@@ -457,8 +462,8 @@
 
       <div id="modal-content">
         <p>
-          Apakah Anda <strong>yakin</strong> ingin menghapus postingan ini?
-          Tindakan ini <strong>tidak dapat dibatalkan</strong>.
+          Apakah Anda <strong>yakin</strong> ingin menghapus feed ini? Tindakan
+          ini <strong>tidak dapat dibatalkan</strong>.
         </p>
         <input type="hidden" id="post-to-delete-id" value="" />
       </div>
@@ -879,6 +884,31 @@
           clickedButton.setAttribute("aria-expanded", "true");
         }
       });
+    </script>
+
+    <script>
+      // --- Script untuk menutup dialog saat backdrop diklik ---
+      const deleteDialog = document.getElementById("delete-modal");
+
+      if (deleteDialog) {
+        deleteDialog.addEventListener("click", (event) => {
+          // Dapatkan area persegi dialog di layar
+          const rect = deleteDialog.getBoundingClientRect();
+
+          // Cek apakah koordinat klik (event.clientY, event.clientX)
+          // berada DI LUAR area persegi tersebut
+          const isInDialog =
+            rect.top <= event.clientY &&
+            event.clientY <= rect.top + rect.height &&
+            rect.left <= event.clientX &&
+            event.clientX <= rect.left + rect.width;
+
+          // Jika klik TIDAK di dalam dialog (!isInDialog)
+          if (!isInDialog) {
+            deleteDialog.close();
+          }
+        });
+      }
     </script>
   </body>
 </html>
