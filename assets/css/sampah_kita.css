@@ -64,10 +64,10 @@
 @layer theme {
   :root,
   :host {
-    --font-sans: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
-      'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-      'Liberation Mono', 'Courier New', monospace;
+      "Liberation Mono", "Courier New", monospace;
     --color-red-50: oklch(97.1% 0.013 17.38);
     --color-red-100: oklch(93.6% 0.032 17.717);
     --color-red-200: oklch(88.5% 0.062 18.334);
@@ -183,10 +183,10 @@
       ui-sans-serif,
       system-ui,
       sans-serif,
-      'Apple Color Emoji',
-      'Segoe UI Emoji',
-      'Segoe UI Symbol',
-      'Noto Color Emoji'
+      "Apple Color Emoji",
+      "Segoe UI Emoji",
+      "Segoe UI Symbol",
+      "Noto Color Emoji"
     );
     font-feature-settings: var(--default-font-feature-settings, normal);
     font-variation-settings: var(--default-font-variation-settings, normal);
@@ -230,8 +230,8 @@
       Menlo,
       Monaco,
       Consolas,
-      'Liberation Mono',
-      'Courier New',
+      "Liberation Mono",
+      "Courier New",
       monospace
     );
     font-feature-settings: var(--default-mono-font-feature-settings, normal);
@@ -389,7 +389,7 @@
     box-shadow: none;
   }
   button,
-  input:where([type='button'], [type='reset'], [type='submit']) {
+  input:where([type="button"], [type="reset"], [type="submit"]) {
     appearance: button;
   }
   ::file-selector-button {
@@ -401,7 +401,7 @@
   ::-webkit-outer-spin-button {
     height: auto;
   }
-  [hidden]:where(:not([hidden='until-found'])) {
+  [hidden]:where(:not([hidden="until-found"])) {
     display: none !important;
   }
 }
@@ -1674,235 +1674,235 @@
   }
 }
 @property --tw-translate-x {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
   initial-value: 0;
 }
 @property --tw-translate-y {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
   initial-value: 0;
 }
 @property --tw-translate-z {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
   initial-value: 0;
 }
 @property --tw-rotate-x {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-rotate-y {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-rotate-z {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-skew-x {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-skew-y {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-space-y-reverse {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
   initial-value: 0;
 }
 @property --tw-space-x-reverse {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
   initial-value: 0;
 }
 @property --tw-divide-y-reverse {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
   initial-value: 0;
 }
 @property --tw-border-style {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
   initial-value: solid;
 }
 @property --tw-gradient-position {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-gradient-from {
-  syntax: '<color>';
+  syntax: "<color>";
   inherits: false;
   initial-value: #0000;
 }
 @property --tw-gradient-via {
-  syntax: '<color>';
+  syntax: "<color>";
   inherits: false;
   initial-value: #0000;
 }
 @property --tw-gradient-to {
-  syntax: '<color>';
+  syntax: "<color>";
   inherits: false;
   initial-value: #0000;
 }
 @property --tw-gradient-stops {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-gradient-via-stops {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-gradient-from-position {
-  syntax: '<length-percentage>';
+  syntax: "<length-percentage>";
   inherits: false;
   initial-value: 0%;
 }
 @property --tw-gradient-via-position {
-  syntax: '<length-percentage>';
+  syntax: "<length-percentage>";
   inherits: false;
   initial-value: 50%;
 }
 @property --tw-gradient-to-position {
-  syntax: '<length-percentage>';
+  syntax: "<length-percentage>";
   inherits: false;
   initial-value: 100%;
 }
 @property --tw-leading {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-font-weight {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-tracking {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-shadow {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
   initial-value: 0 0 #0000;
 }
 @property --tw-shadow-color {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-shadow-alpha {
-  syntax: '<percentage>';
+  syntax: "<percentage>";
   inherits: false;
   initial-value: 100%;
 }
 @property --tw-inset-shadow {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
   initial-value: 0 0 #0000;
 }
 @property --tw-inset-shadow-color {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-inset-shadow-alpha {
-  syntax: '<percentage>';
+  syntax: "<percentage>";
   inherits: false;
   initial-value: 100%;
 }
 @property --tw-ring-color {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-ring-shadow {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
   initial-value: 0 0 #0000;
 }
 @property --tw-inset-ring-color {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-inset-ring-shadow {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
   initial-value: 0 0 #0000;
 }
 @property --tw-ring-inset {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-ring-offset-width {
-  syntax: '<length>';
+  syntax: "<length>";
   inherits: false;
   initial-value: 0;
 }
 @property --tw-ring-offset-color {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
   initial-value: #fff;
 }
 @property --tw-ring-offset-shadow {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
   initial-value: 0 0 #0000;
 }
 @property --tw-backdrop-blur {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-backdrop-brightness {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-backdrop-contrast {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-backdrop-grayscale {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-backdrop-hue-rotate {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-backdrop-invert {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-backdrop-opacity {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-backdrop-saturate {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-backdrop-sepia {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-duration {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-ease {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-scale-x {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
   initial-value: 1;
 }
 @property --tw-scale-y {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
   initial-value: 1;
 }
 @property --tw-scale-z {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
   initial-value: 1;
 }
@@ -1910,4 +1910,88 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 16px 24px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1000;
+  animation: slideIn 0.3s ease-out;
+  max-width: 400px;
+}
+
+.notification.success {
+  background-color: #10b981;
+  color: white;
+}
+
+.notification.error {
+  background-color: #ef4444;
+  color: white;
+}
+
+.notification.info {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.notification i {
+  font-size: 1.25rem;
+}
+
+.notification-close {
+  margin-left: auto;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.notification-close:hover {
+  opacity: 1;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+}
+
+.notification.slide-out {
+  animation: slideOut 0.3s ease-out forwards;
+}
+
+dialog {
+  border: none;
+  padding: 0;
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  max-width: 400px;
+  width: 90%;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
 }
