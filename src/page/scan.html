@@ -231,6 +231,7 @@
           });
 
           const data = await res.json();
+          console.log(data)
 
           if (data.status === "sukses") {
             console.log("Feed berhasil dikirim");
@@ -359,10 +360,10 @@
         }
 
         const topClass = top.className.toLowerCase();
+        scan_form(kapital(topClass))
         setTimeout(() => {
-          scan_form(kapital(topClass))
           window.location.href = `result.html?class=${topClass}`;
-        }, 500);
+        }, 300);
 
       } catch (error) {
         console.error("Error saat prediksi:", error);
