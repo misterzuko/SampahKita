@@ -19,13 +19,13 @@
     <link rel="stylesheet" href="../../assets/css/sampah_kita.css" />
     <style>
       body {
-        font-family: 'Poppins', 'Segoe UI', sans-serif;
+        font-family: "Poppins", "Segoe UI", sans-serif;
         color: #1f2937;
         background-color: #f0fdf4;
       }
 
       .font-lora {
-        font-family: 'Lora', serif;
+        font-family: "Lora", serif;
       }
 
       .sticky-header {
@@ -134,6 +134,12 @@
       #profile-dropdown {
         right: 0%;
       }
+
+      .container-profile-btn {
+        right: 1rem;
+        top: 1rem;
+        z-index: 10;
+      }
     </style>
   </head>
 
@@ -156,7 +162,28 @@
             />
           </div>
 
-          <div class="p-6 md:p-8">
+          <div class="p-6 md:p-8" style="position: relative">
+            <div class="relative" style="position: absolute">
+              <button
+                id="profile-menu-btn"
+                class="p-2 hover:bg-gray-100 rounded-full transition-colors dropdown-button"
+              >
+                <i class="fas fa-ellipsis-v text-gray-600"></i>
+              </button>
+              <div
+                id="profile-dropdown"
+                class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-10"
+              >
+                <button
+                  onclick="alert(`Fitur CommingSoon Lurrr`)"
+                  class="w-full text-left flex feed-menu-report items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
+                  role="menuitem"
+                  data-action="report"
+                >
+                  <i class="fas fa-flag w-4"></i> Laporkan Pengguna
+                </button>
+              </div>
+            </div>
             <div class="relative flex flex-col sm:flex-row items-start">
               <div
                 class="relative -mt-24 md:-mt-32 w-28 h-28 md:w-36 md:h-36 flex-shrink-0"
@@ -185,27 +212,6 @@
                       <i class="fas fa-check-circle"></i> Kontributor
                       Terverifikasi
                     </span>
-                  </div>
-                  <div class="relative">
-                    <button
-                      id="profile-menu-btn"
-                      class="p-2 hover:bg-gray-100 rounded-full transition-colors dropdown-button"
-                    >
-                      <i class="fas fa-ellipsis-v text-gray-600"></i>
-                    </button>
-                    <div
-                      id="profile-dropdown"
-                      class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-10"
-                    >
-                      <button
-                        onclick="alert(`Fitur CommingSoon Lurrr`)"
-                        class="w-full text-left flex feed-menu-report items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
-                        role="menuitem"
-                        data-action="report"
-                      >
-                        <i class="fas fa-flag w-4"></i> Laporkan Pengguna
-                      </button>
-                    </div>
                   </div>
                 </div>
                 <p
@@ -324,18 +330,18 @@
     <script src="../../assets/js/sampahkita.js"></script>
     <script>
       const params = new URLSearchParams(window.location.search);
-      const user_id = params.get('user_id');
+      const user_id = params.get("user_id");
 
       async function check_session() {
         try {
-          const res = await fetch('../../api/session_info.php');
+          const res = await fetch("../../api/session_info.php");
           const data = await res.json();
-          if (data.status === 'sukses') {
+          if (data.status === "sukses") {
             load_progress(data.user_id);
             load_profile(data.user_id);
             load_feed(data.user_id);
             load_scan(data.user_id);
-            dropdown = document.getElementById('profile-dropdown');
+            dropdown = document.getElementById("profile-dropdown");
             dropdown.innerHTML = `
             <button onclick="logout_button()" id="logout-btn" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2">
             <i class="fas fa-sign-out-alt"></i>
@@ -343,7 +349,7 @@
             </button>
           `;
           } else {
-            window.location.href = 'login';
+            window.location.href = "login";
             console.log(data);
           }
         } catch (err) {}
@@ -359,16 +365,16 @@
       }
 
       function initTabSwitching() {
-        const tabButtons = document.querySelectorAll('[data-tab]');
-        const tabContents = document.querySelectorAll('.tab-content');
+        const tabButtons = document.querySelectorAll("[data-tab]");
+        const tabContents = document.querySelectorAll(".tab-content");
 
         function activateTab(tabName) {
-          tabButtons.forEach(button => {
-            button.classList.remove('tab-active');
+          tabButtons.forEach((button) => {
+            button.classList.remove("tab-active");
           });
 
-          tabContents.forEach(content => {
-            content.classList.add('hidden');
+          tabContents.forEach((content) => {
+            content.classList.add("hidden");
           });
 
           const activeTabButton = document.querySelector(
@@ -377,73 +383,73 @@
           const activeTabContent = document.getElementById(`tab-${tabName}`);
 
           if (activeTabButton) {
-            activeTabButton.classList.add('tab-active');
+            activeTabButton.classList.add("tab-active");
           }
           if (activeTabContent) {
-            activeTabContent.classList.remove('hidden');
+            activeTabContent.classList.remove("hidden");
           }
         }
 
-        tabButtons.forEach(button => {
-          button.addEventListener('click', () => {
-            const tabName = button.getAttribute('data-tab');
+        tabButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const tabName = button.getAttribute("data-tab");
             activateTab(tabName);
           });
         });
 
-        activateTab('feed');
+        activateTab("feed");
       }
 
-      document.addEventListener('DOMContentLoaded', initTabSwitching);
+      document.addEventListener("DOMContentLoaded", initTabSwitching);
 
-      document.addEventListener('DOMContentLoaded', function () {
-        const menuBtn = document.getElementById('profile-menu-btn');
-        const dropdown = document.getElementById('profile-dropdown');
-        const logoutBtn = document.getElementById('logout-btn');
+      document.addEventListener("DOMContentLoaded", function () {
+        const menuBtn = document.getElementById("profile-menu-btn");
+        const dropdown = document.getElementById("profile-dropdown");
+        const logoutBtn = document.getElementById("logout-btn");
 
-        menuBtn.addEventListener('click', function (e) {
+        menuBtn.addEventListener("click", function (e) {
           e.stopPropagation();
-          dropdown.classList.toggle('hidden');
+          dropdown.classList.toggle("hidden");
         });
 
-        document.addEventListener('click', function (e) {
+        document.addEventListener("click", function (e) {
           if (
-            !dropdown.classList.contains('hidden') &&
+            !dropdown.classList.contains("hidden") &&
             !dropdown.contains(e.target)
           ) {
-            dropdown.classList.add('hidden');
+            dropdown.classList.add("hidden");
           }
         });
       });
 
       async function logout_button() {
         try {
-          const response = await fetch('../../api/auth_logout.php', {
-            method: 'POST',
+          const response = await fetch("../../api/auth_logout.php", {
+            method: "POST",
           });
           const data = await response.json();
 
-          if (data.status === 'sukses') {
-            window.location.href = '../../index.html';
+          if (data.status === "sukses") {
+            window.location.href = "../../index.html";
           } else {
-            alert('Gagal logout. Silakan coba lagi.');
+            alert("Gagal logout. Silakan coba lagi.");
           }
         } catch (error) {
-          console.error('Error:', error);
-          alert('Terjadi kesalahan. Silakan coba lagi.');
+          console.error("Error:", error);
+          alert("Terjadi kesalahan. Silakan coba lagi.");
         }
       }
 
       function load_progress(i) {
         console.log(i);
         fetch(`../../api/user_progress_public?user_id=${i}`)
-          .then(response => response.json())
-          .then(data_p => {
-            if (data_p.status == 'sukses') {
-              p_desc = document.getElementById('progress-desc');
-              p_point = document.getElementById('progress-point');
-              p_recycle = document.getElementById('progress-recycle');
-              p_rank = document.getElementById('progress-rank');
+          .then((response) => response.json())
+          .then((data_p) => {
+            if (data_p.status == "sukses") {
+              p_desc = document.getElementById("progress-desc");
+              p_point = document.getElementById("progress-point");
+              p_recycle = document.getElementById("progress-recycle");
+              p_rank = document.getElementById("progress-rank");
 
               p_desc.innerText = `${data_p.tier} Level ${data_p.level} | ${data_p.title}`;
               p_point.innerText = data_p.points;
@@ -455,12 +461,12 @@
 
       function load_profile(i) {
         fetch(`../../api/user_profile_public?user_id=${i}`)
-          .then(response => response.json())
-          .then(data_profile => {
+          .then((response) => response.json())
+          .then((data_profile) => {
             console.log(data_profile);
-            if (data_profile.status == 'sukses') {
-              profile_picture = document.getElementById('profile-picture');
-              profile_name = document.getElementById('profile-name');
+            if (data_profile.status == "sukses") {
+              profile_picture = document.getElementById("profile-picture");
+              profile_name = document.getElementById("profile-name");
 
               console.log(profile_picture);
 
@@ -472,14 +478,14 @@
 
       function load_feed(i) {
         fetch(`../../api/user_posts?user_id=${i}`)
-          .then(response => response.json())
-          .then(data => {
-            const container = document.getElementById('tab-feed');
-            container.classList.add('tab-feed-container');
-            container.innerHTML = '';
+          .then((response) => response.json())
+          .then((data) => {
+            const container = document.getElementById("tab-feed");
+            container.classList.add("tab-feed-container");
+            container.innerHTML = "";
             console.log(data);
-            data.feeds.forEach(feed => {
-              const div = document.createElement('div');
+            data.feeds.forEach((feed) => {
+              const div = document.createElement("div");
 
               div.innerHTML = `
             <a href="feed_detail?feed_id=${feed.feed_id}"
@@ -506,14 +512,14 @@
       }
       function load_scan(i) {
         fetch(`../../api/user_scan_history?user_id=${i}`)
-          .then(response => response.json())
-          .then(scan_data => {
-            const table = document.getElementById('scan-history-content');
+          .then((response) => response.json())
+          .then((scan_data) => {
+            const table = document.getElementById("scan-history-content");
             console.log(scan_data.data.length);
-            table.innerHTML = '';
+            table.innerHTML = "";
             if (scan_data.data.length == 0) {
               console.log();
-              const tr = document.createElement('tr');
+              const tr = document.createElement("tr");
               tr.innerHTML = `
                 <td colspan="3" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
                   User ini belum melakukan Scan Apapun
@@ -521,8 +527,8 @@
                 `;
               table.appendChild(tr);
             }
-            scan_data.data.forEach(scan => {
-              const tr = document.createElement('tr');
+            scan_data.data.forEach((scan) => {
+              const tr = document.createElement("tr");
               tr.innerHTML = `
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
                 ${scan.created_at}
@@ -552,7 +558,7 @@
         const hours = Math.floor(minutes / 60);
         const days = Math.floor(hours / 24);
 
-        if (seconds < 60) return 'Baru saja';
+        if (seconds < 60) return "Baru saja";
         if (minutes < 60) return `${minutes} menit yang lalu`;
         if (hours < 24) return `${hours} jam yang lalu`;
         if (days < 7) return `${days} hari yang lalu`;
