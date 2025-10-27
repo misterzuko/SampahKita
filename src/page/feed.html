@@ -320,42 +320,35 @@
     </footer>
 
     <dialog id="delete-modal">
-      <div class="p-6 md:p-8 bg-white">
-        <header class="mb-4 flex items-center gap-3">
-          <div
-            class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center text-red-600"
-          >
-            <i class="fas fa-exclamation-triangle text-xl"></i>
-          </div>
-          <h2
-            class="text-xl font-bold text-gray-800 font-lora"
-            id="modal-title"
-          >
-            Konfirmasi Penghapusan
-          </h2>
-        </header>
-        <div class="mb-6" id="modal-content">
-          <p class="text-gray-600">
-            Apakah Anda <strong>yakin</strong> ingin menghapus postingan ini?
-            Tindakan ini <strong>tidak dapat dibatalkan</strong>.
-          </p>
-          <input type="hidden" id="post-to-delete-id" value="" />
+      <header class="modal-header">
+        <div class="modal-icon-wrapper">
+          <i class="fas fa-exclamation-triangle"></i>
         </div>
-        <footer class="flex justify-end gap-3">
-          <button
-            id="cancel-delete-button"
-            class="w-full sm:w-auto px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition font-semibold text-sm"
-          >
-            Batal
-          </button>
-          <button
-            id="confirm-delete-button"
-            class="w-full sm:w-auto px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-semibold text-sm"
-          >
-            <i class="fas fa-trash-alt mr-1"></i> Hapus Permanen
-          </button>
-        </footer>
+        <h2 id="modal-title">Konfirmasi Penghapusan</h2>
+      </header>
+
+      <div id="modal-content">
+        <p>
+          Apakah Anda <strong>yakin</strong> ingin menghapus postingan ini?
+          Tindakan ini <strong>tidak dapat dibatalkan</strong>.
+        </p>
+        <input type="hidden" id="post-to-delete-id" value="" />
       </div>
+
+      <footer class="modal-footer">
+        <button
+          id="cancel-delete-button"
+          class="modal-button modal-button-cancel"
+        >
+          Batal
+        </button>
+        <button
+          id="confirm-delete-button"
+          class="modal-button modal-button-confirm"
+        >
+          <i class="fas fa-trash-alt"></i> Hapus Permanen
+        </button>
+      </footer>
     </dialog>
     <script src="../../assets/js/sampahkita.js"></script>
     <script>
