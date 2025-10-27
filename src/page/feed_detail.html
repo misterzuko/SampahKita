@@ -1,323 +1,385 @@
 <!DOCTYPE html>
 <html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detail Postingan - SampahKita</title>
+    <link rel="icon" type="image/png" href="../../assets/img/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Poppins", "Segoe UI", sans-serif;
+        color: #1f2937;
+        background-color: #f0fdf4;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Detail Postingan - SampahKita</title>
-  <link rel="icon" type="image/png" href="../../assets/img/logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@400;600;700&display=swap"
-    rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-  <style>
-    body {
-      font-family: 'Poppins', 'Segoe UI', sans-serif;
-      color: #1f2937;
-      background-color: #f0fdf4;
-    }
+      .font-lora {
+        font-family: "Lora", serif;
+      }
 
-    .font-lora {
-      font-family: 'Lora', serif;
-    }
+      .sticky-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background-color: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(8px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
 
-    .sticky-header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background-color: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(8px);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    }
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
 
-    .dropdown {
-      position: relative;
-      display: inline-block;
-    }
+      .dropdown-menu {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        background-color: white;
+        min-width: 150px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        z-index: 10;
+        margin-top: 4px;
+        border: 1px solid #e5e7eb;
+      }
 
-    .dropdown-menu {
-      display: none;
-      position: absolute;
-      right: 0;
-      top: 100%;
-      background-color: white;
-      min-width: 150px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      z-index: 10;
-      margin-top: 4px;
-      border: 1px solid #e5e7eb;
-    }
+      .dropdown-menu.show {
+        display: block;
+      }
 
-    .dropdown-menu.show {
-      display: block;
-    }
+      .dropdown-item {
+        padding: 10px 16px;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #374151;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        font-size: 14px;
+      }
 
-    .dropdown-item {
-      padding: 10px 16px;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #374151;
-      cursor: pointer;
-      transition: background-color 0.2s;
-      font-size: 14px;
-    }
+      .dropdown-item:hover {
+        background-color: #f3f4f6;
+      }
 
-    .dropdown-item:hover {
-      background-color: #f3f4f6;
-    }
+      .dropdown-item.delete {
+        color: #dc2626;
+      }
 
-    .dropdown-item.delete {
-      color: #dc2626;
-    }
+      .dropdown-item.delete:hover {
+        background-color: #fee2e2;
+      }
 
-    .dropdown-item.delete:hover {
-      background-color: #fee2e2;
-    }
+      .dropdown-item:first-child {
+        border-radius: 8px 8px 0 0;
+      }
 
-    .dropdown-item:first-child {
-      border-radius: 8px 8px 0 0;
-    }
+      .dropdown-item:last-child {
+        border-radius: 0 0 8px 8px;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      crossorigin
+      href="../../assets/css/sampah_kita.css"
+    />
+  </head>
 
-    .dropdown-item:last-child {
-      border-radius: 0 0 8px 8px;
-    }
-  </style>
-  <link rel="stylesheet" crossorigin href="../../assets/css/sampah_kita.css">
-</head>
+  <body>
+    <header
+      id="navbar-sk"
+      class="sticky-header top-0 z-50 bg-white/80 backdrop-blur-sm shadow-sm"
+    ></header>
 
-<body>
-  <header id="navbar-sk" class="sticky-header top-0 z-50 bg-white/80 backdrop-blur-sm shadow-sm">
+    <main class="max-w-5xl mx-auto px-4 py-12 md:py-16">
+      <a
+        href="feed.html"
+        class="inline-flex items-center gap-2 text-green-600 hover:text-green-700 font-semibold mb-6"
+      >
+        <i class="fas fa-arrow-left"></i> Kembali ke Feed
+      </a>
 
-  </header>
-
-  <main class="max-w-5xl mx-auto px-4 py-12 md:py-16">
-    <a href="feed.html" class="inline-flex items-center gap-2 text-green-600 hover:text-green-700 font-semibold mb-6">
-      <i class="fas fa-arrow-left"></i> Kembali ke Feed
-    </a>
-
-    <article class="bg-white rounded-2xl shadow-lg p-6 md:p-8 border border-gray-100 mb-10">
-      <div class="flex items-center justify-between mb-4">
-        <div class="flex items-center gap-3">
-          <img id="feed-profile" src="" alt="Profil Pengguna" class="w-12 h-12 rounded-full object-cover" />
-          <div>
-            <p id="feed-name" class="font-semibold text-gray-800"></p>
-          </div>
-        </div>
-        <span id="feed-time" class="text-sm text-gray-400"></span>
-      </div>
-
-      <p id="feed-content" class="text-gray-700 leading-relaxed mb-4">
-      </p>
-      <div id="feed-image">
-      </div>
-
-
-      <div class="flex justify-between items-center text-gray-600 pt-4 border-t border-gray-100">
-        <div class="flex gap-6">
-          <button onclick="like_button()" class="flex items-center gap-2 hover:text-green-600 transition text-lg">
-            <i id="like" class="far fa-heart"></i>
-            <span id="feed-total-likes" class="text-sm font-semibold">0</span>
-          </button>
-          <button class="flex items-center gap-2 hover:text-green-600 transition text-lg">
-            <i class="far fa-comment"></i>
-            <span id="feed-total-comments" class="text-sm font-semibold">0</span>
-          </button>
-        </div>
-        <button onclick="button_share()" class="flex items-center gap-2 hover:text-green-600 transition text-lg">
-          <i class="fas fa-share-alt"></i>
-          <span class="text-sm font-semibold">Bagikan</span>
-        </button>
-      </div>
-    </article>
-
-    <section>
-      <h2 id="feed-total-comments-2" class="font-lora text-2xl font-bold text-gray-800 mb-6">
-        Komentar (0)
-      </h2>
-
-      <div class="flex items-start gap-4 mb-8">
-        <img id="profile-picture" src="https://api.dicebear.com/9.x/initials/svg?seed=??&size=128"
-          class="w-10 h-10 rounded-full object-cover flex-shrink-0 mt-1" />
-        <div class="flex-grow">
-          <textarea id="text-create" rows="3"
-            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none resize-none mb-3"
-            placeholder="Login untuk komentar..."></textarea>
-          <button id="submit-comment" onclick="create_comment()"
-            class="px-5 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold float-right">
-            Login untuk komentar
-          </button>
-        </div>
-      </div>
-
-      <div id="comment-container">
-
-
-      </div>
-    </section>
-  </main>
-
-  <footer id="footer" class="bg-gray-900 text-white pt-16 pb-8">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="grid md:grid-cols-4 gap-8 mb-12">
-        <div>
-          <div class="flex items-center gap-2 mb-4">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center">
-              <img src="../../assets/img/logo.png" alt="">
+      <article
+        class="bg-white rounded-2xl shadow-lg p-6 md:p-8 border border-gray-100 mb-10"
+      >
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-3">
+            <img
+              id="feed-profile"
+              src=""
+              alt="Profil Pengguna"
+              class="w-12 h-12 rounded-full object-cover"
+            />
+            <div>
+              <p id="feed-name" class="font-semibold text-gray-800"></p>
             </div>
-            <span class="text-2xl font-bold">SampahKita</span>
           </div>
-          <p class="text-gray-400 text-sm">
-            Platform digital untuk manajemen sampah yang efisien dan
-            berkelanjutan.
-          </p>
+          <span id="feed-time" class="text-sm text-gray-400"></span>
         </div>
-        <div>
-          <h4 class="text-lg font-bold mb-4">Halaman</h4>
-          <ul class="space-y-2 text-gray-400">
-            <li>
-              <a href="bank_sampah" class="hover:text-green-400 transition">Bank Sampah</a>
-            </li>
-            <li>
-              <a href="feed" class="hover:text-green-400 transition">Feed</a>
-            </li>
-            <li>
-              <a href="scan" class="hover:text-green-400 transition">Scan Sampah</a>
-            </li>
-            <li>
-              <a href="learderboard" class="hover:text-green-400 transition">Leaderboard</a>
-            </li>
-            <li>
-              <a href="about_us" class="hover:text-green-400 transition">Tentang Kami</a>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="text-lg font-bold mb-4">Hubungi Kami</h4>
-          <ul class="space-y-2 text-gray-400">
-            <li>
-              <a href="mailto:info@sk.com" class="hover:text-green-400 transition">info@sk.com</a>
-            </li>
-            <li>
-              <a href="tel:+62123456789" class="hover:text-green-400 transition">+62 123 4567 890</a>
-            </li>
-            <li class="text-sm">Jl. Diponegoro No. 69, Salatiga</li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="text-lg font-bold mb-4">Ikuti Kami</h4>
-          <div class="flex gap-4">
-            <a href="https://www.instagram.com/ftiuksw/"
-              class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"><i
-                class="fab fa-instagram"></i></a>
-            <a href="#"
-              class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"><i
-                class="fab fa-facebook"></i></a>
-            <a href="#"
-              class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"><i
-                class="fab fa-twitter"></i></a>
-            <a href="#"
-              class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"><i
-                class="fab fa-youtube"></i></a>
+
+        <p id="feed-content" class="text-gray-700 leading-relaxed mb-4"></p>
+        <div id="feed-image"></div>
+
+        <div
+          class="flex justify-between items-center text-gray-600 pt-4 border-t border-gray-100"
+        >
+          <div class="flex gap-6">
+            <button
+              onclick="like_button()"
+              class="flex items-center gap-2 hover:text-green-600 transition text-lg"
+            >
+              <i id="like" class="far fa-heart"></i>
+              <span id="feed-total-likes" class="text-sm font-semibold">0</span>
+            </button>
+            <button
+              class="flex items-center gap-2 hover:text-green-600 transition text-lg"
+            >
+              <i class="far fa-comment"></i>
+              <span id="feed-total-comments" class="text-sm font-semibold"
+                >0</span
+              >
+            </button>
           </div>
+          <button
+            onclick="button_share()"
+            class="flex items-center gap-2 hover:text-green-600 transition text-lg"
+          >
+            <i class="fas fa-share-alt"></i>
+            <span class="text-sm font-semibold">Bagikan</span>
+          </button>
+        </div>
+      </article>
+
+      <section>
+        <h2
+          id="feed-total-comments-2"
+          class="font-lora text-2xl font-bold text-gray-800 mb-6"
+        >
+          Komentar (0)
+        </h2>
+
+        <div class="flex items-start gap-4 mb-8">
+          <img
+            id="profile-picture"
+            src="https://api.dicebear.com/9.x/initials/svg?seed=??&size=128"
+            class="w-10 h-10 rounded-full object-cover flex-shrink-0 mt-1"
+          />
+          <div class="flex-grow">
+            <textarea
+              id="text-create"
+              rows="3"
+              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none resize-none mb-3"
+              placeholder="Login untuk komentar..."
+            ></textarea>
+            <button
+              id="submit-comment"
+              onclick="create_comment()"
+              class="px-5 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold float-right"
+            >
+              Login untuk komentar
+            </button>
+          </div>
+        </div>
+
+        <div id="comment-container"></div>
+      </section>
+    </main>
+
+    <footer id="footer" class="bg-gray-900 text-white pt-16 pb-8">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-8 mb-12">
+          <div>
+            <div class="flex items-center gap-2 mb-4">
+              <div class="w-8 h-8 rounded-lg flex items-center justify-center">
+                <img src="../../assets/img/logo.png" alt="" />
+              </div>
+              <span class="text-2xl font-bold">SampahKita</span>
+            </div>
+            <p class="text-gray-400 text-sm">
+              Platform digital untuk manajemen sampah yang efisien dan
+              berkelanjutan.
+            </p>
+          </div>
+          <div>
+            <h4 class="text-lg font-bold mb-4">Halaman</h4>
+            <ul class="space-y-2 text-gray-400">
+              <li>
+                <a href="bank_sampah" class="hover:text-green-400 transition"
+                  >Bank Sampah</a
+                >
+              </li>
+              <li>
+                <a href="feed" class="hover:text-green-400 transition">Feed</a>
+              </li>
+              <li>
+                <a href="scan" class="hover:text-green-400 transition"
+                  >Scan Sampah</a
+                >
+              </li>
+              <li>
+                <a href="learderboard" class="hover:text-green-400 transition"
+                  >Leaderboard</a
+                >
+              </li>
+              <li>
+                <a href="about_us" class="hover:text-green-400 transition"
+                  >Tentang Kami</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-bold mb-4">Hubungi Kami</h4>
+            <ul class="space-y-2 text-gray-400">
+              <li>
+                <a
+                  href="mailto:info@sk.com"
+                  class="hover:text-green-400 transition"
+                  >info@sk.com</a
+                >
+              </li>
+              <li>
+                <a
+                  href="tel:+62123456789"
+                  class="hover:text-green-400 transition"
+                  >+62 123 4567 890</a
+                >
+              </li>
+              <li class="text-sm">Jl. Diponegoro No. 69, Salatiga</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-bold mb-4">Ikuti Kami</h4>
+            <div class="flex gap-4">
+              <a
+                href="https://www.instagram.com/ftiuksw/"
+                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"
+                ><i class="fab fa-facebook"></i
+              ></a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition"
+                ><i class="fab fa-youtube"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+          <p>&copy; 2025 SampahKita Community. All Rights Reserved.</p>
         </div>
       </div>
-      <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
-        <p>&copy; 2025 SampahKita Community. All Rights Reserved.</p>
-      </div>
-    </div>
-  </footer>
-  <script src="../../assets/js/sampahkita.js"></script>
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const post_id = params.get("feed_id");
-    let current_user_id = null;
+    </footer>
+    <script src="../../assets/js/sampahkita.js"></script>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const post_id = params.get("feed_id");
+      let current_user_id = null;
 
-    function check_session() {
-      fetch(`../../api/session_info`)
-        .then(response => response.json())
-        .then(sessions => {
-          if (sessions.status == "sukses") {
-            current_user_id = sessions.user_id;
-            const text_comment = document.getElementById('text-create');
-            const submit_comment = document.getElementById('submit-comment');
-            text_comment.placeholder = "Apa yang ingin anda sampaikan...";
-            submit_comment.innerText = "Kirim Komentar";
-          } else {
-            alert("Login untuk dapat mengakses banyak fitur!");
-            window.location.href = "login";
-          }
+      function check_session() {
+        fetch(`../../api/session_info`)
+          .then((response) => response.json())
+          .then((sessions) => {
+            if (sessions.status == "sukses") {
+              current_user_id = sessions.user_id;
+              const text_comment = document.getElementById("text-create");
+              const submit_comment = document.getElementById("submit-comment");
+              text_comment.placeholder = "Apa yang ingin anda sampaikan...";
+              submit_comment.innerText = "Kirim Komentar";
+            } else {
+              alert("Login untuk dapat mengakses banyak fitur!");
+              window.location.href = "login";
+            }
+          });
+      }
+      check_session();
 
-        })
-    }
-    check_session();
+      function load_profile() {
+        fetch("../../api/user_profile")
+          .then((response) => response.json())
+          .then((data_profile) => {
+            console.log(data_profile);
+            if (data_profile.status == "sukses") {
+              profile_picture = document.getElementById("profile-picture");
+              profile_picture.src = `https://api.dicebear.com/9.x/initials/svg?seed=${data_profile.fullname}&size=128`;
+            }
+          });
+      }
+      load_profile();
 
+      function load_post(i) {
+        fetch(`../../api/load_feed?feed_id=${i}`)
+          .then((response) => response.json())
+          .then((data_feed) => {
+            console.log(data_feed);
+            feed_profile = document.getElementById("feed-profile");
+            feed_name = document.getElementById("feed-name");
+            feed_content = document.getElementById("feed-content");
+            feed_time = document.getElementById("feed-time");
+            feed_total_likes = document.getElementById("feed-total-likes");
+            feed_total_comments = document.getElementById(
+              "feed-total-comments"
+            );
+            feed_total_comments_2 = document.getElementById(
+              "feed-total-comments-2"
+            );
+            feed_image = document.getElementById("feed-image");
 
-    function load_profile() {
-      fetch("../../api/user_profile")
-        .then(response => response.json())
-        .then(data_profile => {
-          console.log(data_profile);
-          if (data_profile.status == "sukses") {
-            profile_picture = document.getElementById("profile-picture");
-            profile_picture.src = `https://api.dicebear.com/9.x/initials/svg?seed=${data_profile.fullname}&size=128`;
-          }
-        })
-    }
-    load_profile();
+            feed_profile.src = `https://api.dicebear.com/9.x/initials/svg?seed=${data_feed.feed.fullname}&size=128`;
+            feed_name.innerText = data_feed.feed.fullname;
+            feed_content.innerText = data_feed.feed.content;
+            feed_time.innerText = timeAgo(data_feed.feed.publish_at);
+            feed_total_likes.innerText = data_feed.feed.total_likes;
+            feed_total_comments.innerText = data_feed.feed.total_comments;
+            feed_total_comments_2.innerText = `Komentar (${data_feed.feed.total_comments})`;
 
-    function load_post(i) {
-      fetch(`../../api/load_feed?feed_id=${i}`)
-        .then(response => response.json())
-        .then(data_feed => {
-          console.log(data_feed)
-          feed_profile = document.getElementById("feed-profile");
-          feed_name = document.getElementById("feed-name");
-          feed_content = document.getElementById("feed-content");
-          feed_time = document.getElementById("feed-time");
-          feed_total_likes = document.getElementById("feed-total-likes");
-          feed_total_comments = document.getElementById("feed-total-comments");
-          feed_total_comments_2 = document.getElementById("feed-total-comments-2");
-          feed_image = document.getElementById("feed-image")
-
-
-          feed_profile.src = `https://api.dicebear.com/9.x/initials/svg?seed=${data_feed.feed.fullname}&size=128`;
-          feed_name.innerText = data_feed.feed.fullname;
-          feed_content.innerText = data_feed.feed.content;
-          feed_time.innerText = timeAgo(data_feed.feed.publish_at);
-          feed_total_likes.innerText = data_feed.feed.total_likes;
-          feed_total_comments.innerText = data_feed.feed.total_comments;
-          feed_total_comments_2.innerText = `Komentar (${data_feed.feed.total_comments})`;
-
-          console.log(data_feed.feed)
-          if (data_feed.feed.image != "") {
-            feed_image.innerHTML =
-              `<img
+            console.log(data_feed.feed);
+            if (data_feed.feed.image != "") {
+              feed_image.innerHTML = `<img
           src="../../${data_feed.feed.image}"
           alt="Postingan Sampah" class="w-full h-auto rounded-lg mb-4 object-cover max-h-[500px] border" />`;
-          } else {
-            feed_image.innerHTML = "";
-          }
+            } else {
+              feed_image.innerHTML = "";
+            }
 
-          const like = document.getElementById(`like`);
-          if (data_feed.feed.liked == true) {
-            like.className = 'fas fa-heart';
-            like.style.color = 'red';
-          } else {
-            like.className = 'far fa-heart';
-            like.style.color = '';
-          }
+            const like = document.getElementById(`like`);
+            if (data_feed.feed.liked == true) {
+              like.className = "fas fa-heart";
+              like.style.color = "red";
+            } else {
+              like.className = "far fa-heart";
+              like.style.color = "";
+            }
 
-          const container = document.getElementById("comment-container");
-          container.innerHTML = "";
-          data_feed.comments.forEach((comment) => {
-            const div = document.createElement("div");
-            
-            const isOwner = comment.user_id === current_user_id;
-            const dropdownHTML = isOwner ? `
+            const container = document.getElementById("comment-container");
+            container.innerHTML = "";
+            data_feed.comments.forEach((comment) => {
+              const div = document.createElement("div");
+
+              const isOwner = comment.user_id === current_user_id;
+              const dropdownHTML = isOwner
+                ? `
               <div class="dropdown">
                 <button onclick="toggleDropdown(event, ${comment.comment_id})" class="text-gray-400 hover:text-gray-600 p-2">
                   <i class="fas fa-ellipsis-v"></i>
@@ -329,18 +391,25 @@
                   </div>
                 </div>
               </div>
-            ` : '';
+            `
+                : "";
 
-            div.innerHTML = `
+              div.innerHTML = `
             <div class="space-y-6">
             <div class="flex items-start gap-4">
-              <img src="https://api.dicebear.com/9.x/initials/svg?seed=${comment.fullname}" alt="Avatar Komentator"
+              <img src="https://api.dicebear.com/9.x/initials/svg?seed=${
+                comment.fullname
+              }" alt="Avatar Komentator"
                 class="w-10 h-10 rounded-full object-cover flex-shrink-0" />
               <div class="flex-grow shadow bg-white p-4 rounded-lg border border-gray-100">
                 <div class="flex justify-between items-center mb-1">
-                  <span class="font-semibold text-gray-800">${comment.fullname}</span>
+                  <span class="font-semibold text-gray-800">${
+                    comment.fullname
+                  }</span>
                   <div class="flex items-center gap-2">
-                    <span class="text-xs text-gray-400">${timeAgo(comment.commented_at)}</span>
+                    <span class="text-xs text-gray-400">${timeAgo(
+                      comment.commented_at
+                    )}</span>
                     ${dropdownHTML}
                   </div>
                 </div>
@@ -350,155 +419,151 @@
               </div>
             </div>
             `;
-            container.appendChild(div);
-
+              container.appendChild(div);
+            });
           });
-        })
-    }
-    load_post(post_id)
-
-    function toggleDropdown(event, commentId) {
-      event.stopPropagation();
-      const dropdown = document.getElementById(`dropdown-${commentId}`);
-      
-      document.querySelectorAll('.dropdown-menu').forEach(menu => {
-        if (menu.id !== `dropdown-${commentId}`) {
-          menu.classList.remove('show');
-        }
-      });
-      
-      dropdown.classList.toggle('show');
-    }
-
-    document.addEventListener('click', function(event) {
-      if (!event.target.closest('.dropdown')) {
-        document.querySelectorAll('.dropdown-menu').forEach(menu => {
-          menu.classList.remove('show');
-        });
       }
-    });
+      load_post(post_id);
 
-    async function delete_comment(commentId) {
-      if (!confirm('Apakah Anda yakin ingin menghapus komentar ini?')) {
-        return;
-      }
+      function toggleDropdown(event, commentId) {
+        event.stopPropagation();
+        const dropdown = document.getElementById(`dropdown-${commentId}`);
 
-      try {
-        const response = await fetch(`../../api/delete_comment`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            comment_id: commentId
-          })
-        });
-
-        const result = await response.json();
-        
-        if (result.status === 'sukses') {
-          location.reload();
-        } else {
-          alert('Gagal menghapus komentar: ' + result.message);
-        }
-      } catch (err) {
-        console.error('Error:', err);
-        alert('Terjadi kesalahan saat menghapus komentar');
-      }
-    }
-
-    function like_button() {
-      fetch(`../../api/feed_like_button?feed_id=${post_id}`)
-        .then(response => response.json())
-        .then(data_like => {
-          if (data_like.status == 'error') {
-            window.location.href = 'login.html';
-          } else {
-            const like = document.getElementById(`like`);
-            const like_p = document.getElementById("feed-total-likes");
-            if (like.style.color == 'red') {
-              console.log(data_like.action)
-              like.className = 'far fa-heart';
-              like.style.color = '';
-              like_p.innerText = Number(like_p.innerText) - 1;
-            } else {
-              console.log(data_like.action)
-              like.className = 'fas fa-heart';
-              like.style.color = 'red';
-              like_p.innerText = Number(like_p.innerText) + 1;
-            }
+        document.querySelectorAll(".dropdown-menu").forEach((menu) => {
+          if (menu.id !== `dropdown-${commentId}`) {
+            menu.classList.remove("show");
           }
         });
-    }
 
-    function timeAgo(datetime) {
-      const now = new Date();
-      const then = new Date(datetime);
-      const diffMs = now - then;
-
-      const seconds = Math.floor(diffMs / 1000);
-      const minutes = Math.floor(seconds / 60);
-      const hours = Math.floor(minutes / 60);
-      const days = Math.floor(hours / 24);
-
-      if (seconds < 60) return "Baru saja";
-      if (minutes < 60) return `${minutes} menit yang lalu`;
-      if (hours < 24) return `${hours} jam yang lalu`;
-      if (days < 7) return `${days} hari yang lalu`;
-      if (days < 30) return `${Math.floor(days / 7)} minggu yang lalu`;
-      if (days < 365) return `${Math.floor(days / 30)} bulan yang lalu`;
-      return `${Math.floor(days / 365)} tahun yang lalu`;
-    }
-
-    async function create_comment() {
-      check_session();
-      const text_comment = document.getElementById('text-create').value;
-      console.log(text_comment);
-      const data_form = {
-        feed_id: post_id,
-        komentar: text_comment
-      };
-
-      try {
-        const response = await fetch('../../api/feed_comment', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data_form)
-        });
-
-        const resp = await response.text();
-        console.log(resp);
-
-
-        if (resp) {
-          location.reload();
-          console.log("Respon : " + resp.message)
-        }
-      } catch (err) {
-        console.error('Error:', err);
+        dropdown.classList.toggle("show");
       }
-    }
-    async function button_share() {
-      const shareData = {
-        title: "Lihat postinganku di Feed!",
-        text: "Cek postingan ini, seru banget 😎",
-        url: window.location.href
-      };
 
-      try {
-        if (navigator.share) {
-          await navigator.share(shareData);
-        } else {
-          await navigator.clipboard.writeText(shareData.url);
+      document.addEventListener("click", function (event) {
+        if (!event.target.closest(".dropdown")) {
+          document.querySelectorAll(".dropdown-menu").forEach((menu) => {
+            menu.classList.remove("show");
+          });
         }
-      } catch (err) {
-        console.error("Gagal membagikan:", err);
+      });
+
+      async function delete_comment(commentId) {
+        if (!confirm("Apakah Anda yakin ingin menghapus komentar ini?")) {
+          return;
+        }
+
+        try {
+          const response = await fetch(`../../api/delete_comment`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              comment_id: commentId,
+            }),
+          });
+
+          const result = await response.json();
+
+          if (result.status === "sukses") {
+            location.reload();
+          } else {
+            alert("Gagal menghapus komentar: " + result.message);
+          }
+        } catch (err) {
+          console.error("Error:", err);
+          alert("Terjadi kesalahan saat menghapus komentar");
+        }
       }
-    }
 
-  </script>
-</body>
+      function like_button() {
+        fetch(`../../api/feed_like_button?feed_id=${post_id}`)
+          .then((response) => response.json())
+          .then((data_like) => {
+            if (data_like.status == "error") {
+              window.location.href = "login.html";
+            } else {
+              const like = document.getElementById(`like`);
+              const like_p = document.getElementById("feed-total-likes");
+              if (like.style.color == "red") {
+                console.log(data_like.action);
+                like.className = "far fa-heart";
+                like.style.color = "";
+                like_p.innerText = Number(like_p.innerText) - 1;
+              } else {
+                console.log(data_like.action);
+                like.className = "fas fa-heart";
+                like.style.color = "red";
+                like_p.innerText = Number(like_p.innerText) + 1;
+              }
+            }
+          });
+      }
 
+      function timeAgo(datetime) {
+        const now = new Date();
+        const then = new Date(datetime);
+        const diffMs = now - then;
+
+        const seconds = Math.floor(diffMs / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(minutes / 60);
+        const days = Math.floor(hours / 24);
+
+        if (seconds < 60) return "Baru saja";
+        if (minutes < 60) return `${minutes} menit yang lalu`;
+        if (hours < 24) return `${hours} jam yang lalu`;
+        if (days < 7) return `${days} hari yang lalu`;
+        if (days < 30) return `${Math.floor(days / 7)} minggu yang lalu`;
+        if (days < 365) return `${Math.floor(days / 30)} bulan yang lalu`;
+        return `${Math.floor(days / 365)} tahun yang lalu`;
+      }
+
+      async function create_comment() {
+        check_session();
+        const text_comment = document.getElementById("text-create").value;
+        console.log(text_comment);
+        const data_form = {
+          feed_id: post_id,
+          komentar: text_comment,
+        };
+
+        try {
+          const response = await fetch("../../api/feed_comment", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data_form),
+          });
+
+          const resp = await response.text();
+          console.log(resp);
+
+          if (resp) {
+            location.reload();
+            console.log("Respon : " + resp.message);
+          }
+        } catch (err) {
+          console.error("Error:", err);
+        }
+      }
+      async function button_share() {
+        const shareData = {
+          title: "Lihat postinganku di Feed!",
+          text: "Cek postingan ini, seru banget 😎",
+          url: window.location.href,
+        };
+
+        try {
+          if (navigator.share) {
+            await navigator.share(shareData);
+          } else {
+            await navigator.clipboard.writeText(shareData.url);
+          }
+        } catch (err) {
+          console.error("Gagal membagikan:", err);
+        }
+      }
+    </script>
+  </body>
 </html>
