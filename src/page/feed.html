@@ -932,10 +932,10 @@
           const data = await res.json();
 
           if (data.status === "sukses") {
-            showNotification("Feed berhasil dibuat", "success");
+            showNotification("Feed berhasil dihapus", "success");
             setTimeout(() => {
               window.location.href = "feed"; // Redirect
-            }, 500);
+            }, 1000);
           } else {
             showNotification(data.message, "error");
           }

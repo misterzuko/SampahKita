@@ -487,7 +487,7 @@
           })
           .catch((err) => {
             console.error("Gagal load post:", err);
-            alert("Gagal memuat postingan.");
+            showNotification("Gagal memuat postingan", "error");
           });
       }
 
@@ -610,10 +610,10 @@
           const data = await res.json();
 
           if (data.status === "sukses") {
-            showNotification("Feed berhasil diubah", "success");
+            showNotification("Feed berhasil dihapus", "success");
             setTimeout(() => {
               window.location.href = "feed"; // Redirect on success
-            }, 500);
+            }, 1000);
           } else {
             // Jika gagal (status != "sukses")
             showNotification(data.message, "error");
