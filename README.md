@@ -1,108 +1,83 @@
-# ♻️ SampahKita
+# ♻️ SampahKita  
 
-**SampahKita** adalah platform digital berbasis komunitas yang mengajak masyarakat untuk lebih peduli terhadap lingkungan melalui **pengelolaan sampah cerdas** dan **interaksi sosial positif**.
-Website ini memadukan konsep **media sosial**, **bank sampah digital**, dan **edukasi lingkungan**, agar setiap orang bisa berkontribusi untuk bumi 🌍.
-
----
-
-## 🌱 Fitur Utama
-
-### 🧾 1. **Scan Sampah**
-
-Gunakan kamera atau unggah foto untuk **mendeteksi jenis sampah** (organik, anorganik, B3, dll).
-Fitur ini membantu pengguna mengetahui cara pengelolaan yang tepat dan memberikan poin kontribusi.
-
-### 💬 2. **Komunitas & Sosial**
-
-* Pengguna dapat **membuat postingan**, **berkomentar**, dan **berbagi ide lingkungan**.
-* Fitur **feed** seperti media sosial untuk menginspirasi sesama pecinta lingkungan.
-* Dukungan **like**, **balasan komentar**, dan sistem notifikasi.
-
-### 🏦 3. **Bank Sampah Digital**
-
-Kumpulkan poin dari hasil daur ulang atau kegiatan komunitas, lalu tukarkan dengan:
-
-* Saldo digital / reward
-* Voucher lingkungan
-* Produk ramah lingkungan
-
-### 🗺️ 4. **Peta Titik Sampah**
-
-Tampilkan lokasi **bank sampah terdekat** dan **titik kumpul komunitas** menggunakan peta interaktif.
-
-### 🔐 5. **Sistem Akun & Login Aman**
-
-* Autentikasi berbasis session/token
-* Profil pengguna dengan statistik kontribusi
-* Dukungan foto profil & bio
+**SampahKita** adalah platform digital berbasis komunitas yang mengajak masyarakat untuk peduli terhadap lingkungan melalui **pengelolaan sampah cerdas** dan **interaksi sosial positif**.  
+Website ini menggabungkan konsep **media sosial**, **bank sampah digital**, dan **edukasi lingkungan**, agar setiap orang bisa berkontribusi nyata untuk bumi 🌍  
 
 ---
 
-## 💡 Tujuan Proyek
+## 🎯 Latar Belakang  
 
-> Membangun kesadaran dan aksi nyata dalam pengelolaan sampah melalui teknologi dan kolaborasi sosial.
+Proyek **SampahKita** dikembangkan dalam rangka **kompetisi IT FEST x Jatengfest 2025**, dengan fokus pada inovasi teknologi yang berdampak sosial dan lingkungan.  
 
-SampahKita hadir untuk:
+Melalui platform ini, kami ingin menciptakan ekosistem digital yang:
+- Mengedukasi masyarakat tentang pengelolaan sampah yang benar.  
+- Menghubungkan komunitas peduli lingkungan.  
+- Mendorong gaya hidup hijau dengan dukungan teknologi AI dan sistem penghargaan berbasis poin.  
 
-* Mendorong gaya hidup berkelanjutan ♻️
-* Membangun jejaring antar komunitas lingkungan 🌿
-* Mengubah sampah menjadi nilai ekonomi 💰
-
----
-
-## 🛠️ Teknologi yang Digunakan
-
-| Layer                       | Teknologi                         |
-| --------------------------- | --------------------------------- |
-| **Frontend**                | HTML, TailwindCSS, JavaScript     |
-| **Backend**                 | PHP (Native / API)                |
-| **Database**                | MySQL                             |
-| **AI Detection (opsional)** | TensorFlow.js / API Vision        |
-| **Deployment**              | Hostinger / cPanel / GitHub Pages |
+> “Dari sampah jadi aksi, dari aksi jadi perubahan.” 🌱  
 
 ---
 
-## 🚀 Cara Menjalankan Proyek
+## 🌱 Fitur Utama  
 
-1. Clone repository:
+### 🤖 1. Scan Sampah Berbasis AI  
+Fitur ini memanfaatkan **AI Image Detection** untuk mengidentifikasi jenis sampah (organik, anorganik, B3, dll) hanya dengan memotret atau mengunggah foto.  
+Setiap hasil scan memberikan **poin kontribusi** yang dapat ditukar di bank sampah digital.
 
-   ```bash
-   git clone https://github.com/username/sampahkita.git
-   ```
-2. Import database `sampahkita.sql` ke MySQL.
-3. Ubah konfigurasi koneksi di `php-config.php`.
-4. Jalankan website melalui server lokal (XAMPP, Laragon, dll).
-5. Buka di browser:
+### 💬 2. Feed Komunitas  
+Fitur sosial seperti media sosial:  
+- Pengguna bisa **membuat postingan**, **mengunggah foto kegiatan**, dan **berbagi ide lingkungan**.  
+- Sistem **like**, **komentar**, **balasan komentar**, dan **notifikasi**.  
+- Setiap pengguna dapat **melihat profil**, statistik, serta kontribusi teman komunitas.
 
-   ```
-   http://localhost/sampahkita/
-   ```
+### 🏦 3. Bank Sampah Digital  
+Kumpulkan poin dari kegiatan daur ulang, scan AI, atau partisipasi komunitas.  
+Poin dapat ditukar menjadi:  
+- **Saldo digital / e-wallet**  
+- **Voucher / diskon produk hijau**  
+- **Produk ramah lingkungan**
 
----
+### 🏆 4. Leaderboard Kontribusi  
+Menampilkan peringkat pengguna berdasarkan total kontribusi lingkungan, seperti:  
+- Jumlah sampah yang berhasil dikelola  
+- Aktivitas komunitas  
+- Poin yang terkumpul  
+Leaderboard ini mendorong semangat kompetitif dan kolaboratif antaranggota.
 
-## 👥 Tim & Kontribusi
+### 🗺️ 5. Peta Titik Sampah  
+Menampilkan lokasi **bank sampah terdekat**, **titik daur ulang**, dan **komunitas lingkungan** secara interaktif menggunakan peta digital.
 
-Proyek ini terbuka untuk kolaborasi.
-Jika kamu ingin berkontribusi:
-
-1. Fork repository ini
-2. Lakukan perubahan
-3. Kirim pull request 🎉
-
----
-
-## 💚 Motto
-
-> “Satu Sampah, Satu Aksi, Satu Langkah untuk Bumi.”
-
----
-
-## 📞 Kontak
-
-📧 **Email:** [info@sampahkita.id](mailto:info@sampahkita.id)
-🌐 **Website:** [https://sampahkita.id](https://sampahkita.id)
-📸 **Instagram:** [@sampahkita](https://instagram.com/sampahkita)
+### 🔐 6. Sistem Akun & Profil  
+- Autentikasi aman berbasis session/token  
+- Profil pengguna lengkap dengan foto, bio, dan statistik kontribusi  
+- Fitur edit profil & pengaturan privasi  
 
 ---
 
-### © 2025 SampahKita — Bersama Ciptakan Lingkungan Bersih dan Bernilai.
+## 💡 Tujuan  
+
+> “Membangun kesadaran dan aksi nyata dalam pengelolaan sampah melalui teknologi dan kolaborasi sosial.”
+
+SampahKita bertujuan untuk:  
+- Menginspirasi gaya hidup berkelanjutan ♻️  
+- Menghubungkan komunitas peduli lingkungan 🌿  
+- Mengubah sampah menjadi nilai ekonomi 💰  
+- Mendorong partisipasi aktif masyarakat dengan sistem reward dan leaderboard  
+
+---
+
+## 🛠️ Teknologi  
+
+| Layer | Teknologi |
+|-------|------------|
+| **Frontend** | HTML, TailwindCSS, JavaScript |
+| **Backend** | PHP (Native / REST API) |
+| **Database** | MySQL |
+| **AI Detection** | TensorFlow.js / API Vision |
+| **Map Integration** | Leaflet.js / Google Maps API |
+| **Hosting** | Hostinger / cPanel / GitHub Pages |
+
+---
+
+## Website Demo
+https://darkcyan-ostrich-362407.hostingersite.com
