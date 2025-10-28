@@ -863,7 +863,10 @@
 
           if (data.status == "sukses") {
             console.log(data);
-            location.reload();
+            showNotification("Feed berhasil dibuat", "success");
+            setTimeout(() => {
+              location.reload();
+            }, 1000);
           } else {
             showNotification(
               "Login untuk dapat mengakses banyak fitur!",
